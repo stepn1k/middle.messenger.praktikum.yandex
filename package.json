@@ -4,8 +4,10 @@
   "description": "Messenger",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel static/index.html",
+    "start": "npm run build && npm run server",
+    "dev-start": "parcel static/index.html -p 3000",
     "build": "parcel build static/index.html",
+    "server": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/stepn1k/middle.messenger.praktikum.yandex/issues"
   },
-  "homepage": "https://github.com/stepn1k/middle.messenger.praktikum.yandex#readme"
+  "homepage": "https://github.com/stepn1k/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
