@@ -1,0 +1,28 @@
+.button-component {
+  background: none;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+  font-weight: 500;
+  padding: .75rem;
+  width: 100%;
+
+  &.basic {
+    font-size: .6875rem;
+
+    .button-component__link {
+      color: $primary-one;
+    }
+  }
+
+  &.raised {
+    font-size: .8125rem;
+    background-color: $primary-one;
+    border-radius: .5rem;
+
+    .button-component__link {
+      color: white;
+    }
+  }
+}
+

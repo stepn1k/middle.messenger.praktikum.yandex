@@ -1,0 +1,29 @@
+@import "./variables";
+
+@import "../src/components/button/button";
+
+@import "../src/pages/error/error";
+@import "../src/pages/sign-in/sign-in";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  text-decoration: none;
+
+  &:active,
+  &:hover {
+    outline: 0;
+  }
+}
