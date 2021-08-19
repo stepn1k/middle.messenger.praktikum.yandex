@@ -1,29 +1,13 @@
+@import "./reset";
 @import "./variables";
 
+// components
 @import "../src/components/button/button";
+@import "../src/components/line-form-field/line-form-field";
+@import "../src/components/divider/divider";
 
+// pages
 @import "../src/pages/error/error";
 @import "../src/pages/sign-in/sign-in";
+@import "../src/pages/profile/profile";
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Inter', sans-serif;
-}
-
-a {
-  text-decoration: none;
-
-  &:active,
-  &:hover {
-    outline: 0;
-  }
-}

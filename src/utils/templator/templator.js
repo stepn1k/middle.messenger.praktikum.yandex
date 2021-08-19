@@ -43,7 +43,8 @@ export default class Templator {
                 while (template.match(COMPONENT_REGEXP)) {
                     // extract inline props
                     const entry = template.match(COMPONENT_REGEXP)[0];
-                    const stringProps = entry.match(new RegExp(/props="(.*?)"/))[1];
+                    let stringProps = entry.match(new RegExp(/props="(.*?)"/));
+                    stringProps = stringProps ? stringProps[1] : {}; // (if inline styles don't exist)
                     // create component template with context and inline props
                     const componentTemplate = new Templator(component(Object.assign(context || {}, stringToObject(stringProps))));
                     const componentTemplateForRender = componentTemplate.compile();

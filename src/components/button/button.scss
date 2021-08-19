@@ -24,5 +24,11 @@
       color: white;
     }
   }
+
+  &.theme_red {
+    .button-component__link {
+      color: red;
+    }
+  }
 }
 
