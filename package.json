@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Messenger",
   "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
     "start": "npm run build && npm run server",
     "dev-start": "parcel static/index.html -p 3000",
