@@ -54,18 +54,41 @@
     }
   }
 
+  // profile page
+  &.profile {
+    .divider:last-of-type {
+      display: none;
+    }
+  }
 
-  &.change-password,
+  // edit profile page
+  // change password page
+  &.changePassword,
   &.editProfile {
     .profile-form-buttons {
       display: flex;
       justify-content: center;
-      margin: 3.75rem 9.375rem;
+      width: 50%;
+      margin: 4rem auto;
+
+      @media (max-width: 576px) {
+        width: 100%;
+      }
 
       .button-component__link {
         text-align: center;
         padding-left: .75rem;
       }
+
+      .divider {
+        display: none;
+      }
+    }
+  }
+
+  &.changePassword {
+    .profile-form-avatar__image {
+      display: none;
     }
   }
 }

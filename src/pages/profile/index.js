@@ -1,4 +1,4 @@
-import { ProfilePageTemplate, ChangePasswordPageTemplate } from './profile.template';
+import { ProfilePageTemplate } from './profile.template';
 import { ButtonComponent } from '../../components/button';
 import { LineFormFieldComponent } from '../../components/line-form-field';
 import { DividerComponent } from '../../components/divider';
@@ -14,36 +14,59 @@ export const ProfilePage = (props = {}) => {
         phone_number: '+37529999999'
     }
 
-    let pageTemplate;
-    let buttonsTemplate;
+    const header = props.type === 'changePassword' ? 'Change your password' : user.first_name;
+    const formArray = [];
+    const buttons = [];
 
     switch (props.type) {
+        // Profile Page
         case 'profile':
-            pageTemplate = ProfilePageTemplate;
-            buttonsTemplate = `
-            <button-component props="'{ label: 'Edit', link: '/edit_profile', type: 'basic' }'"/>
-            <divider-component />
-            <button-component props="'{ label: 'Change Password', link: '/change_password', type: 'basic' }'"/>
-            <divider-component />
-            <button-component props="'{ label: 'Logout', link: '/sign_in', type: 'basic', color: 'red' }'"/>`
+            formArray.push(
+                `{ labelText: 'Email', value: '${user.email}', id: 'email', type: 'email' }`,
+                `{ labelText: 'Login', value: '${user.login}', id: 'login', type: 'text' }`,
+                `{ labelText: 'First Name', value: '${user.first_name}', id: 'first_name', type: 'text' }`,
+                `{ labelText: 'Second Name', value: '${user.second_name}', id: 'second_name', type: 'text' }`,
+                `{ labelText: 'Username', value: '${user.username}', id: 'display_name', type: 'text' }`,
+                `{ labelText: 'Phone', value: '${user.phone_number}', id: 'phone', type: 'tel' }`
+            );
+            buttons.push(
+                `{ label: 'Edit', link: '/edit_profile', type: 'basic' }`,
+                `{ label: 'Change Password', link: '/change_password', type: 'basic' }`,
+                `{ label: 'Logout', link: '/sign_in', type: 'basic', color: 'red' }`
+            );
             break;
+        // Change Password Page
         case 'changePassword':
-            pageTemplate = ChangePasswordPageTemplate;
-            buttonsTemplate = `
-           <button-component props="'{ label: 'Save', link: '/profile', type: 'raised' }'"/>
-           <button-component props="'{ label: 'Go Back', link: '/profile', type: 'basic' }'"/>`
-           break;
+            formArray.push(
+                `{ labelText: 'Old password', value: '', id: 'oldPassword', type: 'password' }`,
+                `{ labelText: 'New password', value: '', id: 'newPassword', type: 'password' }`,
+                `{ labelText: 'Confirm New Password', value: '', id: 'confirmPassword', type: 'password' }`
+            );
+            buttons.push(
+                `{ label: 'Save', link: '/profile', type: 'raised' }`,
+                `{ label: 'Go Back', link: '/profile', type: 'basic' }`
+            );
+            break;
+        // Edit Profile Page
         case 'editProfile':
-            pageTemplate = ProfilePageTemplate;
-            buttonsTemplate = `
-           <button-component props="'{ label: 'Save', link: '/profile', type: 'raised' }'"/>
-            <button-component props="'{ label: 'Go Back', link: '/profile', type: 'basic' }'"/>
-        `
+            formArray.push(
+                `{ labelText: 'Email', value: '${user.email}', id: 'email', type: 'email' }`,
+                `{ labelText: 'Login', value: '${user.login}', id: 'login', type: 'text' }`,
+                `{ labelText: 'First Name', value: '${user.first_name}', id: 'first_name', type: 'text' }`,
+                `{ labelText: 'Second Name', value: '${user.second_name}', id: 'second_name', type: 'text' }`,
+                `{ labelText: 'Username', value: '${user.username}', id: 'display_name', type: 'text' }`,
+                `{ labelText: 'Phone', value: '${user.phone_number}', id: 'phone', type: 'tel' }`
+            );
+            buttons.push(
+                `{ label: 'Save', link: '/profile', type: 'raised' }`,
+                `{ label: 'Go Back', link: '/profile', type: 'basic' }`
+            );
+            break;
     }
 
     return {
-        template: pageTemplate,
-        context: { user, ...props, buttonsTemplate },
+        template: ProfilePageTemplate,
+        context: { user, ...props, buttons, formArray, header },
         declaredComponents: [ButtonComponent, LineFormFieldComponent, DividerComponent]
     }
 };

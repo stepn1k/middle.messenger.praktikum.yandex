@@ -6,7 +6,7 @@
 
   &-form {
     width: 21.25rem;
-    height: 28.125rem;
+    min-height: 28.125rem;
     display: flex;
     flex-direction: column;
     border-radius: .75rem;
@@ -21,27 +21,7 @@
     }
 
     &-inputs {
-
-      &__label {
-        font-size: .625rem;
-        color: $primary-two;
-      }
-
-      &__input {
-        width: 100%;
-        border: none;
-        padding: .5rem 0;
-        font-size: .8125rem;
-        font-weight: 500;
-        border-bottom: 1px solid $primary-two;
-        margin-bottom: 1rem;
-        transition: .25s border-bottom;
-
-        &:focus {
-          outline: none;
-          border-bottom: 1px solid $primary-one;
-        }
-      }
+      margin-bottom: 2.5rem;
     }
 
     &-buttons {
