@@ -48,9 +48,24 @@
   &-form-buttons {
     margin-top: 3.75rem;
 
-    button {
+    .button-component__link {
       text-align: left;
       padding-left: 0;
+    }
+  }
+
+
+  &.change-password,
+  &.editProfile {
+    .profile-form-buttons {
+      display: flex;
+      justify-content: center;
+      margin: 3.75rem 9.375rem;
+
+      .button-component__link {
+        text-align: center;
+        padding-left: .75rem;
+      }
     }
   }
 }

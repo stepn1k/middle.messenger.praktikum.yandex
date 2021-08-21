@@ -14,9 +14,9 @@ export default `
         </div>
         <div class="sign-in-form-buttons">
              <!-- Sign in -->
-            <button-component props="'{ label: 'Sign in', link: '/sign_in', type: 'raised' }'" />
+            <button-component props="'{ label: 'Sign in', link: '/messenger', type: 'raised' }'" />
              <!-- Create account -->
             <button-component props="'{ label: 'Create account', link: '/sign_up', type: 'basic' }'"/>
         </div>
-    </form>
+    </form>   
 </div>`;

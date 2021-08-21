@@ -1,5 +1,6 @@
-export default `
-<div class="profile">
+// profile
+export const ProfilePageTemplate = `
+<div class="profile {{type}}">
     <div class="profile-form">
         <div class="profile-form-avatar">
             <div class="profile-form-avatar__image"> / Photo / </div>
@@ -27,15 +28,31 @@ export default `
            <line-form-field-component props="{ labelText: 'Phone', value: '{{user.phone_number}}', id: 'phone', type: 'tel' }"/>
            
         <div class="profile-form-buttons">
-            <!-- Edit -->
-            <button-component props="'{ label: 'Edit', link: '', type: 'basic' }'"/>
-            <divider-component />
-            <!-- Change Password -->
-            <button-component props="'{ label: 'Change Password', link: '/change_password', type: 'basic' }'"/>
-            <divider-component />
-             <!-- Logout-->
-            <button-component props="'{ label: 'Logout', link: '/sign_in', type: 'basic', color: 'red' }'"/>
+           {{ buttonsTemplate }}
         </div>
         
+    </div>
+</div>`;
+
+// change password form
+export const ChangePasswordPageTemplate = `
+<div class="profile change-password">
+    <div class="profile-form">
+    
+        <div class="profile-form__name">Change your password</div>
+        
+        <div class="profile-form-table">
+            <!-- Old Password -->
+           <line-form-field-component props="{ labelText: 'Old password', value: '', id: 'oldPassword', type: 'password' }"/>
+           <divider-component />
+           <!--  New Password -->
+           <line-form-field-component props="{ labelText: 'New password', value: '', id: 'newPassword', type: 'password' }"/>
+           <divider-component />
+           <!--  Confirm Password -->
+           <line-form-field-component props="{ labelText: 'Confirm New Password', value: '', id: 'confirmPassword', type: 'password' }"/>
+           
+        <div class="profile-form-buttons">
+           {{ buttonsTemplate }}
+        </div>
     </div>
 </div>`;

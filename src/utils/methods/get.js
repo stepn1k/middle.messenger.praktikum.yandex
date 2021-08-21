@@ -2,7 +2,7 @@ export function get(obj, path) {
     if (typeof path !== 'string') {
         return undefined;
     }
-
+    
     const keys = path.split('.');
 
     let result = obj;

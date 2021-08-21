@@ -1,7 +1,7 @@
 import ErrorPageTemplate from './error.template';
 import { ButtonComponent } from '../../components/button';
 
-export const ErrorPage = (props = null) => {
+export const ErrorPage = (props = {}) => {
     const context = {};
     if (props.type === '404') {
         context.title = 'Page Not Found';

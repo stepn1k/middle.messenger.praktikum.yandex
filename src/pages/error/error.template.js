@@ -18,5 +18,5 @@ export default `
     <div class="error__subtitle">
         {{ subtitle }}
     </div>
-    <button-component props="'{ label: 'Back to Chats', link: '/sign_in', type: 'basic' }'"/>
+    <button-component props="'{ label: 'Back to Chats', link: '/messenger', type: 'basic' }'"/>
 </div>`;

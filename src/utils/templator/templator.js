@@ -3,6 +3,7 @@ import { stringToObject } from '../methods/string-to-obj';
 
 export default class Templator {
     PROPERTY_REGEXP = /\{\{(.*?)\}\}/gi;
+    STRUCTURE_REGEXP = /(<FOR_STRUCTURE ARRAY="(.*?)">((.|\n)*?)<\/FOR_STRUCTURE>)/gi;
 
     constructor(data) {
         this._template = data.template;
@@ -16,21 +17,39 @@ export default class Templator {
 
     _compileTemplate() {
         let template = this._template;
-        let key = null;
-        const regExp = this.PROPERTY_REGEXP;
+
+        let propertyKey = null;
+        const propertyRegExp = this.PROPERTY_REGEXP;
+
+        let forStructure = null;
+        const structureRegExp = this.STRUCTURE_REGEXP;
+
+        // copy template inside <FOR_structure> container
+        while ((forStructure = structureRegExp.exec(template))) {
+            const [, templateWithContainer, iterableArrayName, templateToCopy] = forStructure;
+            const arrayInContext = this._context[iterableArrayName];
+            let copiedTemplate = ``;
+            for (let i = 0; i < arrayInContext.length; i++) {
+                copiedTemplate += templateToCopy;
+                copiedTemplate = copiedTemplate.replace(new RegExp(`INDEX`, 'g'), i.toString());
+            }
+            template = template.replace(templateWithContainer, copiedTemplate);
+        }
+
         // attach data
-        while ((key = regExp.exec(template))) {
-            if (key[1]) {
-                const tmplValue = key[1].trim();
+        while ((propertyKey = propertyRegExp.exec(template))) {
+            if (propertyKey[1]) {
+                const tmplValue = propertyKey[1].trim();
                 const data = get(this._context, tmplValue);
                 if (typeof data === 'function') {
                     window[tmplValue] = data;
-                    template = template.replace(new RegExp(key[0], 'gi'), `window.${key[1].trim()}()`);
+                    template = template.replace(new RegExp(propertyKey[0], 'gi'), `window.${propertyKey[1].trim()}()`);
                     continue;
                 }
-                template = template.replace(new RegExp(key[0], 'gi'), data);
+                template = template.replace(new RegExp(propertyKey[0], 'gi'), data);
             }
         }
+
         // attach custom components
         if (this._declatedComponents !== undefined) {
             // get component from "declared components" array
