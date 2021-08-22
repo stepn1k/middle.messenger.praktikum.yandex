@@ -13,3 +13,12 @@
 @import "../src/pages/profile/profile";
 @import "../src/pages/messenger/messenger";
 
+html,
+body,
+#root {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+

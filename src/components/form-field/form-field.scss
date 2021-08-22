@@ -15,7 +15,6 @@
     transition: .25s border-bottom;
 
     &:focus {
-      outline: none;
       border-bottom: 1px solid $primary-one;
     }
   }

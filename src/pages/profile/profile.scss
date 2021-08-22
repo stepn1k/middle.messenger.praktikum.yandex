@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  padding: 1rem;
+  min-height: 100vh;
+
 
   &-form__name {
     font-size: 1rem;

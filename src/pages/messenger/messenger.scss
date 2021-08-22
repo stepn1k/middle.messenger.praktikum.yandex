@@ -5,6 +5,7 @@
   flex-direction: row;
 
   &-list {
+    background-color: #FBFBFB;
     padding: .625rem;
     flex-grow: 1;
     border-right: 1px solid rgba($primary-two, .5);
@@ -12,13 +13,11 @@
     &-header {
       display: flex;
       flex-direction: column;
-      padding-bottom: 1rem;
 
       &__profile {
         color: $primary-two;
         display: flex;
         justify-content: flex-end;
-        padding: 0.625rem 0 1.25rem 0;
       }
 
       &__search {
@@ -26,10 +25,7 @@
         border: none;
         background-color: rgba($primary-two, .2);
         border-radius: .3125rem;
-
-        &:focus {
-          outline: none;
-        }
+        margin: 1rem 0;
       }
     }
 
@@ -38,12 +34,22 @@
 
       &-chat {
         padding: .625rem 0;
+        display: flex;
+        align-items: center;
 
-        &__username {
+        &-avatar {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          background-color: $primary-two;
+          margin-right: .625rem;
+        }
+
+        &-content__username {
           font-weight: 600;
         }
 
-        &__last-message {
+        &-content__last-message {
           color: $primary-two;
         }
       }
