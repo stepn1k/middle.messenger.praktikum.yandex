@@ -7,8 +7,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "npm run build && npm run server",
-    "dev-start": "parcel static/index.html -p 3000",
+    "start": "parcel static/index.html -p 3000",
     "build": "parcel build static/index.html",
     "server": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"

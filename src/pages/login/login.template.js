@@ -1,7 +1,7 @@
 export default `
 <div class="sign-in">
     <form class="sign-in-form">
-        <div class="sign-in-form__title">{{ header }}</div>
+        <h2 class="sign-in-form__title">{{ header }}</h2>
         <div class="sign-in-form-inputs">
           <FOR_STRUCTURE ARRAY="formArray">
               <form-field-component props="{{ formArray.INDEX }}"/>

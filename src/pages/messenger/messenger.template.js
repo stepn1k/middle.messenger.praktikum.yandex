@@ -18,9 +18,9 @@ export default `
                 <div class="messenger-list-body-chat-avatar"></div>
                 <div class="messenger-list-body-chat-content">
                      <!--  Username  -->
-                    <div class="messenger-list-body-chat-content__username">{{ chats.INDEX.name }}</div>
+                    <h4 class="messenger-list-body-chat-content__username">{{ chats.INDEX.name }}</h4>
                      <!--  Message  -->
-                    <div class="messenger-list-body-chat-content__last-message">{{ chats.INDEX.message }}</div>
+                    <p class="messenger-list-body-chat-content__last-message">{{ chats.INDEX.message }}</p>
                 </div>
             </div>
             <divider-component />
@@ -31,14 +31,14 @@ export default `
     <!-- Chat -->
     <div class="messenger-chat">
         <!--  Chat Header  -->
-        <div class="messenger-chat-header">
+        <h2 class="messenger-chat-header">
             <div class="messenger-chat-header__user">Stepan</div>
-        </div>
+        </h2>
         <divider-component />
         <!--  Chat Body  -->
-        <div class="messenger-chat-body">
+        <section class="messenger-chat-body">
             Chat will be here.
-        </div>
+        </section>
         <divider-component />
         <!--  Chat Footer  -->
         <div class="messenger-chat-footer">
