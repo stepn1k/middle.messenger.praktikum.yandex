@@ -1,0 +1,21 @@
+.form-field {
+  &__label {
+    font-size: .625rem;
+    color: $primary-two;
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+    padding: .5rem 0;
+    font-size: .8125rem;
+    font-weight: 500;
+    border-bottom: 1px solid $primary-two;
+    margin-bottom: 1rem;
+    transition: .25s border-bottom;
+
+    &:focus {
+      border-bottom: 1px solid $primary-one;
+    }
+  }
+}
