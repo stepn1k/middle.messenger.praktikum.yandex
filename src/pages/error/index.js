@@ -11,7 +11,7 @@ export const ErrorPage = (props = {}) => {
 
     return {
         template: ErrorPageTemplate,
-        context: { title, subtitle, ...props },
+        context: { ...props, title, subtitle },
         declaredComponents: [ButtonComponent]
     }
 };

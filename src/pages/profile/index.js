@@ -66,7 +66,7 @@ export const ProfilePage = (props = {}) => {
 
     return {
         template: ProfilePageTemplate,
-        context: { user, ...props, buttons, formArray, header },
+        context: { ...props, buttons, formArray, header, user },
         declaredComponents: [ButtonComponent, LineFormFieldComponent, DividerComponent]
     }
 };
