@@ -1,11 +1,7 @@
-export function get(obj, path) {
-    if (typeof path !== 'string') {
-        return undefined;
-    }
-    
+export function get(obj: Object, path: string): Object {
     const keys = path.split('.');
 
-    let result = obj;
+    let result: { [key: string]: any } = obj;
 
     for (let key of keys) {
         const value = result[key];

@@ -6,14 +6,14 @@ import { ProfilePage } from './pages/profile';
 import { MessengerPage } from './pages/messenger';
 
 const pages = {
-    sign_in: LoginPage({ type: 'signIn' }),
-    sign_up: LoginPage({ type: 'signUp' }),
-    profile: ProfilePage({ type: 'profile' }),
+    sign_in: LoginPage({type: 'signIn'}),
+    sign_up: LoginPage({type: 'signUp'}),
+    profile: ProfilePage({type: 'profile'}),
     messenger: MessengerPage(),
-    edit_profile: ProfilePage({ type: 'editProfile' }),
-    change_password: ProfilePage({ type: 'changePassword' }),
-    error: ErrorPage({ type: '500' }),
-    not_found: ErrorPage({ type: '404' })
+    edit_profile: ProfilePage({type: 'editProfile'}),
+    change_password: ProfilePage({type: 'changePassword'}),
+    error: ErrorPage({type: '500'}),
+    not_found: ErrorPage({type: '404'})
 }
 
 const extractPageFromUrl = () => {

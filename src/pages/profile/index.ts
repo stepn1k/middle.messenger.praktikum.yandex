@@ -2,8 +2,9 @@ import { ProfilePageTemplate } from './profile.template';
 import { ButtonComponent } from '../../components/button';
 import { LineFormFieldComponent } from '../../components/line-form-field';
 import { DividerComponent } from '../../components/divider';
+import { ComponentInterface } from '../../models/component.interface';
 
-export const ProfilePage = (props = {}) => {
+export const ProfilePage = (props: { type: 'changePassword' | 'profile' | 'editProfile' }): ComponentInterface => {
     // temporary object
     const user = {
         email: 'example@yandex.by',
@@ -66,7 +67,7 @@ export const ProfilePage = (props = {}) => {
 
     return {
         template: ProfilePageTemplate,
-        context: { ...props, buttons, formArray, header, user },
+        context: {...props, buttons, formArray, header, user},
         declaredComponents: [ButtonComponent, LineFormFieldComponent, DividerComponent]
     }
 };

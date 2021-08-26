@@ -1,7 +1,8 @@
 import ErrorPageTemplate from './error.template';
 import { ButtonComponent } from '../../components/button';
+import { ComponentInterface } from '../../models/component.interface';
 
-export const ErrorPage = (props = {}) => {
+export const ErrorPage = (props: { type: '404' | '500' }): ComponentInterface => {
     const title = props.type === '404'
         ? 'Page Not Found'
         : 'Something went wrong';
@@ -11,7 +12,7 @@ export const ErrorPage = (props = {}) => {
 
     return {
         template: ErrorPageTemplate,
-        context: { ...props, title, subtitle },
+        context: {...props, title, subtitle},
         declaredComponents: [ButtonComponent]
     }
 };

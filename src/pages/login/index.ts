@@ -1,26 +1,27 @@
 import LoginTemplate from './login.template';
 import { ButtonComponent } from '../../components/button';
 import { FormFieldComponent } from '../../components/form-field';
+import { ComponentInterface } from '../../models/component.interface';
 
-const formArray = [];
-const buttons = [];
+let formArray: string[];
+let buttons: string[];
 
-export const LoginPage = (props = {}) => {
+export const LoginPage = (props: { type: 'signIn' | 'signUp' }): ComponentInterface => {
     const header = props.type === 'signIn' ? 'Log in to your account' : 'Create an account';
 
     switch (props.type) {
         case 'signIn':
-            formArray.push(
+            formArray = [
                 `{ labelText: 'Login', id: 'login', type: 'text' }`,
                 `{ labelText: 'Password', id: 'password', type: 'password' }`
-            );
-            buttons.push(
+            ];
+            buttons = [
                 `{ label: 'Sign in', link: '/messenger', type: 'raised' }`,
                 `{ label: 'Create account', link: '/sign_up', type: 'basic' }`
-            );
+            ];
             break;
-        case 'singUp':
-            formArray.push(
+        case 'signUp':
+            formArray = [
                 `{ labelText: 'Email', id: 'email', type: 'email' }`,
                 `{ labelText: 'Login', id: 'login', type: 'text' }`,
                 `{ labelText: 'First Name', id: 'first_name', type: 'text' }`,
@@ -28,17 +29,17 @@ export const LoginPage = (props = {}) => {
                 `{ labelText: 'Phone', id: 'phone', type: 'tel' }`,
                 `{ labelText: 'Password', id: 'password', type: 'password' }`,
                 `{ labelText: 'Confirm Password', id: 'confirmPassword', type: 'password' }`
-            );
-            buttons.push(
+            ];
+            buttons = [
                 `{ label: 'Create account', link: '/messenger', type: 'raised' }`,
                 `{ label: 'Back to login', link: '/sign_in', type: 'basic' }`
-            );
+            ];
             break;
     }
 
     return {
         template: LoginTemplate,
-        context: { ...props, header, buttons, formArray },
+        context: {...props, header, buttons, formArray},
         declaredComponents: [FormFieldComponent, ButtonComponent]
     }
 };

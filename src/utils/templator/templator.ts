@@ -1,14 +1,19 @@
 import { get } from '../methods/get';
 import { stringToObject } from '../methods/string-to-obj';
+import { ComponentInterface } from '../../models/component.interface';
 
 export default class Templator {
-    PROPERTY_REGEXP = /\{\{(.*?)\}\}/gi;
-    STRUCTURE_REGEXP = /(<FOR_STRUCTURE ARRAY="(.*?)">((.|\n)*?)<\/FOR_STRUCTURE>)/gi;
+    private readonly PROPERTY_REGEXP: RegExp = /\{\{(.*?)\}\}/gi;
+    private readonly STRUCTURE_REGEXP: RegExp = /(<FOR_STRUCTURE ARRAY="(.*?)">((.|\n)*?)<\/FOR_STRUCTURE>)/gi;
 
-    constructor(data) {
+    private readonly _template: string;
+    private readonly _context: Object;
+    private readonly _declaredComponents: (() => ComponentInterface)[];
+
+    constructor(data: ComponentInterface) {
         this._template = data.template;
         this._context = data.context;
-        this._declatedComponents = data.declaredComponents;
+        this._declaredComponents = data.declaredComponents;
     }
 
     compile() {
@@ -42,30 +47,35 @@ export default class Templator {
                 const tmplValue = propertyKey[1].trim();
                 const data = get(this._context, tmplValue);
                 if (typeof data === 'function') {
+                    // @ts-ignore
                     window[tmplValue] = data;
                     template = template.replace(new RegExp(propertyKey[0], 'gi'), `window.${propertyKey[1].trim()}()`);
                     continue;
                 }
-                template = template.replace(new RegExp(propertyKey[0], 'gi'), data);
+                if (data) {
+                    template = template.replace(new RegExp(propertyKey[0], 'gi'), data.toString());
+                }
             }
         }
 
         // attach custom components
-        if (this._declatedComponents !== undefined) {
+        if (this._declaredComponents !== undefined) {
             // get component from "declared components" array
-            for (const key in this._declatedComponents) {
-                const component = this._declatedComponents[key];
+            for (const key in this._declaredComponents) {
+                const component = this._declaredComponents[key];
                 // get selector and context of this component
-                const { context, selector } = component();
+                const {context, selector} = component();
                 // searching for this component in template ( <custom-component props="..." /> )
                 const COMPONENT_REGEXP = new RegExp(`<${selector} .*?\/>`);
                 while (template.match(COMPONENT_REGEXP)) {
                     // extract inline props
                     const entry = template.match(COMPONENT_REGEXP)[0];
-                    let stringProps = entry.match(new RegExp(/props="(.*?)"/));
-                    stringProps = stringProps ? stringProps[1] : {}; // (if inline styles don't exist)
+                    const regExpPropsArray: RegExpMatchArray = entry.match(new RegExp(/props="(.*?)"/));
+                    const stringProps = regExpPropsArray ? regExpPropsArray[1] : '{}'; // (if inline styles don't exist)
                     // create component template with context and inline props
-                    const componentTemplate = new Templator(component(Object.assign(context || {}, stringToObject(stringProps))));
+                    const props = Object.assign(context || {}, stringToObject(stringProps));
+                    // @ts-ignore
+                    const componentTemplate = new Templator(component(props));
                     const componentTemplateForRender = componentTemplate.compile();
                     // replace custom tag with template
                     template = template.replace(COMPONENT_REGEXP, componentTemplateForRender);
