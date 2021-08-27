@@ -37,7 +37,7 @@ export default (props: { type: 'changePassword' | 'profile' | 'editProfile' }): 
         '{ label: \'Logout\', link: \'/sign_in\', type: \'basic\', color: \'red\' }',
       ];
       break;
-      // Change Password Page
+    // Change Password Page
     case 'changePassword':
       formArray = [
         '{ labelText: \'Old password\', value: \'\', id: \'oldPassword\', type: \'password\' }',
@@ -49,7 +49,7 @@ export default (props: { type: 'changePassword' | 'profile' | 'editProfile' }): 
         '{ label: \'Go Back\', link: \'/profile\', type: \'basic\' }',
       ];
       break;
-      // Edit Profile Page
+    // Edit Profile Page
     case 'editProfile':
       formArray = [
         `{ labelText: 'Email', value: '${user.email}', id: 'email', type: 'email' }`,
