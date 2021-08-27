@@ -21,7 +21,7 @@
       }
 
       &__search {
-        padding: 0.625rem 1rem;
+        padding: .625rem 1rem;
         border: none;
         background-color: rgba($primary-two, .2);
         border-radius: .3125rem;
@@ -83,14 +83,13 @@
       &__input {
         width: 100%;
         border-radius: 1.875rem;
-        padding: 0.625rem 1rem;
+        padding: .625rem 1rem;
         border: none;
         background-color: rgba($primary-two, .2);
 
         &:focus {
           outline: none;
         }
-
       }
     }
   }

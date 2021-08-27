@@ -10,7 +10,9 @@
   }
 
   &__label {
-    flex: 2
+    flex: 2;
+    display: flex;
+    align-items: center;
   }
 
   &__value {
