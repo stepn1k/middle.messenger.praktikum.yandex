@@ -2,16 +2,16 @@
 @import "./variables";
 
 // components
-@import "../src/components/button/button";
-@import "../src/components/line-form-field/line-form-field";
-@import "../src/components/divider/divider";
-@import "../src/components/form-field/form-field";
+@import "../src/components/button/button.styles";
+@import "../src/components/line-form-field/line-form-field.styles";
+@import "../src/components/divider/divider.styles";
+@import "../src/components/form-field/form-field.styles";
 
 // pages
-@import "../src/pages/error/error";
-@import "../src/pages/login/login";
-@import "../src/pages/profile/profile";
-@import "../src/pages/messenger/messenger";
+@import "../src/pages/error/error.styles";
+@import "../src/pages/login/login.styles";
+@import "../src/pages/profile/profile.styles";
+@import "../src/pages/messenger/messenger.styles";
 
 html,
 body,

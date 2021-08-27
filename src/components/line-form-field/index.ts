@@ -1,10 +1,3 @@
-import LineFormFieldTemplate from './line-form-field.template';
-import { ComponentInterface } from '../../models/component.interface';
+import LineFormFieldComponent from './line-form-field.component';
 
-export const LineFormFieldComponent = (props: object = {}): ComponentInterface => {
-    return {
-        selector: 'line-form-field-component',
-        context: props,
-        template: LineFormFieldTemplate
-    }
-}
+export default LineFormFieldComponent;

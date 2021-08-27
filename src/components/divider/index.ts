@@ -1,10 +1,3 @@
-import DividerTemplate from './divider.template';
-import { ComponentInterface } from '../../models/component.interface';
+import DividerComponent from './divider.component';
 
-export const DividerComponent = (): ComponentInterface => {
-    return {
-        selector: 'divider-component',
-        context: {},
-        template: DividerTemplate
-    }
-}
+export default DividerComponent;

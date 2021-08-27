@@ -1,10 +1,3 @@
-import FormFieldTemplate from './form-field.template';
-import { ComponentInterface } from '../../models/component.interface';
+import FormFieldComponent from './form-field.component';
 
-export const FormFieldComponent = (props: object = {}): ComponentInterface => {
-    return {
-        selector: 'form-field-component',
-        context: props,
-        template: FormFieldTemplate
-    }
-}
+export default FormFieldComponent;

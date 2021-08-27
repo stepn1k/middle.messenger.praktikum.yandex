@@ -1,5 +1,5 @@
 // profile
-export const ProfilePageTemplate = `
+export default `
 <div class="profile {{type}}">
     <section class="profile-form">
         <div class="profile-form-avatar">
