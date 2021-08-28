@@ -39,6 +39,7 @@ export default class Templator {
 
     while ((structureParams = regExp.exec(template))) {
       const [, templateWithContainer, iterableArrayName, templateToCopy] = structureParams;
+      // @ts-ignore
       const arrayInContext = this.context[iterableArrayName];
       let copiedTemplate = '';
       for (let i = 0; i < arrayInContext.length; i++) {
