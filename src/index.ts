@@ -4,8 +4,9 @@ import ErrorPage from './pages/error';
 import LoginPage from './pages/login';
 import ProfilePage from './pages/profile';
 import MessengerPage from './pages/messenger';
+import { ComponentInterface } from './models/component.interface';
 
-const pages = {
+const pages: { [key: string]: ComponentInterface } = {
   sign_in: LoginPage({ type: 'signIn' }),
   sign_up: LoginPage({ type: 'signUp' }),
   profile: ProfilePage({ type: 'profile' }),
@@ -18,6 +19,7 @@ const pages = {
 
 const extractPageFromUrl = () => {
   const path = window.location.pathname.slice(1);
+
   return path === ''
     ? pages.sign_in
     : pages[path] || pages.not_found;

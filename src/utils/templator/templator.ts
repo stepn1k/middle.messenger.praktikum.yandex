@@ -84,7 +84,7 @@ export default class Templator {
         if (Object.prototype.hasOwnProperty.call(this.declaredComponents, key)) {
           const component = this.declaredComponents[key];
           // get selector and context of this component
-          const { context, selector } = component();
+          const { context = {}, selector } = component();
           // searching for this component in template ( <custom-component props="..." /> )
           const COMPONENT_REGEXP = new RegExp(`<${selector} .*?/>`);
           while (template.match(COMPONENT_REGEXP)) {
@@ -93,7 +93,7 @@ export default class Templator {
             const regExpPropsArray: RegExpMatchArray = entry.match(new RegExp(/props="(.*?)"/));
             const stringProps = regExpPropsArray ? regExpPropsArray[1] : '{}'; // (if inline styles don't exist)
             // create component template with context and inline props
-            const props = Object.assign(context || {}, stringToObject(stringProps));
+            const props = Object.assign(context, stringToObject(stringProps));
             // @ts-ignore
             const componentTemplate = new Templator(component(props));
             const componentTemplateForRender = componentTemplate.compile();

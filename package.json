@@ -10,7 +10,7 @@
     "start": "parcel static/index.html -p 3000",
     "build": "parcel build static/index.html",
     "server": "node server/server.js",
-    "precommit": "eslint . && stylelint \"**.scss\"",
+    "precommit": "eslint . --fix && stylelint \"**.scss\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
