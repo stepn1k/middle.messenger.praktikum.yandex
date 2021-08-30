@@ -14,3 +14,8 @@ export default (): ComponentInterface => ({
   context: { chats },
   declaredComponents: [DividerComponent],
 });
+
+export default class MessengerPage {
+  constructor() {
+  }
+}

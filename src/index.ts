@@ -1,20 +1,18 @@
 import '../static/styles.scss';
-import Templator from './utils/templator/templator';
 import ErrorPage from './pages/error';
 import LoginPage from './pages/login';
 import ProfilePage from './pages/profile';
 import MessengerPage from './pages/messenger';
-import { ComponentInterface } from './models/component.interface';
 
-const pages: { [key: string]: ComponentInterface } = {
-  sign_in: LoginPage({ type: 'signIn' }),
-  sign_up: LoginPage({ type: 'signUp' }),
-  profile: ProfilePage({ type: 'profile' }),
-  messenger: MessengerPage(),
-  edit_profile: ProfilePage({ type: 'editProfile' }),
-  change_password: ProfilePage({ type: 'changePassword' }),
-  error: ErrorPage({ type: '500' }),
-  not_found: ErrorPage({ type: '404' }),
+const pages: { [key: string]: any } = {
+  sign_in: new LoginPage({ type: 'signIn' }),
+  sign_up: new LoginPage({ type: 'signUp' }),
+  profile: new ProfilePage({ type: 'profile' }),
+  messenger: new MessengerPage(),
+  edit_profile: new ProfilePage({ type: 'editProfile' }),
+  change_password: new ProfilePage({ type: 'changePassword' }),
+  error: new ErrorPage({ type: '500' }),
+  not_found: new ErrorPage({ type: '404' }),
 };
 
 const extractPageFromUrl = () => {
@@ -27,8 +25,9 @@ const extractPageFromUrl = () => {
 
 const initApplication = () => {
   // compile template
-  const template = new Templator(extractPageFromUrl());
-  const templateForRender = template.compile();
+  const template = extractPageFromUrl();
+  console.log(template.render());
+  const templateForRender = template.render();
 
   // render template
   const rootElement = document.getElementById('root');

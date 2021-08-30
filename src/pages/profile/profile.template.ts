@@ -1,6 +1,6 @@
 // profile
 export default `
-<div class="profile {{type}}">
+<div class="profile {{ type }}">
     <section class="profile-form">
         <div class="profile-form-avatar">
             <div class="profile-form-avatar__image"> / Photo / </div>
@@ -9,16 +9,10 @@ export default `
         <h3 class="profile-form__name">{{ header }}</h3>
         <form class="profile-form-table">
         <!--  FORM   -->
-          <FOR_STRUCTURE ARRAY="formArray">
-              <line-form-field-component props="{{ formArray.INDEX }}"/>
-              <divider-component />
-          </FOR_STRUCTURE>
+         {{ formTemplate }}
         <!--  Buttons   -->
         <div class="profile-form-buttons">
-           <FOR_STRUCTURE ARRAY="buttons">
-              <button-component props="{{ buttons.INDEX }}" />
-              <divider-component />
-           </FOR_STRUCTURE>
+           {{ buttonsTemplate }}
         </div>
     </form>
 </section>`;

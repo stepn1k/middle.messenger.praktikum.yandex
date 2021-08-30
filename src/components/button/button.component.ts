@@ -1,19 +1,29 @@
 import ButtonTemplate from './button.template';
-import { ComponentInterface } from '../../models/component.interface';
+import Templator from '../../utils/templator/templator';
 
 export interface ButtonProps {
   label: string;
-  type: 'primary' | 'raised';
+  type: 'basic' | 'raised';
   link: string;
-  color: 'red' | 'blue';
+  color?: 'red' | 'blue';
 }
 
-export default (props: ButtonProps): ComponentInterface => {
-  const color = props?.color ? props.color : 'blue';
+export default class Button {
+  private readonly props: ButtonProps;
+  private readonly template: string;
+  private readonly color: 'blue' | 'red';
 
-  return {
-    selector: 'button-component',
-    context: { ...props, color },
-    template: ButtonTemplate,
-  };
-};
+  constructor(props: ButtonProps) {
+    this.props = props;
+    this.template = ButtonTemplate;
+    this.color = props?.color ? props.color : 'blue';
+  }
+
+  public render(): string {
+    const templateWithContext = new Templator({
+      template: this.template,
+      context: { ...this.props, color: this.color }
+    });
+    return templateWithContext.compile();
+  }
+}
