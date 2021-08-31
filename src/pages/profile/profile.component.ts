@@ -90,20 +90,7 @@ export default class ProfilePage extends Block {
       .map((button) => new Button(button).render() + new Divider().render()).join('');
   }
 
-  init() {
-    console.log('init', 'profile page');
-  }
-
-  componentDidMount() {
-    console.log('mount', 'profile page');
-  }
-
-  componentDidUpdate() {
-    console.log('update');
-  }
-
   public render(): string {
-    console.log('render profile page');
     const templateWithContext = new Templator({
       template: this.template,
       context: {
