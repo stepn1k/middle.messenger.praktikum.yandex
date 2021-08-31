@@ -12,7 +12,7 @@ export default `
          {{ formTemplate }}
         <!--  Buttons   -->
         <div class="profile-form-buttons">
-           {{ buttonsTemplate }}
+         {{ buttonsTemplate }}
         </div>
     </form>
 </section>`;

@@ -1,5 +1,6 @@
 import ButtonTemplate from './button.template';
 import Templator from '../../utils/templator/templator';
+import Block from '../../../core/block';
 
 export interface ButtonProps {
   label: string;
@@ -8,13 +9,12 @@ export interface ButtonProps {
   color?: 'red' | 'blue';
 }
 
-export default class Button {
-  private readonly props: ButtonProps;
+export default class Button extends Block {
   private readonly template: string;
   private readonly color: 'blue' | 'red';
 
   constructor(props: ButtonProps) {
-    this.props = props;
+    super('div', props);
     this.template = ButtonTemplate;
     this.color = props?.color ? props.color : 'blue';
   }

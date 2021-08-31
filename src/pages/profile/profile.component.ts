@@ -5,12 +5,13 @@ import Templator from '../../utils/templator/templator';
 import Button from '../../components/button';
 import LineFormField from '../../components/line-form-field';
 import Divider from '../../components/divider';
+import Block from '../../../core/block';
 
 export interface ProfilePageProps {
   type: 'profile' | 'editProfile' | 'changePassword';
 }
 
-export default class ProfilePage {
+export default class ProfilePage extends Block {
   private readonly header: string;
   private readonly template: string;
 
@@ -32,6 +33,7 @@ export default class ProfilePage {
   public buttonsTemplate: string;
 
   constructor(props: ProfilePageProps) {
+    super('div', props);
     this.header = props.type === 'changePassword' ? 'Change your password' : this.user.first_name;
     this.pageType = props.type;
     this.template = ProfilePageTemplate;
@@ -88,7 +90,20 @@ export default class ProfilePage {
       .map((button) => new Button(button).render() + new Divider().render()).join('');
   }
 
+  init() {
+    console.log('init', 'profile page');
+  }
+
+  componentDidMount() {
+    console.log('mount', 'profile page');
+  }
+
+  componentDidUpdate() {
+    console.log('update');
+  }
+
   public render(): string {
+    console.log('render profile page');
     const templateWithContext = new Templator({
       template: this.template,
       context: {

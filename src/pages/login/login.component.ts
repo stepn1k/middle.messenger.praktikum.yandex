@@ -2,12 +2,13 @@ import LoginTemplate from './login.template';
 import FormField, { FormFieldProps } from '../../components/form-field/form-field.component';
 import Button, { ButtonProps } from '../../components/button/button.component';
 import Templator from '../../utils/templator/templator';
+import Block from '../../../core/block';
 
 export interface LoginPageProps {
   type: 'signIn' | 'signUp';
 }
 
-export default class LoginPage {
+export default class LoginPage extends Block {
   private readonly template: string;
   private readonly header: string;
 
@@ -19,6 +20,7 @@ export default class LoginPage {
 
 
   constructor(props: LoginPageProps) {
+    super('div', props);
     this.template = LoginTemplate;
     this.header = props.type === 'signIn' ? 'Log in to your account' : 'Create an account';
 
