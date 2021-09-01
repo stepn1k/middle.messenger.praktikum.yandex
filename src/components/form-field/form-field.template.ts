@@ -1,5 +1,5 @@
-export default `   
-   <div class="form-field">
+export default `
+   <div class="form-field" data-id='{{ componentId }}'>
         <label for="{{ id }}" class="form-field__label theme_{{ color }}">{{ labelText }}</label>
         <input class="form-field__input" required id="{{ id }}" type="{{ type }}" name="{{ id }}">
    </div>

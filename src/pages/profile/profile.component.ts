@@ -33,7 +33,7 @@ export default class ProfilePage extends Block {
   public buttonsTemplate: string;
 
   constructor(props: ProfilePageProps) {
-    super('div', props);
+    super(props);
     this.header = props.type === 'changePassword' ? 'Change your password' : this.user.first_name;
     this.pageType = props.type;
     this.template = ProfilePageTemplate;
@@ -97,7 +97,8 @@ export default class ProfilePage extends Block {
         formTemplate: this.formTemplate,
         buttonsTemplate: this.buttonsTemplate,
         header: this.header,
-        type: this.pageType
+        type: this.pageType,
+        componentId: this.id
       }
     });
     return templateWithContext.compile();

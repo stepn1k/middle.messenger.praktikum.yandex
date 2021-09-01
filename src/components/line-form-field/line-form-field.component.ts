@@ -13,15 +13,14 @@ export default class LineFormField extends Block {
   private readonly template: string;
 
   constructor(props: LineFormFieldProps) {
-    super('div', props);
-    this.props = props;
+    super(props);
     this.template = LineFormFieldTemplate;
   }
 
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: this.props
+      context: { ...this.props, componentId: this.id }
     });
     return templateWithContext.compile();
   }

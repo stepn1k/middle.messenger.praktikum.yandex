@@ -14,7 +14,7 @@ export default class Button extends Block {
   private readonly color: 'blue' | 'red';
 
   constructor(props: ButtonProps) {
-    super('div', props);
+    super(props);
     this.template = ButtonTemplate;
     this.color = props?.color ? props.color : 'blue';
   }
@@ -22,8 +22,9 @@ export default class Button extends Block {
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: { ...this.props, color: this.color }
+      context: { ...this.props, color: this.color, componentId: this.id }
     });
+
     return templateWithContext.compile();
   }
 }

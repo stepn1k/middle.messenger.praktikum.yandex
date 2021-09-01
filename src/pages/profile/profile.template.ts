@@ -1,6 +1,6 @@
 // profile
 export default `
-<div class="profile {{ type }}">
+<div class="profile {{ type }}" data-id="{{ componentId }}">
     <section class="profile-form">
         <div class="profile-form-avatar">
             <div class="profile-form-avatar__image"> / Photo / </div>

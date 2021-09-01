@@ -1,3 +1,3 @@
 export default `
-<div class="divider"></div>
+<div class="divider" data-id='{{ componentId }}'></div>
 `;

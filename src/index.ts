@@ -26,8 +26,6 @@ const extractPageFromUrl = () => {
 const initApplication = () => {
   // compile template
   const template = extractPageFromUrl();
-  setTimeout(() => template.setProps({type: 'changePassword'}), 3000);
-  //console.log(template.render());
   const templateForRender = template.render();
 
   // render template

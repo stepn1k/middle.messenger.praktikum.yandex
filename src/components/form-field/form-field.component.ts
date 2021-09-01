@@ -13,15 +13,14 @@ export default class FormField extends Block {
   private readonly template: string;
 
   constructor(props: FormFieldProps) {
-    super('div', props);
-    this.props = props;
+    super(props);
     this.template = FormFieldTemplate;
   }
 
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: this.props
+      context: { ...this.props, componentId: this.id }
     });
     return templateWithContext.compile();
   }
