@@ -6,12 +6,15 @@ export default class Divider extends Block {
   private readonly template: string;
 
   constructor() {
-    super({})
+    super({});
     this.template = DividerTemplate;
   }
 
   public render(): string {
-    const templateWithContext = new Templator({ template: this.template, context: { componentId: this.id } });
+    const templateWithContext = new Templator({
+      template: this.template,
+      context: {},
+    });
     return templateWithContext.compile();
   }
 }

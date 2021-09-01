@@ -20,7 +20,7 @@ export default class FormField extends Block {
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: { ...this.props, componentId: this.id }
+      context: { ...this.props, componentId: this.id },
     });
     return templateWithContext.compile();
   }

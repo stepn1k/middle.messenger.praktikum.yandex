@@ -9,12 +9,15 @@ export interface ErrorPageProps {
 
 export default class ErrorPage extends Block {
   private readonly template: string;
+
   private readonly buttonTemplate: string;
+
   private readonly title: string;
+
   private readonly subtitle: string;
 
   constructor(props: ErrorPageProps) {
-    super('div', props);
+    super(props);
     this.template = ErrorPageTemplate;
     this.title = props.type === '404' ? 'Page Not Found' : 'Something went wrong';
     this.subtitle = props.type === '404'
@@ -26,7 +29,7 @@ export default class ErrorPage extends Block {
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: { title: this.title, subtitle: this.subtitle, button: this.buttonTemplate }
+      context: { title: this.title, subtitle: this.subtitle, button: this.buttonTemplate },
     });
     return templateWithContext.compile();
   }

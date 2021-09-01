@@ -9,6 +9,7 @@
   "rules": {
     "no-cond-assign": "off",
     "no-plusplus": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "class-methods-use-this": "off"
   }
 }

@@ -2,28 +2,33 @@ import EventBus from './event-bus';
 
 type Props = Record<string, any>;
 
-export default class Block {
+export default abstract class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    FLOW_RENDER: 'flow:render',
   };
 
   public readonly props: Props;
+
   public readonly id: string;
-  public isInitialization = true;
 
   private readonly eventBus: EventBus;
+
   public element: HTMLElement;
 
-  constructor(props: Props) {
+  protected constructor(props: Props) {
     this.eventBus = new EventBus();
-    this.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.id = Block.generateId();
     this.props = this.makePropsProxy(props);
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
-  };
+  }
+
+  private static generateId(): string {
+    return `${Math.random().toString(36).substring(2, 15)}-${Math.random().toString(36).substring(2, 15)}`;
+  }
 
   private makePropsProxy(props: Props) {
     return new Proxy(props, {
@@ -65,10 +70,10 @@ export default class Block {
     this.eventBus.emit(Block.EVENTS.FLOW_CDU);
   };
 
-  private onComponentDidMount() { }
+  private onComponentDidMount() {
+  }
 
   private onRender() {
-    this.isInitialization = false;
     const block: string = this.render();
     if (this.element) {
       this.element.innerHTML = block;
@@ -79,6 +84,6 @@ export default class Block {
   }
 
   public render(): string {
-    return ''
+    return '';
   }
 }

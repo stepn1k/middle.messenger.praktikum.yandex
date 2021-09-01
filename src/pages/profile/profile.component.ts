@@ -13,11 +13,13 @@ export interface ProfilePageProps {
 
 export default class ProfilePage extends Block {
   private readonly header: string;
+
   private readonly template: string;
 
   private readonly pageType: 'profile' | 'editProfile' | 'changePassword';
 
   private formArray: FormFieldProps[];
+
   private buttonsArray: ButtonProps[];
 
   private user = {
@@ -30,6 +32,7 @@ export default class ProfilePage extends Block {
   };
 
   public formTemplate: string;
+
   public buttonsTemplate: string;
 
   constructor(props: ProfilePageProps) {
@@ -41,25 +44,45 @@ export default class ProfilePage extends Block {
       // Profile Page
       case 'profile':
         this.formArray = [
-          { labelText: 'Email', value: this.user.email, id: 'email', type: 'email' },
-          { labelText: 'Login', value: this.user.login, id: 'login', type: 'text' },
-          { labelText: 'First Name', value: this.user.first_name, id: 'first_name', type: 'text' },
-          { labelText: 'Second Name', value: this.user.second_name, id: 'second_name', type: 'text' },
-          { labelText: 'Username', value: this.user.username, id: 'display_name', type: 'text' },
-          { labelText: 'Phone', value: this.user.phone_number, id: 'phone', type: 'tel' },
+          {
+            labelText: 'Email', value: this.user.email, id: 'email', type: 'email',
+          },
+          {
+            labelText: 'Login', value: this.user.login, id: 'login', type: 'text',
+          },
+          {
+            labelText: 'First Name', value: this.user.first_name, id: 'first_name', type: 'text',
+          },
+          {
+            labelText: 'Second Name', value: this.user.second_name, id: 'second_name', type: 'text',
+          },
+          {
+            labelText: 'Username', value: this.user.username, id: 'display_name', type: 'text',
+          },
+          {
+            labelText: 'Phone', value: this.user.phone_number, id: 'phone', type: 'tel',
+          },
         ];
         this.buttonsArray = [
           { label: 'Edit', link: '/edit_profile', type: 'basic' },
           { label: 'Change Password', link: '/change_password', type: 'basic' },
-          { label: 'Logout', link: '/sign_in', type: 'basic', color: 'red' },
+          {
+            label: 'Logout', link: '/sign_in', type: 'basic', color: 'red',
+          },
         ];
         break;
       // Change Password Page
       case 'changePassword':
         this.formArray = [
-          { labelText: 'Old password', value: '', id: 'oldPassword', type: 'password' },
-          { labelText: 'New password', value: '', id: 'newPassword', type: 'password' },
-          { labelText: 'Confirm New Password', value: '', id: 'confirmPassword', type: 'password' },
+          {
+            labelText: 'Old password', value: '', id: 'oldPassword', type: 'password',
+          },
+          {
+            labelText: 'New password', value: '', id: 'newPassword', type: 'password',
+          },
+          {
+            labelText: 'Confirm New Password', value: '', id: 'confirmPassword', type: 'password',
+          },
         ];
         this.buttonsArray = [
           { label: 'Save', link: '/profile', type: 'raised' },
@@ -69,22 +92,37 @@ export default class ProfilePage extends Block {
       // Edit Profile Page
       case 'editProfile':
         this.formArray = [
-          { labelText: 'Email', value: this.user.email, id: 'email', type: 'email' },
-          { labelText: 'Login', value: this.user.login, id: 'login', type: 'text' },
-          { labelText: 'First Name', value: this.user.first_name, id: 'first_name', type: 'text' },
-          { labelText: 'Second Name', value: this.user.second_name, id: 'second_name', type: 'text' },
-          { labelText: 'Username', value: this.user.username, id: 'display_name', type: 'text' },
-          { labelText: 'Phone', value: this.user.phone_number, id: 'phone', type: 'tel' },
+          {
+            labelText: 'Email', value: this.user.email, id: 'email', type: 'email',
+          },
+          {
+            labelText: 'Login', value: this.user.login, id: 'login', type: 'text',
+          },
+          {
+            labelText: 'First Name', value: this.user.first_name, id: 'first_name', type: 'text',
+          },
+          {
+            labelText: 'Second Name', value: this.user.second_name, id: 'second_name', type: 'text',
+          },
+          {
+            labelText: 'Username', value: this.user.username, id: 'display_name', type: 'text',
+          },
+          {
+            labelText: 'Phone', value: this.user.phone_number, id: 'phone', type: 'tel',
+          },
         ];
         this.buttonsArray = [
           { label: 'Save', link: '/profile', type: 'raised' },
           { label: 'Go Back', link: '/profile', type: 'basic' },
         ];
         break;
+      default:
+        this.buttonsArray = [];
+        this.formArray = [];
     }
 
     this.formTemplate = this.formArray
-      .map(formField => new LineFormField(formField).render() + new Divider().render()).join('');
+      .map((formField) => new LineFormField(formField).render() + new Divider().render()).join('');
 
     this.buttonsTemplate = this.buttonsArray
       .map((button) => new Button(button).render() + new Divider().render()).join('');
@@ -98,10 +136,9 @@ export default class ProfilePage extends Block {
         buttonsTemplate: this.buttonsTemplate,
         header: this.header,
         type: this.pageType,
-        componentId: this.id
-      }
+        componentId: this.id,
+      },
     });
     return templateWithContext.compile();
   }
-
 }

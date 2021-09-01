@@ -11,6 +11,7 @@ export interface ButtonProps {
 
 export default class Button extends Block {
   private readonly template: string;
+
   private readonly color: 'blue' | 'red';
 
   constructor(props: ButtonProps) {
@@ -22,7 +23,7 @@ export default class Button extends Block {
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: { ...this.props, color: this.color, componentId: this.id }
+      context: { ...this.props, color: this.color, componentId: this.id },
     });
 
     return templateWithContext.compile();

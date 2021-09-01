@@ -18,7 +18,7 @@ export default class MessengerPage {
   public render(): string {
     const templateWithContext = new Templator({
       template: this.template,
-      context: { chats: this.chats }
+      context: { chats: this.chats },
     });
     return templateWithContext.compile();
   }
