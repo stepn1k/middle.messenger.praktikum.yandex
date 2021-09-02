@@ -1,4 +1,4 @@
-export default function get(obj: Object, path: string): Object {
+export default function get(obj: Object, path: string): any {
   const keys = path.split('.');
 
   let result: { [key: string]: any } = obj;

@@ -1,12 +1,13 @@
 import '../static/styles.scss';
 import ErrorPage from './pages/error';
-import LoginPage from './pages/login';
 import ProfilePage from './pages/profile';
 import MessengerPage from './pages/messenger';
+import SignInPage from './pages/sign-in';
+import SignUpPage from './pages/sign-up';
 
 const pages: { [key: string]: any } = {
-  sign_in: () => new LoginPage({ type: 'signIn' }),
-  sign_up: () => new LoginPage({ type: 'signUp' }),
+  sign_in: () => new SignInPage(),
+  sign_up: () => new SignUpPage(),
   profile: () => new ProfilePage({ type: 'profile' }),
   messenger: () => new MessengerPage(),
   edit_profile: () => new ProfilePage({ type: 'editProfile' }),
@@ -30,7 +31,7 @@ const initApplication = () => {
 
   // render template
   const rootElement = document.getElementById('root');
-  rootElement.innerHTML = templateForRender;
+  rootElement.appendChild(templateForRender);
 };
 
 initApplication();

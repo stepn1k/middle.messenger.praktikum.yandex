@@ -1,5 +1,4 @@
 import LineFormFieldTemplate from './line-form-field.template';
-import Templator from '../../utils/templator/templator';
 import Block from '../../../core/block';
 
 export interface LineFormFieldProps {
@@ -10,18 +9,11 @@ export interface LineFormFieldProps {
 }
 
 export default class LineFormField extends Block {
-  private readonly template: string;
-
   constructor(props: LineFormFieldProps) {
-    super(props);
-    this.template = LineFormFieldTemplate;
+    super(props, LineFormFieldTemplate);
   }
 
-  public render(): string {
-    const templateWithContext = new Templator({
-      template: this.template,
-      context: { ...this.props, componentId: this.id },
-    });
-    return templateWithContext.compile();
+  public render(): HTMLElement {
+    return this.element;
   }
 }

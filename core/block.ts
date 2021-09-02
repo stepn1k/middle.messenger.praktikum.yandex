@@ -1,4 +1,5 @@
 import EventBus from './event-bus';
+import Templator from '../src/utils/templator/templator';
 
 type Props = Record<string, any>;
 
@@ -12,16 +13,19 @@ export default abstract class Block {
 
   public readonly props: Props;
 
+  public readonly template: string;
+
   public readonly id: string;
 
   private readonly eventBus: EventBus;
 
   public element: HTMLElement;
 
-  protected constructor(props: Props) {
+  protected constructor(props: Props, template: string) {
     this.eventBus = new EventBus();
     this.id = Block.generateId();
     this.props = this.makePropsProxy(props);
+    this.template = template;
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
   }
@@ -45,15 +49,23 @@ export default abstract class Block {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.onRender.bind(this));
   }
 
+  private addEvents(element: HTMLElement) {
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((eventName) => {
+      if (element) {
+        element.addEventListener(eventName, events[eventName]);
+      }
+    });
+  }
+
   private onInit() {
-    this.element = document.createElement('div');
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
   private onComponentDidUpdate() {
     const response = this.componentDidUpdate();
     if (response) {
-      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+      this.eventBus.emit(Block.EVENTS.FLOW_CDM);
     }
   }
 
@@ -71,19 +83,24 @@ export default abstract class Block {
   };
 
   private onComponentDidMount() {
+    const templateWithContext = new Templator({
+      template: this.template,
+      context: { ...this.props, componentId: this.id },
+    });
+    const newElement = templateWithContext.compile();
+    this.element = newElement as HTMLElement;
+    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
   private onRender() {
-    const block: string = this.render();
     if (this.element) {
-      this.element.innerHTML = block;
+      this.addEvents(this.element);
       const currentElement = document.querySelector(`[data-id='${this.id}']`);
-      currentElement?.parentNode?.replaceChild(this.element.children[0], currentElement);
+      currentElement?.replaceWith(this.element);
     }
-    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  public render(): string {
-    return '';
+  public render(): HTMLElement {
+    return null;
   }
 }

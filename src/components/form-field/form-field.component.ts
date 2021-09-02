@@ -1,5 +1,4 @@
 import FormFieldTemplate from './form-field.template';
-import Templator from '../../utils/templator/templator';
 import Block from '../../../core/block';
 
 export interface FormFieldProps {
@@ -10,18 +9,11 @@ export interface FormFieldProps {
 }
 
 export default class FormField extends Block {
-  private readonly template: string;
-
   constructor(props: FormFieldProps) {
-    super(props);
-    this.template = FormFieldTemplate;
+    super(props, FormFieldTemplate);
   }
 
-  public render(): string {
-    const templateWithContext = new Templator({
-      template: this.template,
-      context: { ...this.props, componentId: this.id },
-    });
-    return templateWithContext.compile();
+  public render(): HTMLElement {
+    return this.element;
   }
 }
