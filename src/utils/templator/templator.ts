@@ -1,6 +1,5 @@
 /* eslint-disable no-continue */
 import get from '../methods/get';
-import Block from '../../../core/block';
 
 export default class Templator {
   private readonly PROPERTY_REGEXP: RegExp = /\{\{(.*?)\}\}/gi;
@@ -44,7 +43,7 @@ export default class Templator {
           continue;
         }
         // nodes
-        if (data instanceof Block) {
+        if (data.eventBus) {
           const block = data.render();
           nodesToAttach.push(block);
           const componentId = block.dataset.id;

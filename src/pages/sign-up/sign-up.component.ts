@@ -44,8 +44,4 @@ export default class SignUpPage extends Block {
     };
     super(context, SignUpTemplate);
   }
-
-  public render(): HTMLElement {
-    return this.element;
-  }
 }

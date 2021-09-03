@@ -21,8 +21,4 @@ export default class ErrorPage extends Block {
     };
     super(context, ErrorPageTemplate);
   }
-
-  public render(): HTMLElement {
-    return this.element;
-  }
 }

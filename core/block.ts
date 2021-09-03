@@ -42,14 +42,14 @@ export default abstract class Block {
     });
   }
 
-  private registerEvents(eventBus: EventBus) {
+  private registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.onInit.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this.onComponentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this.onComponentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.onRender.bind(this));
   }
 
-  private addEvents(element: HTMLElement) {
+  private addEvents(element: HTMLElement): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       if (element) {
@@ -58,18 +58,18 @@ export default abstract class Block {
     });
   }
 
-  private onInit() {
+  private onInit(): void {
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private onComponentDidUpdate() {
+  private onComponentDidUpdate(): void {
     const response = this.componentDidUpdate();
     if (response) {
       this.eventBus.emit(Block.EVENTS.FLOW_CDM);
     }
   }
 
-  public componentDidUpdate() {
+  public componentDidUpdate(): boolean {
     return true;
   }
 
@@ -82,7 +82,7 @@ export default abstract class Block {
     this.eventBus.emit(Block.EVENTS.FLOW_CDU);
   };
 
-  private onComponentDidMount() {
+  private onComponentDidMount(): void {
     const templateWithContext = new Templator({
       template: this.template,
       context: { ...this.props, componentId: this.id },
@@ -92,7 +92,7 @@ export default abstract class Block {
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private onRender() {
+  private onRender(): void {
     if (this.element) {
       this.addEvents(this.element);
       const currentElement = document.querySelector(`[data-id='${this.id}']`);
@@ -101,6 +101,6 @@ export default abstract class Block {
   }
 
   public render(): HTMLElement {
-    return null;
+    return this.element;
   }
 }

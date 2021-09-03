@@ -12,8 +12,4 @@ export default class FormField extends Block {
   constructor(props: FormFieldProps) {
     super(props, FormFieldTemplate);
   }
-
-  public render(): HTMLElement {
-    return this.element;
-  }
 }

@@ -6,14 +6,15 @@ export interface LineFormFieldProps {
   value: string | number;
   id: string;
   type: 'text' | 'password' | 'tel' | 'email';
+  disabled?: boolean;
 }
 
 export default class LineFormField extends Block {
   constructor(props: LineFormFieldProps) {
-    super(props, LineFormFieldTemplate);
-  }
-
-  public render(): HTMLElement {
-    return this.element;
+    const context = {
+      ...props,
+      disabled: props.disabled ? 'disabled' : 'enabled',
+    };
+    super(context, LineFormFieldTemplate);
   }
 }

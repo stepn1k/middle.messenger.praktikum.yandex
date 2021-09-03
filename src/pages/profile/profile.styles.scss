@@ -26,11 +26,6 @@
       align-items: center;
       width: 8.125rem;
       height: 8.125rem;
-
-      &:hover {
-        cursor: pointer;
-        background-color: rgba($primary-two, .8);
-      }
     }
 
     &__input {
@@ -55,17 +50,7 @@
     }
   }
 
-  // profile page
-  &.profile {
-    .divider:last-of-type {
-      display: none;
-    }
-  }
-
-  // edit profile page
-  // change password page
-  &.changePassword,
-  &.editProfile {
+  &.profile_edit {
     .profile-form-buttons {
       display: flex;
       justify-content: center;
@@ -80,16 +65,6 @@
         text-align: center;
         padding-left: .75rem;
       }
-
-      .divider {
-        display: none;
-      }
-    }
-  }
-
-  &.changePassword {
-    .profile-form-avatar__image {
-      display: none;
     }
   }
 }

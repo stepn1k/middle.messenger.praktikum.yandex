@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding: .625rem 0;
+  border-bottom: 1px solid rgba($primary-two, .5);
 
   &__label,
   &__value {
@@ -20,6 +21,10 @@
     border: none;
     width: fit-content;
     text-align: right;
+
+    &:disabled {
+      background: none;
+    }
 
     &:focus {
       outline: none;

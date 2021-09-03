@@ -24,8 +24,4 @@ export default class SignInPage extends Block {
     };
     super(context, SignInTemplate);
   }
-
-  public render(): HTMLElement {
-    return this.element;
-  }
 }
