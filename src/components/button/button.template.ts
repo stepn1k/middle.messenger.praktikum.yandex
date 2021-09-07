@@ -1,5 +1,5 @@
 export default `
-<button class="button-component {{ type }} theme_{{color}}" data-id='{{ componentId }}'>
+<button class="button-component button-component_{{ viewType }} button-component_theme-{{color}}" data-id='{{ componentId }}'>
     <a class=button-component__link href="{{ link }}">{{ label }}</a>
 </button>
 `;

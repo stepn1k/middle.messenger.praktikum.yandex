@@ -6,6 +6,10 @@ export default function get(obj: Object, path: string): any {
   for (const key of keys) {
     const value = result[key];
 
+    if (value === '') {
+      return '';
+    }
+
     if (!value) {
       return undefined;
     }

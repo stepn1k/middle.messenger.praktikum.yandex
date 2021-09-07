@@ -43,7 +43,7 @@ export default class Templator {
           continue;
         }
         // nodes
-        if (data.eventBus) {
+        if (data?.eventBus) {
           const block = data.render();
           nodesToAttach.push(block);
           const componentId = block.dataset.id;
@@ -51,7 +51,7 @@ export default class Templator {
           continue;
         }
         // basic data
-        if (data) {
+        if (data || data === '') {
           template = template.replace(new RegExp(propertyKey[0], 'gi'), data.toString());
         }
       }

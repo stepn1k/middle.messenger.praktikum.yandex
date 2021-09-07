@@ -1,16 +1,15 @@
 import { ProfileEditTemplate, ProfileViewTemplate } from './profile.template';
 import Block from '../../../core/block';
-import LineFormField from '../../components/line-form-field';
 import Button from '../../components/button';
-
-export interface User {
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  username: string;
-  phone_number: string;
-}
+import { User } from '../../index';
+import {
+  EmailValidator,
+  LoginValidator,
+  NameValidator,
+  NotEmptyValidator,
+  PhoneValidator
+} from '../../utils/validators/validators';
+import FormField from '../../components/form-field';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -18,71 +17,147 @@ export enum ProfileModeEnum {
 }
 
 export interface ProfilePageProps {
-  emailInput: LineFormField;
-  loginInput: LineFormField;
-  firstNameInput: LineFormField;
-  secondNameInput: LineFormField;
-  usernameInput: LineFormField;
-  phoneInput: LineFormField;
+  user: User;
+  mode?: ProfileModeEnum;
+}
+
+export interface ProfilePageContext {
+  emailInput: FormField;
+  loginInput: FormField;
+  firstNameInput: FormField;
+  secondNameInput: FormField;
+  usernameInput: FormField;
+  phoneInput: FormField;
+  // view
   editButton?: Button;
   changePasswordButton?: Button;
   logoutButton?: Button;
+  // edit
   goBackButton?: Button,
   saveButton?: Button;
 }
 
 export default class ProfilePage extends Block {
-  constructor(user: User, mode = 'view') {
-    const context: ProfilePageProps = {
-      emailInput: new LineFormField({
+  private readonly editableForm: { [key: string]: FormField };
+  private readonly defaultForm: { [key: string]: string | number }
+
+  constructor({ user, mode }: ProfilePageProps) {
+    const context: ProfilePageContext = {
+      emailInput: new FormField({
         labelText: 'Email',
         value: user.email,
         id: 'email',
         type: 'email',
+        viewType: 'line',
         disabled: mode === ProfileModeEnum.VIEW,
+        validator: EmailValidator,
       }),
-      loginInput: new LineFormField({
-        labelText: 'Login', value: user.login, id: 'login', type: 'text', disabled: mode === ProfileModeEnum.VIEW,
+      loginInput: new FormField({
+        labelText: 'Login',
+        value: user.login,
+        id: 'login',
+        type: 'text',
+        viewType: 'line',
+        disabled: mode === ProfileModeEnum.VIEW,
+        validator: LoginValidator,
       }),
-      firstNameInput: new LineFormField({
+      firstNameInput: new FormField({
         labelText: 'First Name',
         value: user.first_name,
         id: 'first_name',
         type: 'text',
+        viewType: 'line',
         disabled: mode === ProfileModeEnum.VIEW,
+        validator: NameValidator,
       }),
-      secondNameInput: new LineFormField({
+      secondNameInput: new FormField({
         labelText: 'Second Name',
         value: user.second_name,
         id: 'second_name',
         type: 'text',
+        viewType: 'line',
         disabled: mode === ProfileModeEnum.VIEW,
+        validator: NameValidator,
       }),
-      usernameInput: new LineFormField({
+      usernameInput: new FormField({
         labelText: 'Username',
         value: user.username,
         id: 'display_name',
         type: 'text',
+        viewType: 'line',
         disabled: mode === ProfileModeEnum.VIEW,
+        validator: NotEmptyValidator
       }),
-      phoneInput: new LineFormField({
-        labelText: 'Phone', value: user.phone_number, id: 'phone', type: 'tel', disabled: mode === ProfileModeEnum.VIEW,
+      phoneInput: new FormField({
+        labelText: 'Phone',
+        value: user.phone_number,
+        id: 'phone',
+        type: 'tel',
+        viewType: 'line',
+        disabled: mode === ProfileModeEnum.VIEW,
+        validator: PhoneValidator,
       }),
     };
     // buttons
     if (mode === ProfileModeEnum.VIEW) {
-      context.editButton = new Button({ label: 'Edit', link: '/edit_profile', type: 'basic' });
-      context.changePasswordButton = new Button({ label: 'Change Password', link: '/change_password', type: 'basic' });
+      context.editButton = new Button({ label: 'Edit', link: '/edit_profile', viewType: 'basic' });
+      context.changePasswordButton = new Button({
+        label: 'Change Password',
+        link: '/change_password',
+        viewType: 'basic'
+      });
       context.logoutButton = new Button({
-        label: 'Logout', link: '/sign_in', type: 'basic', color: 'red',
+        label: 'Logout', link: '/sign_in', viewType: 'basic', color: 'red',
       });
     } else {
-      context.saveButton = new Button({ label: 'Save', link: '/profile', type: 'raised' });
-      context.goBackButton = new Button({ label: 'Go Back', link: '/profile', type: 'basic' });
+      context.saveButton = new Button({
+        label: 'Save',
+        link: '/profile',
+        viewType: 'raised',
+        events: { click: ($event) => this.saveForm($event) }
+      });
+      context.goBackButton = new Button({ label: 'Go Back', link: '/profile', viewType: 'basic' });
     }
     super(
       { ...context, header: user.first_name },
       mode === ProfileModeEnum.VIEW ? ProfileViewTemplate : ProfileEditTemplate,
     );
+    this.editableForm = {
+      email: context.emailInput,
+      login: context.loginInput,
+      first_name: context.firstNameInput,
+      second_name: context.secondNameInput,
+      username: context.usernameInput,
+      phone: context.phoneInput
+    }
+    this.defaultForm = this.getFormObject(this.editableForm);
   }
+
+  public saveForm($event: Event): void {
+    $event.preventDefault();
+    const isFormValid = Object.keys(this.editableForm)
+      .map((inputKey) => this.editableForm[inputKey].checkValidation())
+      .every((isValid) => isValid);
+
+    if (!isFormValid) {
+      return;
+    }
+
+    const currentForm = this.getFormObject(this.editableForm);
+
+    // if nothing to update
+    if (JSON.stringify(this.defaultForm) === JSON.stringify(currentForm)) {
+      return;
+    }
+
+    console.log(currentForm);
+  }
+
+
+  private getFormObject(form: Record<string, FormField>): Record<string, any> {
+    const formValue: any = {}
+    Object.keys(form).forEach(key => formValue[key] = form[key].getInputValue());
+    return formValue;
+  }
+
 }

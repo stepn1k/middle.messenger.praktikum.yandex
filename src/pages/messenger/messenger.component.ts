@@ -1,5 +1,4 @@
 import MessengerTemplate from './messenger.template';
-import Templator from '../../utils/templator/templator';
 
 export default class MessengerPage {
   private readonly template: string;
@@ -15,11 +14,11 @@ export default class MessengerPage {
     this.template = MessengerTemplate;
   }
 
-  public render(): string {
-    const templateWithContext = new Templator({
-      template: this.template,
-      context: { chats: this.chats },
-    });
-    return templateWithContext.compile();
-  }
+  // public render(): string {
+  //   const templateWithContext = new Templator({
+  //     template: this.template,
+  //     context: { chats: this.chats },
+  //   });
+  //   //return templateWithContext.compile();
+  // }
 }

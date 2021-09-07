@@ -5,8 +5,18 @@ import MessengerPage from './pages/messenger';
 import SignInPage from './pages/sign-in';
 import SignUpPage from './pages/sign-up';
 import ChangePasswordPage from './pages/change-password';
-import { ProfileModeEnum, User } from './pages/profile/profile.component';
+import { ProfileModeEnum } from './pages/profile/profile.component';
 
+export interface User {
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  username: string;
+  phone_number: string;
+}
+
+// temporary object
 const currentUser: User = {
   email: 'example@yandex.by',
   login: 'exampleLogin',
@@ -19,8 +29,8 @@ const currentUser: User = {
 const pages: { [key: string]: any } = {
   sign_in: () => new SignInPage(),
   sign_up: () => new SignUpPage(),
-  profile: () => new ProfilePage(currentUser),
-  edit_profile: () => new ProfilePage(currentUser, ProfileModeEnum.EDIT),
+  profile: () => new ProfilePage({ user: currentUser, mode: ProfileModeEnum.VIEW }),
+  edit_profile: () => new ProfilePage({ user: currentUser, mode: ProfileModeEnum.EDIT }),
   messenger: () => new MessengerPage(),
   change_password: () => new ChangePasswordPage(),
   error: () => new ErrorPage({ type: '500' }),

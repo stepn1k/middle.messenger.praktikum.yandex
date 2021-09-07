@@ -12,7 +12,7 @@
     padding: .75rem;
   }
 
-  &.basic {
+  &.button-component_basic {
     font-size: .6875rem;
 
     .button-component__link {
@@ -20,7 +20,7 @@
     }
   }
 
-  &.raised {
+  &.button-component_raised {
     font-size: .8125rem;
     background-color: $primary-one;
     border-radius: .5rem;
@@ -30,7 +30,7 @@
     }
   }
 
-  &.theme_red {
+  &.button-component_theme-red {
     .button-component__link {
       color: red;
     }
