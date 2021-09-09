@@ -6,15 +6,7 @@ import SignInPage from './pages/sign-in';
 import SignUpPage from './pages/sign-up';
 import ChangePasswordPage from './pages/change-password';
 import { ProfileModeEnum } from './pages/profile/profile.component';
-
-export interface User {
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  username: string;
-  phone_number: string;
-}
+import { User } from './models/user.interface';
 
 // temporary object
 const currentUser: User = {

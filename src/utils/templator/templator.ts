@@ -52,16 +52,16 @@ export default class Templator {
         }
         // nodes array
         if (Array.isArray(data)) {
-          data.forEach((node, index, array) => {
-            const block = node.render();
+          for (let i = 0; i < data.length; i++) {
+            const block = data[i].render();
             nodesToAttach.push(block);
             const componentId = block.dataset.id;
             let replacedValue = `<template data-id="${componentId}"></template>`;
-            if (index !== array.length - 1) {
+            if (i !== data.length - 1) {
               replacedValue += (`\n${propertyKey[0]}`);
             }
             template = template.replace(new RegExp(propertyKey[0]), replacedValue);
-          });
+          }
           continue;
         }
         // basic data

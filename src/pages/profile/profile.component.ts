@@ -1,7 +1,6 @@
 import { ProfileEditTemplate, ProfileViewTemplate } from './profile.template';
 import Block from '../../../core/block';
 import Button from '../../components/button';
-import { User } from '../../index';
 import {
   EmailValidator,
   LoginValidator,
@@ -10,6 +9,7 @@ import {
   PhoneValidator,
 } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
+import { User } from '../../models/user.interface';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -156,7 +156,9 @@ export default class ProfilePage extends Block {
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
     const formValue: any = {};
-    Object.keys(form).forEach((key) => formValue[key] = form[key].getInputValue());
+    Object.keys(form).forEach((key) => {
+      formValue[key] = form[key].getInputValue();
+    });
     return formValue;
   }
 }

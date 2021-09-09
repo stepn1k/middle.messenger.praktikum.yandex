@@ -1,3 +1,24 @@
+.form-field-container_type-basic {
+  margin-bottom: 1rem;
+
+  .form-field {
+    border-bottom: 1px solid $primary-two;
+
+    &__label {
+      font-size: .625rem;
+      color: $primary-two;
+    }
+
+    &__value {
+      width: 100%;
+      border: none;
+      padding: .5rem 0;
+      font-size: .8125rem;
+      font-weight: 500;
+    }
+  }
+}
+
 .form-field-container_type-line {
   .form-field {
     display: flex;
@@ -30,27 +51,6 @@
       &:focus {
         outline: none;
       }
-    }
-  }
-}
-
-.form-field-container_type-basic {
-  margin-bottom: 1rem;
-
-  .form-field {
-    border-bottom: 1px solid $primary-two;
-
-    &__label {
-      font-size: .625rem;
-      color: $primary-two;
-    }
-
-    &__value {
-      width: 100%;
-      border: none;
-      padding: .5rem 0;
-      font-size: .8125rem;
-      font-weight: 500;
     }
   }
 }

@@ -126,7 +126,9 @@ export default class SignUpPage extends Block {
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
     const formValue: any = {};
-    Object.keys(form).forEach((key) => formValue[key] = form[key].getInputValue());
+    Object.keys(form).forEach((key) => {
+      formValue[key] = form[key].getInputValue();
+    });
     return formValue;
   }
 }
