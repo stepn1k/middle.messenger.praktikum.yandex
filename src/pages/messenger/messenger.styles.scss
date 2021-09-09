@@ -5,91 +5,96 @@
   flex-direction: row;
 
   &-list {
-    background-color: #FBFBFB;
-    padding: .625rem;
-    flex-grow: 1;
-    border-right: 1px solid rgba($primary-two, .5);
+    width: 19.375rem;
+    background-color: $background-color;
+    border-right: 2px solid $divider-color;
 
     &-header {
+      padding: .625rem;
       display: flex;
       flex-direction: column;
 
-      &__profile {
+      &__profile-link {
+        font-weight: 500;
+        font-size: .75rem;
         color: $primary-two;
-        display: flex;
-        justify-content: flex-end;
+        align-self: flex-end;
+        margin: .625rem 0 1.25rem 0;
+        cursor: pointer;
+
+        a:visited {
+          color: $primary-two;
+        }
+
+        span {
+          font-size: .6875rem;
+        }
       }
 
-      &__search {
-        padding: .625rem 1rem;
-        border: none;
-        background-color: rgba($primary-two, .2);
+      &__quick-search {
+        font-size: .75rem;
         border-radius: .3125rem;
-        margin: 1rem 0;
+        padding: .625rem;
+        background-color: #EFEFEF;
+        border: none;
+        text-align: center;
+        width: 100%;
       }
     }
 
-    &-body {
-      height: calc(100% - 6.3125rem);
+    &-chats {
+      overflow-y: scroll;
+      height: calc(100% - 6rem);
 
-      &-chat {
-        padding: .625rem 0;
-        display: flex;
-        align-items: center;
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
 
-        &-avatar {
-          width: 3rem;
-          height: 3rem;
-          border-radius: 50%;
-          background-color: $primary-two;
-          margin-right: .625rem;
-        }
-
-        &-content__username {
-          font-weight: 600;
-        }
-
-        &-content__last-message {
-          color: $primary-two;
-        }
+      &::-webkit-scrollbar-thumb {
+        border: 2px solid rgba($primary-two, .4);
       }
     }
   }
 
-  &-chat {
+  &-active-chat {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: .625rem;
-    flex-grow: 3;
+    padding: .625rem 1rem;
 
     &-header {
       padding-bottom: .625rem;
+      border-bottom: 2px solid $divider-color;
+      display: flex;
+      align-items: center;
 
-      &__user {
+      &__username {
+        font-size: .8125rem;
         font-weight: 600;
+        margin-left: .5rem;
+      }
+
+      &__image {
+        border-radius: 50%;
+        width: 2.1875rem;
+        height: 2.1875rem;
       }
     }
 
-    &-body {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
     &-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-top: .625rem;
+      border-top: 2px solid $divider-color;
 
-      &__input {
-        width: 100%;
-        border-radius: 1.875rem;
-        padding: .625rem 1rem;
-        border: none;
-        background-color: rgba($primary-two, .2);
-
-        &:focus {
-          outline: none;
-        }
+      &__send {
+        background-color: $primary-one;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 0.3125rem;
+        margin-left: .625rem;
+        border-radius: 50%;
       }
     }
   }

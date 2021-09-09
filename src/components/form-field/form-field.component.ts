@@ -20,7 +20,7 @@ export default class FormField extends Block {
   constructor(props: FormFieldProps) {
     const defaultEvents = {
       focusout: () => this.checkValidation(),
-      focusin: () => this.onFocus()
+      focusin: () => this.onFocus(),
     };
 
     const context = {

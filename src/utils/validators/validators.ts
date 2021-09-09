@@ -7,7 +7,7 @@ export const EmailValidator = (value: string): null | { validatorMessage: string
 
 export const LoginValidator = (value: string): null | { validatorMessage: string } => {
   const regExp = /^[a-zA-z\d\-_]{3,20}$/;
-  const containsLetter = /[a-zA-Z]+/
+  const containsLetter = /[a-zA-Z]+/;
   const validatorMessage = 'Invalid login format.';
   const isValid = regExp.test(value) && containsLetter.test(value);
   return isValid ? null : { validatorMessage };
@@ -16,7 +16,7 @@ export const LoginValidator = (value: string): null | { validatorMessage: string
 export const NameValidator = (value: string): null | { validatorMessage: string } => {
   const regExp = /^[А-ЯA-Z][a-zа-я-]{1,30}$/;
   const validatorMessage = 'The name must begin with a capital letter. Only letters are allowed.';
-  const isValid = regExp.test(value)
+  const isValid = regExp.test(value);
   return isValid ? null : { validatorMessage };
 };
 

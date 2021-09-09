@@ -28,7 +28,7 @@ export default class ChangePasswordPage extends Block {
         type: 'password',
         viewType: 'line',
         placeholder: 'Old password...',
-        validator: PasswordValidator
+        validator: PasswordValidator,
       }),
       newPasswordInput: new FormField({
         labelText: 'New password',

@@ -83,6 +83,8 @@ export default abstract class Block {
   };
 
   private onComponentDidMount(): void {
+    this.componentDidMount();
+
     const templateWithContext = new Templator({
       template: this.template,
       context: { ...this.props, componentId: this.id },
@@ -91,6 +93,8 @@ export default abstract class Block {
     this.element = newElement as HTMLElement;
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
+
+  public componentDidMount() { }
 
   private onRender(): void {
     if (this.element) {

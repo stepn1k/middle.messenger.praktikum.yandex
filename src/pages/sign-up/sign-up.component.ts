@@ -7,7 +7,7 @@ import {
   LoginValidator,
   NameValidator,
   PasswordValidator,
-  PhoneValidator
+  PhoneValidator,
 } from '../../utils/validators/validators';
 
 export interface SignUpPageContext {
@@ -41,7 +41,7 @@ export default class SignUpPage extends Block {
         type: 'text',
         value: '',
         viewType: 'basic',
-        validator: LoginValidator
+        validator: LoginValidator,
       }),
       firstNameInput: new FormField({
         labelText: 'First Name',
@@ -49,7 +49,7 @@ export default class SignUpPage extends Block {
         type: 'text',
         value: '',
         viewType: 'basic',
-        validator: NameValidator
+        validator: NameValidator,
       }),
       secondNameInput: new FormField({
         labelText: 'Second Name',
@@ -57,7 +57,7 @@ export default class SignUpPage extends Block {
         type: 'text',
         value: '',
         viewType: 'basic',
-        validator: NameValidator
+        validator: NameValidator,
       }),
       phoneInput: new FormField({
         labelText: 'Phone',
@@ -65,7 +65,7 @@ export default class SignUpPage extends Block {
         type: 'tel',
         value: '',
         viewType: 'basic',
-        validator: PhoneValidator
+        validator: PhoneValidator,
       }),
       passwordInput: new FormField({
         labelText: 'Password',
@@ -73,7 +73,7 @@ export default class SignUpPage extends Block {
         type: 'password',
         value: '',
         viewType: 'basic',
-        validator: PasswordValidator
+        validator: PasswordValidator,
       }),
       confirmPasswordInput: new FormField({
         labelText: 'Confirm Password',
@@ -81,13 +81,13 @@ export default class SignUpPage extends Block {
         type: 'password',
         value: '',
         viewType: 'basic',
-        validator: PasswordValidator
+        validator: PasswordValidator,
       }),
       createButton: new Button({
         label: 'Create account',
         link: '/messenger',
         viewType: 'raised',
-        events: { click: ($event) => this.createAccount($event) }
+        events: { click: ($event) => this.createAccount($event) },
       }),
       backButton: new Button({ label: 'Back to login', link: '/sign_in', viewType: 'basic' }),
     };
@@ -100,7 +100,7 @@ export default class SignUpPage extends Block {
       phone: context.phoneInput,
       password: context.passwordInput,
       confirmPassword: context.confirmPasswordInput,
-    }
+    };
   }
 
   public createAccount($event: Event): void {
@@ -125,8 +125,8 @@ export default class SignUpPage extends Block {
   }
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
-    const formValue: any = {}
-    Object.keys(form).forEach(key => formValue[key] = form[key].getInputValue());
+    const formValue: any = {};
+    Object.keys(form).forEach((key) => formValue[key] = form[key].getInputValue());
     return formValue;
   }
 }

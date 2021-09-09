@@ -7,7 +7,7 @@ import {
   LoginValidator,
   NameValidator,
   NotEmptyValidator,
-  PhoneValidator
+  PhoneValidator,
 } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
 
@@ -39,7 +39,8 @@ export interface ProfilePageContext {
 
 export default class ProfilePage extends Block {
   private readonly editableForm: { [key: string]: FormField };
-  private readonly defaultForm: { [key: string]: string | number }
+
+  private readonly defaultForm: { [key: string]: string | number };
 
   constructor({ user, mode }: ProfilePageProps) {
     const context: ProfilePageContext = {
@@ -86,7 +87,7 @@ export default class ProfilePage extends Block {
         type: 'text',
         viewType: 'line',
         disabled: mode === ProfileModeEnum.VIEW,
-        validator: NotEmptyValidator
+        validator: NotEmptyValidator,
       }),
       phoneInput: new FormField({
         labelText: 'Phone',
@@ -104,7 +105,7 @@ export default class ProfilePage extends Block {
       context.changePasswordButton = new Button({
         label: 'Change Password',
         link: '/change_password',
-        viewType: 'basic'
+        viewType: 'basic',
       });
       context.logoutButton = new Button({
         label: 'Logout', link: '/sign_in', viewType: 'basic', color: 'red',
@@ -114,7 +115,7 @@ export default class ProfilePage extends Block {
         label: 'Save',
         link: '/profile',
         viewType: 'raised',
-        events: { click: ($event) => this.saveForm($event) }
+        events: { click: ($event) => this.saveForm($event) },
       });
       context.goBackButton = new Button({ label: 'Go Back', link: '/profile', viewType: 'basic' });
     }
@@ -128,8 +129,8 @@ export default class ProfilePage extends Block {
       first_name: context.firstNameInput,
       second_name: context.secondNameInput,
       username: context.usernameInput,
-      phone: context.phoneInput
-    }
+      phone: context.phoneInput,
+    };
     this.defaultForm = this.getFormObject(this.editableForm);
   }
 
@@ -153,11 +154,9 @@ export default class ProfilePage extends Block {
     console.log(currentForm);
   }
 
-
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
-    const formValue: any = {}
-    Object.keys(form).forEach(key => formValue[key] = form[key].getInputValue());
+    const formValue: any = {};
+    Object.keys(form).forEach((key) => formValue[key] = form[key].getInputValue());
     return formValue;
   }
-
 }

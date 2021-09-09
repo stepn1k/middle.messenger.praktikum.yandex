@@ -1,0 +1,24 @@
+.message {
+  border-radius: .375rem;
+  font-size: .75rem;
+  font-weight: 500;
+  padding: .6875rem;
+  width: fit-content;
+
+  &_own {
+    background-color: $message-internal-color;
+    margin-left: auto;
+  }
+
+  &_external {
+    background-color: $message-external-color;
+  }
+
+  &__time {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: .3rem;
+    font-size: .5625rem;
+    color: $primary-two;
+  }
+}

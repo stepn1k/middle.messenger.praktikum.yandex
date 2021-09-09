@@ -27,7 +27,7 @@ export default class Templator {
     this.node = document.createElement('div');
     const regExp = this.PROPERTY_REGEXP;
     let template = templateToProcess;
-    let propertyKey;
+    let propertyKey: any;
     const nodesToAttach = [];
 
     // attach data
@@ -48,6 +48,20 @@ export default class Templator {
           nodesToAttach.push(block);
           const componentId = block.dataset.id;
           template = template.replace(new RegExp(propertyKey[0], 'gi'), `<template data-id="${componentId}"></template>`);
+          continue;
+        }
+        // nodes array
+        if (Array.isArray(data)) {
+          data.forEach((node, index, array) => {
+            const block = node.render();
+            nodesToAttach.push(block);
+            const componentId = block.dataset.id;
+            let replacedValue = `<template data-id="${componentId}"></template>`;
+            if (index !== array.length - 1) {
+              replacedValue += (`\n${propertyKey[0]}`);
+            }
+            template = template.replace(new RegExp(propertyKey[0]), replacedValue);
+          });
           continue;
         }
         // basic data

@@ -13,6 +13,7 @@ export interface SignInPageContext {
 
 export default class SignInPage extends Block {
   private loginInput: FormField;
+
   private passwordInput: FormField;
 
   constructor() {
@@ -23,7 +24,7 @@ export default class SignInPage extends Block {
         type: 'text',
         value: '',
         viewType: 'basic',
-        validator: LoginValidator
+        validator: LoginValidator,
       }),
       passwordInput: new FormField({
         labelText: 'Password',
@@ -31,13 +32,13 @@ export default class SignInPage extends Block {
         type: 'password',
         value: '',
         viewType: 'basic',
-        validator: PasswordValidator
+        validator: PasswordValidator,
       }),
       loginButton: new Button({
         label: 'Sign in',
         link: '/messenger',
         viewType: 'raised',
-        events: { click: ($event) => this.signIn($event) }
+        events: { click: ($event) => this.signIn($event) },
       }),
       createAccountButton: new Button({ label: 'Create account', link: '/sign_up', viewType: 'basic' }),
     };
@@ -58,7 +59,7 @@ export default class SignInPage extends Block {
 
     console.log({
       login: this.loginInput.getInputValue(),
-      password: this.passwordInput.getInputValue()
+      password: this.passwordInput.getInputValue(),
     });
   }
 }
