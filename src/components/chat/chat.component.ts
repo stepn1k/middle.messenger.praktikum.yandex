@@ -11,9 +11,17 @@ export interface ChatProps {
 
 export default class Chat extends Block {
   constructor(props: ChatProps) {
+    const getTimeForChatFromDateTime = (time: number | Date): string =>
+      new Date(time).toLocaleString('en-US', {
+        hour12: false,
+        hour: 'numeric',
+        minute: 'numeric',
+        day: 'numeric',
+        weekday: 'short'
+      }); // example: 11 Th, 13:12
     const context = {
       ...props,
-      time: new Date(props.time).toISOString().substr(11, 8),
+      time: getTimeForChatFromDateTime(props.time)
     };
     super(context, ChatTemplate);
   }

@@ -11,7 +11,7 @@ export interface ButtonProps {
 
 export default class Button extends Block {
   constructor(props: ButtonProps) {
-    const context = { ...props, color: props?.color ? props.color : 'blue' };
+    const context = { ...props, color: props?.color || 'blue' };
     super(context, ButtonTemplate);
   }
 }

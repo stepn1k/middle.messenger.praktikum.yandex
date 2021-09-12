@@ -68,14 +68,13 @@ export default class ChangePasswordPage extends Block {
 
   public setErrorMessage(message: string): void {
     const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.style.display = 'block';
+    errorBlock.classList.add('visible');
     errorBlock.textContent = message;
   }
 
   public clearErrorMessage(): void {
     const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.style.display = '';
-    errorBlock.style.display = 'none';
+    errorBlock.classList.remove('visible');
   }
 
   public saveNewPassword($event: Event): void {

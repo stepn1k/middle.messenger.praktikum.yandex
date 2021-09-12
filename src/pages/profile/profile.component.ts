@@ -43,6 +43,7 @@ export default class ProfilePage extends Block {
   private readonly defaultForm: { [key: string]: string | number };
 
   constructor({ user, mode }: ProfilePageProps) {
+    const isViewMode = mode === ProfileModeEnum.VIEW;
     const context: ProfilePageContext = {
       emailInput: new FormField({
         labelText: 'Email',
@@ -50,7 +51,7 @@ export default class ProfilePage extends Block {
         id: 'email',
         type: 'email',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: EmailValidator,
       }),
       loginInput: new FormField({
@@ -59,7 +60,7 @@ export default class ProfilePage extends Block {
         id: 'login',
         type: 'text',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: LoginValidator,
       }),
       firstNameInput: new FormField({
@@ -68,7 +69,7 @@ export default class ProfilePage extends Block {
         id: 'first_name',
         type: 'text',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: NameValidator,
       }),
       secondNameInput: new FormField({
@@ -77,7 +78,7 @@ export default class ProfilePage extends Block {
         id: 'second_name',
         type: 'text',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: NameValidator,
       }),
       usernameInput: new FormField({
@@ -86,7 +87,7 @@ export default class ProfilePage extends Block {
         id: 'display_name',
         type: 'text',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: NotEmptyValidator,
       }),
       phoneInput: new FormField({
@@ -95,7 +96,7 @@ export default class ProfilePage extends Block {
         id: 'phone',
         type: 'tel',
         viewType: 'line',
-        disabled: mode === ProfileModeEnum.VIEW,
+        disabled: isViewMode,
         validator: PhoneValidator,
       }),
     };
@@ -121,7 +122,7 @@ export default class ProfilePage extends Block {
     }
     super(
       { ...context, header: user.first_name },
-      mode === ProfileModeEnum.VIEW ? ProfileViewTemplate : ProfileEditTemplate,
+      isViewMode? ProfileViewTemplate : ProfileEditTemplate,
     );
     this.editableForm = {
       email: context.emailInput,

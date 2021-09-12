@@ -50,7 +50,7 @@ export default abstract class Block {
   }
 
   private addEvents(element: HTMLElement): void {
-    const { events = {} } = this.props;
+    const { events = {} } = this.props || {};
     Object.keys(events).forEach((eventName) => {
       if (element) {
         element.addEventListener(eventName, events[eventName]);
