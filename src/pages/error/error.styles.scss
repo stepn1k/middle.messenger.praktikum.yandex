@@ -1,0 +1,36 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+
+  &__image {
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &__button {
+    color: $primary-one;
+    background: none;
+    font-size: .6875rem;
+    cursor: pointer;
+    border: none;
+    line-height: 1;
+    font-weight: 500;
+  }
+}

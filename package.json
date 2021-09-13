@@ -10,6 +10,7 @@
     "start": "parcel static/index.html -p 3000",
     "build": "parcel build static/index.html",
     "server": "node server/server.js",
+    "precommit": "eslint . --fix && stylelint \"**.scss\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,8 +24,17 @@
   },
   "homepage": "https://github.com/stepn1k/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
     "parcel-bundler": "^1.12.5",
-    "sass": "^1.38.0"
+    "sass": "^1.38.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.3.5"
   }
 }

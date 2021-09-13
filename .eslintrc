@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-cond-assign": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+    "class-methods-use-this": "off",
+    "no-console": "off" // TODO: remove after 2 sprint
+  }
+}

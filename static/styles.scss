@@ -2,16 +2,19 @@
 @import "./variables";
 
 // components
-@import "../src/components/button/button";
-@import "../src/components/line-form-field/line-form-field";
-@import "../src/components/divider/divider";
-@import "../src/components/form-field/form-field";
+@import "../src/components/button/button.styles";
+@import "../src/components/form-field/form-field.styles";
+@import "../src/components/message/message.styles";
+@import "../src/components/chat/chat.styles";
+@import "../src/components/input/input.styles";
+@import "../src/components/message-list/message-list.styles";
 
 // pages
-@import "../src/pages/error/error";
-@import "../src/pages/login/login";
-@import "../src/pages/profile/profile";
-@import "../src/pages/messenger/messenger";
+@import "../src/pages/error/error.styles";
+@import "../src/pages/sign-in/sign-in.styles";
+@import "../src/pages/profile/profile.styles";
+@import "../src/pages/messenger/messenger.styles";
+@import "../src/pages/change-password/change-password.styles";
 
 html,
 body,
@@ -22,3 +25,8 @@ body,
   font-family: 'Inter', sans-serif;
 }
 
+.divider {
+  background-color: rgba($primary-two, .5);
+  height: .0625rem;
+  width: 100%;
+}
