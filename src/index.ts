@@ -9,6 +9,7 @@ import { User } from './models/user.interface';
 import { ProfileModeEnum } from './pages/profile/profile.component';
 import ErrorPage from './pages/error';
 import MessengerPage from './pages/messenger';
+import ChangePasswordPage from './pages/change-password';
 
 // temporary object
 const currentUser: User = {
@@ -27,7 +28,7 @@ router.use('/', new SignInPage())
   .use('/sign-up', new SignUpPage())
   .use('/profile', new ProfilePage({ user: currentUser, mode: ProfileModeEnum.VIEW }))
   .use('/settings', new ProfilePage({ user: currentUser, mode: ProfileModeEnum.EDIT }))
-  .use('/change-password', new ErrorPage({ type: '404' }))
+  .use('/change-password', new ChangePasswordPage())
   .use('/error', new ErrorPage({ type: '500' }))
   .useNotFound('/not-found', new ErrorPage({ type: '404' }))
   .start();

@@ -24,6 +24,10 @@ export const ProfileViewTemplate = `
             {{ logoutButton }}
         </div>
     </form>
+
+<!-- ASIDE  -->
+{{ backAside }}
+
 </section>`;
 
 // profile view
@@ -49,4 +53,7 @@ export const ProfileEditTemplate = `
             {{ goBackButton }}
         </div>
     </form>
+
+<!-- ASIDE  -->
+{{ backAside }}
 </section>`;

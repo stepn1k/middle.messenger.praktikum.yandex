@@ -11,6 +11,7 @@ import {
 import FormField from '../../components/form-field';
 import { User } from '../../models/user.interface';
 import { router } from '../../index';
+import BackAside from '../../components/back-aside';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -23,6 +24,9 @@ export interface ProfilePageProps {
 }
 
 export interface ProfilePageContext {
+  // aside
+  backAside: BackAside;
+  // form
   emailInput: FormField;
   loginInput: FormField;
   firstNameInput: FormField;
@@ -46,6 +50,7 @@ export default class ProfilePage extends Block {
   constructor({ user, mode }: ProfilePageProps) {
     const isViewMode = mode === ProfileModeEnum.VIEW;
     const context: ProfilePageContext = {
+      backAside: new BackAside(),
       emailInput: new FormField({
         labelText: 'Email',
         value: user.email,

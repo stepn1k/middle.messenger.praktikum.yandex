@@ -3,8 +3,13 @@ import Block from '../../../core/block';
 import Button from '../../components/button';
 import { PasswordValidator } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
+import { router } from '../../index';
+import BackAside from '../../components/back-aside';
 
 export interface ChangePasswordPageContext {
+  // aside
+  backAside: BackAside
+
   oldPasswordInput: FormField;
   newPasswordInput: FormField;
   confirmPasswordInput: FormField;
@@ -21,6 +26,7 @@ export default class ChangePasswordPage extends Block {
 
   constructor() {
     const context: ChangePasswordPageContext = {
+      backAside: new BackAside(),
       oldPasswordInput: new FormField({
         labelText: 'Old password',
         value: '',
@@ -50,13 +56,12 @@ export default class ChangePasswordPage extends Block {
       }),
       saveButton: new Button({
         label: 'Save',
-        link: '/profile',
         viewType: 'raised',
         events: { click: ($event) => this.saveNewPassword($event) },
       }),
       goBackButton: new Button({
         label: 'Go Back',
-        link: '/profile',
+        events: { click: () => router.go('/profile') },
         viewType: 'basic',
       }),
     };
@@ -101,5 +106,7 @@ export default class ChangePasswordPage extends Block {
       newValue: this.newPasswordInput.getInputValue(),
       oldValue: this.oldPasswordInput.getInputValue(),
     });
+
+    router.go('/profile');
   }
 }

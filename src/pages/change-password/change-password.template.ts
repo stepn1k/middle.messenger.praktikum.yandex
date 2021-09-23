@@ -17,5 +17,8 @@ export default `
       </div>
     </form>
   </section>
+
+<!--  ASIDE  -->
+{{ backAside }}
 </div>
 `;
