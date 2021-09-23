@@ -9,6 +9,7 @@ import {
   PasswordValidator,
   PhoneValidator,
 } from '../../utils/validators/validators';
+import { router } from '../../index';
 
 export interface SignUpPageContext {
   emailInput: FormField;
@@ -85,11 +86,14 @@ export default class SignUpPage extends Block {
       }),
       createButton: new Button({
         label: 'Create account',
-        link: '/messenger',
         viewType: 'raised',
         events: { click: ($event) => this.createAccount($event) },
       }),
-      backButton: new Button({ label: 'Back to login', link: '/sign_in', viewType: 'basic' }),
+      backButton: new Button({
+        label: 'Back to login',
+        viewType: 'basic',
+        events: { click: () => router.go('/') },
+      }),
     };
     super(context, SignUpTemplate);
     this.signUpForm = {
@@ -122,6 +126,7 @@ export default class SignUpPage extends Block {
     }
 
     console.log(formValue);
+    router.go('/');
   }
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {

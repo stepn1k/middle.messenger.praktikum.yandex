@@ -3,8 +3,8 @@ export default `
     <!-- List -->
     <section class="messenger-list">
         <header class="messenger-list-header">
-           <div class="messenger-list-header__profile-link">
-             <a href="/profile">Profile</a> <span>&#10148;</span>
+           <div class="messenger-list-header__profile-link" onclick="{{ goToProfile }}">
+             <a>Profile</a> <span>&#10148;</span>
            </div>
            <input class="messenger-list-header__quick-search" placeholder="Quick search...">
         </header>

@@ -4,7 +4,6 @@ import Block from '../../../core/block';
 export interface ButtonProps {
   label: string;
   viewType: 'basic' | 'raised';
-  link: string;
   color?: 'red' | 'blue';
   events?: Record<string, (event: Event) => void>;
 }

@@ -5,6 +5,7 @@ import Chat from '../../components/chat';
 import Input from '../../components/input';
 import MessageList from '../../components/message-list';
 import { activateChat, chatList } from './dummy-data';
+import { router } from '../../index';
 
 export default class MessengerPage extends Block {
   private readonly context: any;
@@ -34,6 +35,7 @@ export default class MessengerPage extends Block {
       chats,
       messageInput,
       activeChatUser: activateChat.user,
+      goToProfile: () => this.goToProfile(),
       onSendMessage: () => this.onSendMessage(),
     }, MessengerTemplate);
     this.context = {
@@ -41,8 +43,11 @@ export default class MessengerPage extends Block {
       chats,
       messageInput,
       activeChatUser: activateChat.user,
-      onSendMessage: () => this.onSendMessage(),
     };
+  }
+
+  public goToProfile() {
+    router.go('/profile');
   }
 
   public selectChat($event: Event): void {

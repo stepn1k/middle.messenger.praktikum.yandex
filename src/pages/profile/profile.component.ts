@@ -10,6 +10,7 @@ import {
 } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
 import { User } from '../../models/user.interface';
+import { router } from '../../index';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -102,27 +103,37 @@ export default class ProfilePage extends Block {
     };
     // buttons
     if (mode === ProfileModeEnum.VIEW) {
-      context.editButton = new Button({ label: 'Edit', link: '/edit_profile', viewType: 'basic' });
+      context.editButton = new Button({
+        label: 'Edit',
+        viewType: 'basic',
+        events: { click: () => router.go('/settings') },
+      });
       context.changePasswordButton = new Button({
         label: 'Change Password',
-        link: '/change_password',
         viewType: 'basic',
+        events: { click: () => router.go('/change-password') },
       });
       context.logoutButton = new Button({
-        label: 'Logout', link: '/sign_in', viewType: 'basic', color: 'red',
+        label: 'Logout',
+        viewType: 'basic',
+        color: 'red',
+        events: { click: () => router.go('/') },
       });
     } else {
       context.saveButton = new Button({
         label: 'Save',
-        link: '/profile',
         viewType: 'raised',
         events: { click: ($event) => this.saveForm($event) },
       });
-      context.goBackButton = new Button({ label: 'Go Back', link: '/profile', viewType: 'basic' });
+      context.goBackButton = new Button({
+        label: 'Go Back',
+        viewType: 'basic',
+        events: { click: () => router.go('/profile') },
+      });
     }
     super(
       { ...context, header: user.first_name },
-      isViewMode? ProfileViewTemplate : ProfileEditTemplate,
+      isViewMode ? ProfileViewTemplate : ProfileEditTemplate,
     );
     this.editableForm = {
       email: context.emailInput,
@@ -153,6 +164,7 @@ export default class ProfilePage extends Block {
     }
 
     console.log(currentForm);
+    router.go('/profile');
   }
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {

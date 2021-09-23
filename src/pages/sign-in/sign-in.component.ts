@@ -3,6 +3,7 @@ import FormField from '../../components/form-field/form-field.component';
 import Button from '../../components/button/button.component';
 import Block from '../../../core/block';
 import { LoginValidator, PasswordValidator } from '../../utils/validators/validators';
+import { router } from '../../index';
 
 export interface SignInPageContext {
   loginInput: FormField;
@@ -36,11 +37,14 @@ export default class SignInPage extends Block {
       }),
       loginButton: new Button({
         label: 'Sign in',
-        link: '/messenger',
         viewType: 'raised',
         events: { click: ($event) => this.signIn($event) },
       }),
-      createAccountButton: new Button({ label: 'Create account', link: '/sign_up', viewType: 'basic' }),
+      createAccountButton: new Button({
+        label: 'Create account',
+        viewType: 'basic',
+        events: { click: () => router.go('/sign-up') },
+      }),
     };
     super(context, SignInTemplate);
     this.loginInput = context.loginInput;
@@ -61,5 +65,7 @@ export default class SignInPage extends Block {
       login: this.loginInput.getInputValue(),
       password: this.passwordInput.getInputValue(),
     });
+
+    router.go('/messenger');
   }
 }
