@@ -5,6 +5,8 @@ import { PasswordValidator } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
 import { router } from '../../index';
 import BackAside from '../../components/back-aside';
+import profileController from '../../controllers/profile.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export interface ChangePasswordPageContext {
   // aside
@@ -71,18 +73,27 @@ export default class ChangePasswordPage extends Block {
     this.confirmPasswordInput = context.confirmPasswordInput;
   }
 
-  public setErrorMessage(message: string): void {
-    const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.classList.add('visible');
-    errorBlock.textContent = message;
+  private showInfoMessage(message: string, isSuccess = false): void {
+    const messageBlock = this.element.querySelector('.profile-form-table__info-message');
+    if (messageBlock) {
+      messageBlock.classList.add('visible');
+      messageBlock.textContent = message;
+    }
+
+    if (isSuccess) {
+      messageBlock.classList.add('success');
+    }
   }
 
-  public clearErrorMessage(): void {
-    const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.classList.remove('visible');
+  private clearInfoMessage(): void {
+    const messageBlock = this.element.querySelector('.profile-form-table__info-message');
+    if (messageBlock) {
+      messageBlock.textContent = '';
+      messageBlock.classList.remove('visible', 'success');
+    }
   }
 
-  public saveNewPassword($event: Event): void {
+  private saveNewPassword($event: Event): void {
     $event.preventDefault();
     const isFormValid = [this.oldPasswordInput, this.newPasswordInput, this.confirmPasswordInput]
       .map((input) => input.checkValidation())
@@ -96,17 +107,22 @@ export default class ChangePasswordPage extends Block {
     const confirmValue = this.confirmPasswordInput.getInputValue();
 
     if (newValue !== confirmValue) {
-      this.setErrorMessage('Password don\'t match.');
+      this.showInfoMessage('Password don\'t match.');
       return;
     }
 
-    this.clearErrorMessage();
+    this.clearInfoMessage();
 
-    console.log({
-      newValue: this.newPasswordInput.getInputValue(),
-      oldValue: this.oldPasswordInput.getInputValue(),
-    });
-
-    router.go('/profile');
+    profileController.changePassword({
+      newPassword: this.newPasswordInput.getInputValue(),
+      oldPassword: this.oldPasswordInput.getInputValue(),
+    }).then(() => {
+      this.showInfoMessage('The password change was successful.', true);
+      setTimeout(() => {
+        this.clearInfoMessage();
+        router.go(RouterPaths.PROFILE);
+      }, 1500);
+    })
+      .catch((err) => this.showInfoMessage(err));
   }
 }

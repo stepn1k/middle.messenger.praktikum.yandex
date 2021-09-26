@@ -9,7 +9,7 @@ export default `
         {{ newPasswordInput }}
         {{ confirmPasswordInput }}
       </div>
-      <div class="profile-form-table__error" id="change-password-form-error"></div>
+      <div class="profile-form-table__info-message"></div>
       <!--  Buttons   -->
       <div class="profile-form-table__buttons">
         {{ saveButton }}

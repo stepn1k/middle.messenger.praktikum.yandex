@@ -9,11 +9,11 @@ import {
   PhoneValidator,
 } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
-import { User } from '../../models/user.interface';
 import { router } from '../../index';
 import BackAside from '../../components/back-aside';
 import authController from '../../controllers/auth.controller';
 import { RouterPaths } from '../../utils/router/router-paths.enum';
+import { User } from '../../store/store.models';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
