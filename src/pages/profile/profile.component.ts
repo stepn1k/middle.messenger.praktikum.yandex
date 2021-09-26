@@ -12,6 +12,8 @@ import FormField from '../../components/form-field';
 import { User } from '../../models/user.interface';
 import { router } from '../../index';
 import BackAside from '../../components/back-aside';
+import authController from '../../controllers/auth.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -122,7 +124,7 @@ export default class ProfilePage extends Block {
         label: 'Logout',
         viewType: 'basic',
         color: 'red',
-        events: { click: () => router.go('/') },
+        events: { click: () => this.logout() },
       });
     } else {
       context.saveButton = new Button({
@@ -149,6 +151,10 @@ export default class ProfilePage extends Block {
       phone: context.phoneInput,
     };
     this.defaultForm = this.getFormObject(this.editableForm);
+  }
+
+  public logout(): void {
+    authController.logout().then(() => router.go(RouterPaths.SIGN_IN));
   }
 
   public saveForm($event: Event): void {

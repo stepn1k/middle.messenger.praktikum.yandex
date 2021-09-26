@@ -10,6 +10,7 @@ export type HttpRequestOptions = {
   data?: any;
   headers?: Record<string, string>;
   timeout?: number;
+  withCredentials?: boolean;
 };
 
 function queryStringify(data: Record<string, any>) {
@@ -18,20 +19,27 @@ function queryStringify(data: Record<string, any>) {
 }
 
 export default class HttpClient {
-  public get(url: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: HttpMethodsEnum.GET }, options.timeout);
+  constructor(public url: string) {
   }
 
-  public post(url: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: HttpMethodsEnum.POST }, options.timeout);
+  public get(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
+    return this.request(this.url + path,
+      { ...options, method: HttpMethodsEnum.GET }, options.timeout);
   }
 
-  public put(url: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: HttpMethodsEnum.PUT }, options.timeout);
+  public post(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
+    return this.request(this.url + path,
+      { ...options, method: HttpMethodsEnum.POST }, options.timeout);
   }
 
-  public delete(url: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: HttpMethodsEnum.DELETE }, options.timeout);
+  public put(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
+    return this.request(this.url + path,
+      { ...options, method: HttpMethodsEnum.PUT }, options.timeout);
+  }
+
+  public delete(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
+    return this.request(this.url + path,
+      { ...options, method: HttpMethodsEnum.DELETE }, options.timeout);
   }
 
   request = (
@@ -39,12 +47,16 @@ export default class HttpClient {
     options: HttpRequestOptions = { method: HttpMethodsEnum.GET },
     timeout: number = 10_000,
   ): Promise<XMLHttpRequest> => {
-    const { headers = {}, method, data } = options;
+    const {
+      headers = {}, method, data, withCredentials,
+    } = options;
 
     return new Promise((resolve, reject) => {
       const xhr: XMLHttpRequest = new XMLHttpRequest();
       // timeout
       xhr.timeout = timeout;
+      xhr.withCredentials = !!withCredentials;
+
       xhr.open(method,
         (method === HttpMethodsEnum.GET) && data
           ? `${url}${queryStringify(data)}`
@@ -62,7 +74,7 @@ export default class HttpClient {
       if (method === HttpMethodsEnum.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   };

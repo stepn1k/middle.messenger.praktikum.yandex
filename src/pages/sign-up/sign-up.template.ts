@@ -11,7 +11,8 @@ export default `
           {{ passwordInput }}
           {{ confirmPasswordInput }}
         </div>
-         <div class="sign-in-form-buttons">
+        <div class="sign-in-form__error"></div>
+        <div class="sign-in-form-buttons">
           {{ createButton }}
           {{ backButton }}
         </div>

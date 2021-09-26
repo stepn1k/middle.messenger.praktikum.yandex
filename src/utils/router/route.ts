@@ -29,4 +29,8 @@ export default class Route {
     routerOutlet.innerHTML = '';
     routerOutlet.appendChild(this.block.render());
   }
+
+  public getPathName(): string {
+    return this.pathname;
+  }
 }

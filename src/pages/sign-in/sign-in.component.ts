@@ -4,6 +4,8 @@ import Button from '../../components/button/button.component';
 import Block from '../../../core/block';
 import { LoginValidator, PasswordValidator } from '../../utils/validators/validators';
 import { router } from '../../index';
+import AuthController from '../../controllers/auth.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export interface SignInPageContext {
   loginInput: FormField;
@@ -43,7 +45,7 @@ export default class SignInPage extends Block {
       createAccountButton: new Button({
         label: 'Create account',
         viewType: 'basic',
-        events: { click: () => router.go('/sign-up') },
+        events: { click: () => this.goToCreateAccount() },
       }),
     };
     super(context, SignInTemplate);
@@ -52,6 +54,8 @@ export default class SignInPage extends Block {
   }
 
   public signIn($event: Event): void {
+    this.hideErrorMessage(); // if exist
+
     $event.preventDefault();
     const isFormValid = [this.loginInput, this.passwordInput]
       .map((input) => input.checkValidation())
@@ -61,11 +65,31 @@ export default class SignInPage extends Block {
       return;
     }
 
-    console.log({
+    AuthController.signIn({
       login: this.loginInput.getInputValue(),
       password: this.passwordInput.getInputValue(),
-    });
+    }).then(() => router.go(RouterPaths.MESSENGER))
+      .catch((err) => this.showErrorMessage(err));
+  }
 
-    router.go('/messenger');
+  public goToCreateAccount() {
+    router.go(RouterPaths.SIGN_UP);
+    this.hideErrorMessage();
+  }
+
+  private showErrorMessage(message: string): void {
+    const errorBlock = this.element.querySelector('.sign-in-form__error');
+    if (errorBlock) {
+      errorBlock.classList.add('show');
+      errorBlock.textContent = message;
+    }
+  }
+
+  private hideErrorMessage(): void {
+    const errorBlock = this.element.querySelector('.sign-in-form__error');
+    if (errorBlock) {
+      errorBlock.classList.remove('show');
+      errorBlock.textContent = '';
+    }
   }
 }

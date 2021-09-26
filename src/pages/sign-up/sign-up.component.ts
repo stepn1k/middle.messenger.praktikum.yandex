@@ -10,6 +10,8 @@ import {
   PhoneValidator,
 } from '../../utils/validators/validators';
 import { router } from '../../index';
+import authController from '../../controllers/auth.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export interface SignUpPageContext {
   emailInput: FormField;
@@ -92,7 +94,7 @@ export default class SignUpPage extends Block {
       backButton: new Button({
         label: 'Back to login',
         viewType: 'basic',
-        events: { click: () => router.go('/') },
+        events: { click: () => this.goToSignIn() },
       }),
     };
     super(context, SignUpTemplate);
@@ -107,7 +109,14 @@ export default class SignUpPage extends Block {
     };
   }
 
+  private goToSignIn() {
+    this.hideErrorMessage();
+    router.go(RouterPaths.SIGN_IN);
+  }
+
   public createAccount($event: Event): void {
+    this.hideErrorMessage(); // if exist
+
     $event.preventDefault();
     const isFormValid = Object.keys(this.signUpForm)
       .map((inputKey) => this.signUpForm[inputKey].checkValidation())
@@ -125,8 +134,16 @@ export default class SignUpPage extends Block {
       return;
     }
 
-    console.log(formValue);
-    router.go('/');
+    authController.signUp({
+      first_name: formValue.first_name,
+      second_name: formValue.second_name,
+      login: formValue.login,
+      email: formValue.email,
+      phone: formValue.phone,
+      password: formValue.password,
+    })
+      .then(() => router.go(RouterPaths.MESSENGER))
+      .catch((err) => this.showErrorMessage(err));
   }
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
@@ -135,5 +152,21 @@ export default class SignUpPage extends Block {
       formValue[key] = form[key].getInputValue();
     });
     return formValue;
+  }
+
+  private showErrorMessage(message: string): void {
+    const errorBlock = this.element.querySelector('.sign-in-form__error');
+    if (errorBlock) {
+      errorBlock.classList.add('show');
+      errorBlock.textContent = message;
+    }
+  }
+
+  private hideErrorMessage(): void {
+    const errorBlock = this.element.querySelector('.sign-in-form__error');
+    if (errorBlock) {
+      errorBlock.classList.remove('show');
+      errorBlock.textContent = '';
+    }
   }
 }

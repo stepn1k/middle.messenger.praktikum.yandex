@@ -12,6 +12,7 @@
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
     "import/no-cycle": "off",
+    "import/prefer-default-export": "off",
     "no-console": "off" // TODO: remove after 2 sprint
   }
 }
