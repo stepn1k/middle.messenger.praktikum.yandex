@@ -50,12 +50,25 @@
     }
   }
 
+  &-form__info-block {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: $warning-color;
+    font-size: .75rem;
+    margin-top: 2rem;
+
+    &.visible {
+      display: flex;
+    }
+  }
+
   &.profile_edit {
     .profile-form-buttons {
       display: flex;
       justify-content: center;
       width: 50%;
-      margin: 4rem auto;
+      margin: 2rem auto;
 
       @media (max-width: 576px) {
         width: 100%;

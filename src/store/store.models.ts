@@ -1,8 +1,4 @@
 export interface State {
-  authState: AuthState;
-}
-
-export interface AuthState {
   user: User;
 }
 

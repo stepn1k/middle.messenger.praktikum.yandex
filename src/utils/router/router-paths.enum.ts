@@ -4,4 +4,5 @@ export enum RouterPaths {
   MESSENGER = '/messenger',
   CHANGE_PASSWORD = '/change-password',
   PROFILE = '/profile',
+  SETTINGS = '/settings',
 }

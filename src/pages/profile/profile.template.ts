@@ -6,7 +6,7 @@ export const ProfileViewTemplate = `
             <div class="profile-form-avatar__image"> / Photo / </div>
             <input type="file" id="avatar" class="profile-form-avatar__input" disabled>
         </div>
-        <h3 class="profile-form__name">{{ header }}</h3>
+        <h3 class="profile-form__name">Profile</h3>
         <form class="profile-form-table">
             <!--  FORM   -->
             {{ emailInput }}
@@ -30,7 +30,7 @@ export const ProfileViewTemplate = `
 
 </section>`;
 
-// profile view
+// profile edit
 export const ProfileEditTemplate = `
 <div class="profile profile_edit" data-id="{{ componentId }}">
     <section class="profile-form">
@@ -48,6 +48,7 @@ export const ProfileEditTemplate = `
             {{ usernameInput }}
             {{ phoneInput }}
         <!--  Buttons   -->
+        <div class="profile-form__info-block"></div>
         <div class="profile-form-buttons">
             {{ saveButton }}
             {{ goBackButton }}

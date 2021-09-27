@@ -5,6 +5,7 @@ export interface SignUpBodyRequest {
   email: string;
   password: string;
   phone: string;
+  display_name: string;
 }
 
 export interface SignInBodyRequest {

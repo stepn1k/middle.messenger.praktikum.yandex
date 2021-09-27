@@ -27,14 +27,14 @@ export default class Router {
     Router.routerInstance = this;
   }
 
-  public use(pathname: string, block: Block) {
-    const route = new Route(pathname, block, this.routerOutletName);
+  public use(pathname: string, blockBuilder: () => Block) {
+    const route = new Route(pathname, blockBuilder, this.routerOutletName);
     this.routes.push(route);
     return this;
   }
 
-  public useNotFound(pathname: string, block: Block) {
-    this.notFoundRoute = new Route(pathname, block, this.routerOutletName);
+  public useNotFound(pathname: string, blockBuilder: () => Block) {
+    this.notFoundRoute = new Route(pathname, blockBuilder, this.routerOutletName);
     return this;
   }
 

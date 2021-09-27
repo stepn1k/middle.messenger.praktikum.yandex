@@ -28,7 +28,7 @@ export default class ChangePasswordPage extends Block {
 
   constructor() {
     const context: ChangePasswordPageContext = {
-      backAside: new BackAside(),
+      backAside: new BackAside({ pathToClick: RouterPaths.PROFILE }),
       oldPasswordInput: new FormField({
         labelText: 'Old password',
         value: '',
@@ -85,14 +85,6 @@ export default class ChangePasswordPage extends Block {
     }
   }
 
-  private clearInfoMessage(): void {
-    const messageBlock = this.element.querySelector('.profile-form-table__info-message');
-    if (messageBlock) {
-      messageBlock.textContent = '';
-      messageBlock.classList.remove('visible', 'success');
-    }
-  }
-
   private saveNewPassword($event: Event): void {
     $event.preventDefault();
     const isFormValid = [this.oldPasswordInput, this.newPasswordInput, this.confirmPasswordInput]
@@ -111,18 +103,12 @@ export default class ChangePasswordPage extends Block {
       return;
     }
 
-    this.clearInfoMessage();
-
     profileController.changePassword({
       newPassword: this.newPasswordInput.getInputValue(),
       oldPassword: this.oldPasswordInput.getInputValue(),
     }).then(() => {
       this.showInfoMessage('The password change was successful.', true);
-      setTimeout(() => {
-        this.clearInfoMessage();
-        router.go(RouterPaths.PROFILE);
-      }, 1500);
-    })
-      .catch((err) => this.showInfoMessage(err));
+      setTimeout(() => router.go(RouterPaths.PROFILE), 1500);
+    }).catch((err) => this.showInfoMessage(err));
   }
 }

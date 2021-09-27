@@ -3,13 +3,13 @@ import Block from '../../../core/block';
 export default class Route {
   private pathname: string;
 
-  private readonly block: Block;
+  private readonly blockBuilder: () => Block;
 
   private readonly routerOutletName: string;
 
-  constructor(pathname: string, view: Block, routerOutletName: string) {
+  constructor(pathname: string, blockBuilder: () => Block, routerOutletName: string) {
     this.pathname = pathname;
-    this.block = view;
+    this.blockBuilder = blockBuilder;
     this.routerOutletName = routerOutletName;
   }
 
@@ -27,7 +27,8 @@ export default class Route {
   public render() {
     const routerOutlet = document.querySelector(`[data-router-outlet='${this.routerOutletName}']`);
     routerOutlet.innerHTML = '';
-    routerOutlet.appendChild(this.block.render());
+    const block = this.blockBuilder();
+    routerOutlet.appendChild(block.render());
   }
 
   public getPathName(): string {

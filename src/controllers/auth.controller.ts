@@ -1,7 +1,7 @@
 import AuthApiService from '../api/auth/auth-api.service';
 import { SignInBodyRequest, SignUpBodyRequest } from '../api/auth/auth-api.models';
 import store from '../store/store';
-import { AuthState } from '../store/store.models';
+import { User } from '../store/store.models';
 import { router } from '../index';
 import { RouterPaths } from '../utils/router/router-paths.enum';
 
@@ -15,12 +15,12 @@ class AuthController {
     AuthController.authControllerInstance = this;
   }
 
-  private setAuthState(state: AuthState) {
-    store.setAuthState(state);
+  private setCurrentUser(user: User) {
+    store.setCurrentUser(user);
   }
 
-  public getAuthState(): AuthState {
-    return store.getAuthState();
+  public getCurrentUser(): User {
+    return store.getCurrentUser();
   }
 
   public signIn(user: SignInBodyRequest) {
@@ -29,7 +29,7 @@ class AuthController {
         if (signInResponse.status === 200) {
           this.getUserInfo(resolve);
         } else {
-          this.setAuthState({ user: null });
+          this.setCurrentUser(null);
           const errorMessage = JSON.parse(signInResponse.response).reason;
           reject(errorMessage);
         }
@@ -43,7 +43,7 @@ class AuthController {
         if (signUpResponse.status === 200) {
           this.getUserInfo(resolve);
         } else {
-          this.setAuthState({ user: null });
+          this.setCurrentUser(null);
           const errorMessage = JSON.parse(signUpResponse.response).reason;
           reject(errorMessage);
         }
@@ -55,10 +55,10 @@ class AuthController {
     AuthApiService.getUser().then(({ response }) => {
       const user = JSON.parse(response);
       if (user.id) {
-        this.setAuthState({ user });
+        this.setCurrentUser(user);
         resolveFn(user);
       } else {
-        this.setAuthState({ user: null });
+        this.setCurrentUser(null);
         resolveFn('Something went wrong.');
       }
     });
@@ -77,12 +77,12 @@ class AuthController {
     AuthApiService.getUser().then(({ response }) => {
       const user = JSON.parse(response);
       if (user.id) {
-        this.setAuthState({ user });
+        this.setCurrentUser(user);
         if (currentPath === RouterPaths.SIGN_IN) {
           router.go(RouterPaths.MESSENGER);
         }
       } else {
-        this.setAuthState({ user: null });
+        this.setCurrentUser(null);
         if (currentPath !== RouterPaths.SIGN_UP) {
           router.go(RouterPaths.SIGN_IN);
         }

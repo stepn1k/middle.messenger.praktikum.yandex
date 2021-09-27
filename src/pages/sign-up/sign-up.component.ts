@@ -94,7 +94,7 @@ export default class SignUpPage extends Block {
       backButton: new Button({
         label: 'Back to login',
         viewType: 'basic',
-        events: { click: () => this.goToSignIn() },
+        events: { click: () => router.go(RouterPaths.SIGN_IN) },
       }),
     };
     super(context, SignUpTemplate);
@@ -109,14 +109,7 @@ export default class SignUpPage extends Block {
     };
   }
 
-  private goToSignIn() {
-    this.hideErrorMessage();
-    router.go(RouterPaths.SIGN_IN);
-  }
-
   public createAccount($event: Event): void {
-    this.hideErrorMessage(); // if exist
-
     $event.preventDefault();
     const isFormValid = Object.keys(this.signUpForm)
       .map((inputKey) => this.signUpForm[inputKey].checkValidation())
@@ -141,6 +134,7 @@ export default class SignUpPage extends Block {
       email: formValue.email,
       phone: formValue.phone,
       password: formValue.password,
+      display_name: formValue.login,
     })
       .then(() => router.go(RouterPaths.MESSENGER))
       .catch((err) => this.showErrorMessage(err));
@@ -159,14 +153,6 @@ export default class SignUpPage extends Block {
     if (errorBlock) {
       errorBlock.classList.add('show');
       errorBlock.textContent = message;
-    }
-  }
-
-  private hideErrorMessage(): void {
-    const errorBlock = this.element.querySelector('.sign-in-form__error');
-    if (errorBlock) {
-      errorBlock.classList.remove('show');
-      errorBlock.textContent = '';
     }
   }
 }

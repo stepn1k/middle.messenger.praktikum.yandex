@@ -54,8 +54,6 @@ export default class SignInPage extends Block {
   }
 
   public signIn($event: Event): void {
-    this.hideErrorMessage(); // if exist
-
     $event.preventDefault();
     const isFormValid = [this.loginInput, this.passwordInput]
       .map((input) => input.checkValidation())
@@ -74,7 +72,6 @@ export default class SignInPage extends Block {
 
   public goToCreateAccount() {
     router.go(RouterPaths.SIGN_UP);
-    this.hideErrorMessage();
   }
 
   private showErrorMessage(message: string): void {
@@ -82,14 +79,6 @@ export default class SignInPage extends Block {
     if (errorBlock) {
       errorBlock.classList.add('show');
       errorBlock.textContent = message;
-    }
-  }
-
-  private hideErrorMessage(): void {
-    const errorBlock = this.element.querySelector('.sign-in-form__error');
-    if (errorBlock) {
-      errorBlock.classList.remove('show');
-      errorBlock.textContent = '';
     }
   }
 }
