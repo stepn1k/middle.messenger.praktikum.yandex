@@ -1,6 +1,6 @@
 import ErrorPageTemplate from './error.template';
 import Button from '../../components/button';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import { router } from '../../index';
 
 export interface ErrorPageProps {

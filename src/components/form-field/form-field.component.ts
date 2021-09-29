@@ -1,5 +1,5 @@
 import FormFieldTemplate from './form-field.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 
 export interface FormFieldProps {
   labelText: string;

@@ -1,4 +1,4 @@
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import InputTemplate from './input.template';
 
 export interface InputContext {

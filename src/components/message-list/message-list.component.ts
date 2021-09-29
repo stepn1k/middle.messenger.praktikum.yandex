@@ -1,4 +1,4 @@
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import MessageListTemplate from './message-list.template';
 import Message from '../message';
 

@@ -1,6 +1,6 @@
 import SignUpTemplate from './sign-up.template';
 import FormField from '../../components/form-field/form-field.component';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Button from '../../components/button';
 import {
   EmailValidator,

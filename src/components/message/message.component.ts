@@ -1,5 +1,5 @@
 import MessageTemplate from './message.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 
 export interface MessageProps {
   authorId: string;

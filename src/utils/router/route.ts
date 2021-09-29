@@ -1,4 +1,4 @@
-import Block from '../../../core/block';
+import Block from '../block/block';
 
 export default class Route {
   private pathname: string;

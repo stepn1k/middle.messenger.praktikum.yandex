@@ -1,5 +1,5 @@
 import MessengerTemplate from './messenger.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Message from '../../components/message';
 import Chat from '../../components/chat';
 import Input from '../../components/input';

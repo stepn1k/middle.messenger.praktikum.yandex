@@ -1,5 +1,5 @@
 import ButtonTemplate from './button.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 
 export interface ButtonProps {
   label: string;

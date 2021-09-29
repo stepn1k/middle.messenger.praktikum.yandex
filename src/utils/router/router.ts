@@ -1,5 +1,5 @@
 import Route from './route';
-import Block from '../../../core/block';
+import Block from '../block/block';
 
 export default class Router {
   private static routerInstance: Router;

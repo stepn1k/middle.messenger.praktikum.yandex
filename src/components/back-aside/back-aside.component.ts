@@ -1,5 +1,5 @@
 import BackAsideTemplate from './back-aside.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import { RouterPaths } from '../../utils/router/router-paths.enum';
 import { router } from '../../index';
 

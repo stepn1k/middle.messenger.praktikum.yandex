@@ -1,7 +1,7 @@
 import SignInTemplate from './sign-in.template';
 import FormField from '../../components/form-field/form-field.component';
 import Button from '../../components/button/button.component';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import { LoginValidator, PasswordValidator } from '../../utils/validators/validators';
 import { router } from '../../index';
 import AuthController from '../../controllers/auth.controller';

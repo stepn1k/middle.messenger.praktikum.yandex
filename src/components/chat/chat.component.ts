@@ -1,4 +1,4 @@
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import ChatTemplate from './chat.template';
 
 export interface ChatProps {

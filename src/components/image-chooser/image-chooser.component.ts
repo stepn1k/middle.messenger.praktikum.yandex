@@ -1,4 +1,4 @@
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import ImageChooserTemplate from './image-chooser.template';
 import Button from '../button';
 import profileController from '../../controllers/profile.controller';

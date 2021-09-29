@@ -1,5 +1,5 @@
 import ChangePasswordPageTemplate from './change-password.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Button from '../../components/button';
 import { PasswordValidator } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';

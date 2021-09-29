@@ -1,5 +1,5 @@
 import EventBus from './event-bus';
-import Templator from '../src/utils/templator/templator';
+import Templator from '../templator/templator';
 
 type Props = Record<string, any>;
 

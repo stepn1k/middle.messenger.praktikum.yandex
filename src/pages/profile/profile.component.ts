@@ -1,5 +1,5 @@
 import { ProfileEditTemplate, ProfileViewTemplate } from './profile.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Button from '../../components/button';
 import {
   EmailValidator,
