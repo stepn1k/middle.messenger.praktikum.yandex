@@ -39,6 +39,7 @@ export default class ImageChooser extends Block {
     this.preview = this.element.querySelector('.image-chooser__preview') as HTMLImageElement;
     this.imageChooser = this.element.querySelector('.image-chooser') as HTMLDivElement;
     this.chooseButton = this.element.querySelector('.button-component_basic') as HTMLButtonElement;
+    this.preview.onclick = () => this.imageInput.click();
   }
 
   public openChooser(): void {
