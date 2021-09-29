@@ -83,14 +83,13 @@ export default abstract class Block {
   };
 
   private onComponentDidMount(): void {
-    this.componentDidMount();
-
     const templateWithContext = new Templator({
       template: this.template,
       context: { ...this.props, componentId: this.id },
     });
     const newElement = templateWithContext.compile();
     this.element = newElement as HTMLElement;
+    this.componentDidMount();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 

@@ -1,0 +1,68 @@
+.image-chooser-component {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(115, 115, 115, .6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.opened {
+    display: flex;
+  }
+
+  .image-chooser {
+    min-height: 16.0625rem;
+    width: 21.25rem;
+    background-color: $white;
+    padding: 1.875rem;
+    border-radius: .75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    &__input {
+      display: none;
+    }
+
+    &__title {
+      font-size: .9375rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    &__error-block {
+      display: none;
+      font-size: .75rem;
+      color: $warning-color;
+      text-align: center;
+      margin-bottom: 2rem;
+
+      &.visible {
+        display: flex;
+      }
+    }
+
+    .button-component_basic {
+      display: block;
+
+      &.hidden {
+        display: none;
+      }
+    }
+
+    &__preview {
+      display: none;
+      margin: 2rem 0;
+      border-radius: .625rem;
+      width: 10.625rem;
+
+      &.show {
+        display: block;
+      }
+    }
+  }
+}

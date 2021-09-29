@@ -66,7 +66,6 @@ export default class MessengerPage extends Block {
     const { messageList } = this.context;
     messageList.setProps({ messages: [...messageList.props.messages, newMessage] });
 
-    console.log(inputValue);
     this.context.messageInput.clearInput();
   }
 }

@@ -14,4 +14,8 @@ export default class UsersApiService {
     return httpClient.put('/profile',
       { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
   }
+
+  static changeUserAvatar(data: FormData): Promise<XMLHttpRequest> {
+    return httpClient.put('/profile/avatar', { data, withCredentials: true });
+  }
 }

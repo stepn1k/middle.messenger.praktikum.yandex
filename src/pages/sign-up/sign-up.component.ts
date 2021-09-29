@@ -134,7 +134,6 @@ export default class SignUpPage extends Block {
       email: formValue.email,
       phone: formValue.phone,
       password: formValue.password,
-      display_name: formValue.login,
     })
       .then(() => router.go(RouterPaths.MESSENGER))
       .catch((err) => this.showErrorMessage(err));

@@ -8,7 +8,9 @@ import {
   NotEmptyValidator,
   PhoneValidator,
 } from '../../utils/validators/validators';
+import ImageChooser from '../../components/image-chooser';
 import FormField from '../../components/form-field';
+import Avatar from '../../components/avatar';
 import { router } from '../../index';
 import BackAside from '../../components/back-aside';
 import authController from '../../controllers/auth.controller';
@@ -28,8 +30,11 @@ export interface ProfilePageProps {
 }
 
 export interface ProfilePageContext {
+  avatar: Avatar;
   // aside
   backAside: BackAside;
+  // image chooser
+  imageChooser: ImageChooser;
   // form
   emailInput: FormField;
   loginInput: FormField;
@@ -51,13 +56,18 @@ export default class ProfilePage extends Block {
 
   private defaultForm: { [key: string]: string | number };
 
-  private readonly mode: ProfileModeEnum;
+  private avatar: Avatar;
 
   constructor({ mode }: ProfilePageProps) {
     const isViewMode = mode === ProfileModeEnum.VIEW;
     const user = store.getCurrentUser();
-    
     const context: ProfilePageContext = {
+      avatar: new Avatar({
+        clickable: !isViewMode,
+        src: user?.avatar,
+        events: { click: () => context.imageChooser.openChooser() },
+      }),
+      imageChooser: new ImageChooser(),
       backAside: new BackAside(
         { pathToClick: isViewMode ? RouterPaths.MESSENGER : RouterPaths.PROFILE },
       ),
@@ -99,7 +109,7 @@ export default class ProfilePage extends Block {
       }),
       usernameInput: new FormField({
         labelText: 'Username',
-        value: user?.display_name || user?.login,
+        value: user?.display_name || 'No username yet...',
         id: 'display_name',
         type: 'text',
         viewType: 'line',
@@ -150,7 +160,7 @@ export default class ProfilePage extends Block {
       { ...context, user, mode },
       isViewMode ? ProfileViewTemplate : ProfileEditTemplate,
     );
-    this.mode = mode;
+    this.avatar = context.avatar;
     this.editableForm = {
       email: context.emailInput,
       login: context.loginInput,
@@ -174,11 +184,12 @@ export default class ProfilePage extends Block {
         this.editableForm.login.setProps({ value: newUserInfo.login });
         this.editableForm.first_name.setProps({ value: newUserInfo.first_name });
         this.editableForm.second_name.setProps({ value: newUserInfo.second_name });
-        this.editableForm.display_name.setProps({ value: newUserInfo.display_name });
+        this.editableForm.display_name.setProps({ value: newUserInfo.display_name || 'No username yet...' });
         this.editableForm.phone.setProps({ value: newUserInfo.phone });
+        this.avatar.setProps({ src: newUserInfo.avatar });
         this.defaultForm = this.getFormObject(this.editableForm);
       }
-    }, `profile/${this.mode}`);
+    }, 'profile');
   }
 
   private saveForm($event: Event): void {

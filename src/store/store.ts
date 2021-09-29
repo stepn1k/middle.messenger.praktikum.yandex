@@ -23,9 +23,7 @@ class Store {
 
   public subscribe(subscriber: (state: State) => void, location: string) {
     // TODO: find way to work with subscription correctly
-    if (!this.listeners[location]) {
-      this.listeners[location] = subscriber;
-    }
+    this.listeners[location] = subscriber;
     subscriber(this.state);
   }
 

@@ -1,0 +1,19 @@
+.avatar-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &__image {
+    background-color: rgba($primary-two, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8.125rem;
+    border-radius: 50%;
+  }
+}

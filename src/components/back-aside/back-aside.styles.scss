@@ -9,10 +9,7 @@
   top: 0;
   left: 0;
   cursor: pointer;
-
-  @media (max-width: 767px) {
-    display: none;
-  }
+  transition: .2s;
 
   &:hover {
     background-color: $primary-three;

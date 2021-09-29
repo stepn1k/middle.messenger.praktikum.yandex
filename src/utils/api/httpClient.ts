@@ -51,6 +51,9 @@ export default class HttpClient {
       headers = {}, method, data, withCredentials,
     } = options;
 
+    const contentType = headers['content-type'];
+    const isJSON = contentType && contentType.includes('application/json');
+
     return new Promise((resolve, reject) => {
       const xhr: XMLHttpRequest = new XMLHttpRequest();
       // timeout
@@ -73,8 +76,10 @@ export default class HttpClient {
 
       if (method === HttpMethodsEnum.GET || !data) {
         xhr.send();
-      } else {
+      } else if (isJSON) {
         xhr.send(JSON.stringify(data));
+      } else {
+        xhr.send(data);
       }
     });
   };

@@ -2,10 +2,7 @@
 export const ProfileViewTemplate = `
 <div class="profile profile_view" data-id="{{ componentId }}">
     <section class="profile-form">
-        <div class="profile-form-avatar">
-            <div class="profile-form-avatar__image"> / Photo / </div>
-            <input type="file" id="avatar" class="profile-form-avatar__input" disabled>
-        </div>
+        {{ avatar }}
         <h3 class="profile-form__name">Profile</h3>
         <form class="profile-form-table">
             <!--  FORM   -->
@@ -34,10 +31,7 @@ export const ProfileViewTemplate = `
 export const ProfileEditTemplate = `
 <div class="profile profile_edit" data-id="{{ componentId }}">
     <section class="profile-form">
-        <div class="profile-form-avatar">
-            <div class="profile-form-avatar__image"> / Photo / </div>
-            <input type="file" id="avatar" class="profile-form-avatar__input" disabled>
-        </div>
+        {{ avatar }}
         <h3 class="profile-form__name">Change your personal data</h3>
         <form class="profile-form-table">
             <!--  FORM   -->
@@ -57,4 +51,7 @@ export const ProfileEditTemplate = `
 
 <!-- ASIDE  -->
 {{ backAside }}
+
+<!-- File Chooser -->
+{{ imageChooser }}
 </section>`;
