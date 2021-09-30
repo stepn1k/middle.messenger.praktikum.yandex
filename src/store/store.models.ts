@@ -1,8 +1,9 @@
-import { Chat } from '../api/chats/chats-api.models';
+import { IChat } from '../api/chats/chats-api.models';
 
 export interface State {
   user: User;
-  chats: Chat[]
+  chats: IChat[],
+  activeChat: IChat;
 }
 
 export interface User {

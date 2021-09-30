@@ -25,6 +25,7 @@ export default class MessageList extends Block {
         avatar: chat.avatar,
         chatTitle: chat.title,
         newMessagesCount: chat.unread_count,
+        chatOriginal: chat,
       }));
     };
     const chatsList = createChatList(props.chats);

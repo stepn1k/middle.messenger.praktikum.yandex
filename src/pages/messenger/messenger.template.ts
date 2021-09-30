@@ -23,10 +23,6 @@ export default `
     </section>
 
 
-
-
-
-
     <!--  Active Chat  -->
     <div class="messenger-active-chat">
         <div class="messenger-active-chat-header">
@@ -40,5 +36,8 @@ export default `
             <div class="messenger-active-chat-footer__send" onclick="{{ onSendMessage }}">&#10132;</div>
         </div>
     </div>
+
+
+
 </div>
 `;

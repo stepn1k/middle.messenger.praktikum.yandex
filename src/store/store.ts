@@ -1,10 +1,12 @@
 /* eslint no-param-reassign: 0 */
 import { State, User } from './store.models';
 import { IChat } from '../api/chats/chats-api.models';
+import isEqual from '../utils/methods/isEqual';
 
 const initialState: State = {
   user: null,
   chats: null,
+  activeChat: null,
 };
 
 class Store {
@@ -36,8 +38,11 @@ class Store {
     return new Proxy(state, {
       set: (target: State, item: string, value: unknown) => {
         // @ts-ignore
-        target[item] = value;
-        this.emitUpdating();
+        if (!isEqual(target[item], value)) {
+          // @ts-ignore
+          target[item] = value;
+          this.emitUpdating();
+        }
         return true;
       },
       deleteProperty: () => {
@@ -60,6 +65,14 @@ class Store {
 
   public setCurrentChats(chats: IChat[]) {
     this.state.chats = chats;
+  }
+
+  public getActiveChat(): IChat {
+    return this.state.activeChat;
+  }
+
+  public setActiveChat(chat: IChat) {
+    this.state.activeChat = chat;
   }
 }
 
