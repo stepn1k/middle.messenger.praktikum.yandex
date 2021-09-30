@@ -5,7 +5,6 @@
   flex-direction: row;
 
   &-list {
-    width: 19.375rem;
     background-color: $background-color;
     border-right: 2px solid $divider-color;
 
@@ -39,19 +38,6 @@
         border: none;
         text-align: center;
         width: 100%;
-      }
-    }
-
-    &-chats {
-      overflow-y: scroll;
-      height: calc(100% - 6rem);
-
-      &::-webkit-scrollbar {
-        width: 3px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border: 2px solid rgba($primary-two, .4);
       }
     }
   }
@@ -98,4 +84,9 @@
       }
     }
   }
+}
+
+.messenger-list-chats {
+  height: calc(100% - 6rem);
+  width: 19.125rem;
 }

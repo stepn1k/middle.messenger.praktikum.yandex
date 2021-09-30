@@ -9,7 +9,7 @@ export default `
            <input class="messenger-list-header__quick-search" placeholder="Quick search...">
         </header>
         <div class="messenger-list-chats">
-        {{ chats }}
+            {{ chatsList }}
         </div>
     </section>
     <!--  Active Chat  -->

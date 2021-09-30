@@ -59,8 +59,11 @@ export default abstract class Block {
   }
 
   private onInit(): void {
+    this.componentInit();
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
+
+  public componentInit() { }
 
   private onComponentDidUpdate(): void {
     const response = this.componentDidUpdate();

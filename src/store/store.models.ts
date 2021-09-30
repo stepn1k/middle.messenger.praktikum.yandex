@@ -1,5 +1,8 @@
+import { Chat } from '../api/chats/chats-api.models';
+
 export interface State {
   user: User;
+  chats: Chat[]
 }
 
 export interface User {

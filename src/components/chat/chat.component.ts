@@ -1,10 +1,12 @@
 import Block from '../../utils/block/block';
+import Avatar from '../avatar';
 import ChatTemplate from './chat.template';
 
 export interface ChatProps {
   lastMessage: string,
   time: number | Date,
-  author: string,
+  chatTitle: string,
+  avatar: string,
   newMessagesCount: number,
   events?: Record<string, (event: Event) => void>;
 }
@@ -19,8 +21,12 @@ export default class Chat extends Block {
       weekday: 'short',
     }); // example: 11 Th, 13:12
     const context = {
-      ...props,
-      time: getTimeForChatFromDateTime(props.time),
+      chatTitle: props.chatTitle,
+      lastMessage: props.lastMessage || 'Chat is empty',
+      messagesCountClass: props.newMessagesCount ? 'new-messages' : 'empty',
+      newMessagesCount: props.newMessagesCount.toString(),
+      imageSource: Avatar.baseImageUrl + (props.avatar ? props.avatar : Avatar.baseChatImageSource),
+      time: !props.time ? 'New' : getTimeForChatFromDateTime(props.time),
     };
     super(context, ChatTemplate);
   }

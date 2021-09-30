@@ -1,8 +1,10 @@
 /* eslint no-param-reassign: 0 */
 import { State, User } from './store.models';
+import { IChat } from '../api/chats/chats-api.models';
 
 const initialState: State = {
   user: null,
+  chats: null,
 };
 
 class Store {
@@ -22,7 +24,6 @@ class Store {
   }
 
   public subscribe(subscriber: (state: State) => void, location: string) {
-    // TODO: find way to work with subscription correctly
     this.listeners[location] = subscriber;
     subscriber(this.state);
   }
@@ -51,6 +52,14 @@ class Store {
 
   public setCurrentUser(value: User) {
     this.state.user = value;
+  }
+
+  public getChats(): IChat[] {
+    return this.state.chats;
+  }
+
+  public setCurrentChats(chats: IChat[]) {
+    this.state.chats = chats;
   }
 }
 

@@ -14,9 +14,11 @@ export interface AvatarContext {
 }
 
 export default class Avatar extends Block {
-  private static baseImageUrl = 'https://ya-praktikum.tech/api/v2/resources';
+  public static baseImageUrl = 'https://ya-praktikum.tech/api/v2/resources';
 
-  private static baseImageSource = '/cd3d988d-e13d-4c52-96a4-122c24d1b1f0/094ef3eb-a813-4d55-8086-99eb46e919ff_FjvGm9YyWS8.jpg';
+  public static baseChatImageSource = '/0c59735f-8890-4137-b4b6-17abb19fab08/81c6c438-3656-4216-9fba-b448d6ac82fa_chat-2389223_1280.png';
+
+  public static baseImageSource = '/cd3d988d-e13d-4c52-96a4-122c24d1b1f0/094ef3eb-a813-4d55-8086-99eb46e919ff_FjvGm9YyWS8.jpg';
 
   constructor(props: AvatarProps) {
     const context: AvatarContext = {

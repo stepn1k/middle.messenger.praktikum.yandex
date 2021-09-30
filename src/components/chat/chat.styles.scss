@@ -3,6 +3,7 @@
   border-top: .0625rem solid $divider-color;
   padding: .75rem;
   cursor: pointer;
+  text-align: left;
   transition: .2s;
 
   &:hover {
@@ -15,50 +16,76 @@
     img {
       width: 2.9375rem;
       height: 2.9375rem;
+      border-radius: 50%;
     }
   }
 
   &-body {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
     flex: 2;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
 
-    &__author {
-      font-weight: 600;
-      font-size: .8125rem;
-    }
-
-    &__last-message {
-      font-weight: 500;
-      font-size: .75rem;
-      color: $primary-two;
-    }
-  }
-
-  &-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    &__time {
-      font-size: .5625rem;
-      font-weight: 500;
-      color: $primary-two;
-    }
-
-    &__badge {
-      font-size: .6875rem;
-      color: white;
-      background-color: $primary-one;
-      width: 1.1rem;
-      height: 1.1rem;
-      border-radius: 50%;
+    &-header {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      margin-bottom: .25rem;
+
+      &__title {
+        font-weight: 600;
+        font-size: .8125rem;
+        margin-right: .25rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-bottom: .125rem;
+      }
+
+      &__time {
+        display: flex;
+        align-items: center;
+        font-size: .5625rem;
+        font-weight: 500;
+        color: $primary-two;
+      }
+    }
+
+    &-footer {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+
+      &__last-message {
+        font-weight: 500;
+        font-size: .75rem;
+        color: $primary-two;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-lines: 3;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      &__badge {
+        width: 1rem;
+        height: 1rem;
+        font-size: .625rem;
+        padding: .5rem;
+        color: white;
+        background-color: $primary-one;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: .5rem;
+
+        &.empty {
+          display: none;
+        }
+      }
     }
   }
 }
