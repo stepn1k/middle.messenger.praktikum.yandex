@@ -1,6 +1,6 @@
 import ChatsApiService from '../api/chats/chats-api.service';
 import store from '../store/store';
-import { IChat } from '../api/chats/chats-api.models';
+import { CreateChatRequestBody, IChat } from '../api/chats/chats-api.models';
 
 class ChatsController {
   private static chatsControllerInstance: ChatsController;
@@ -19,6 +19,21 @@ class ChatsController {
         if (getChatsResponse.status === 200) {
           store.setCurrentChats(response as IChat[]);
           resolve('OK');
+        } else {
+          reject(response.reason);
+        }
+      });
+    });
+  }
+
+  public createChat(data: CreateChatRequestBody) {
+    return new Promise((resolve, reject) => {
+      ChatsApiService.createChat(data).then((createChatResponse) => {
+        const response = JSON.parse(createChatResponse.response);
+        if (createChatResponse.status === 200) {
+          this.getChats()
+            .then(() => resolve('Chat created.'))
+            .catch((err) => reject(err));
         } else {
           reject(response.reason);
         }

@@ -18,3 +18,7 @@ export interface IChatLastMessage {
   time: Date;
   content: string;
 }
+
+export interface CreateChatRequestBody {
+  title: string;
+}

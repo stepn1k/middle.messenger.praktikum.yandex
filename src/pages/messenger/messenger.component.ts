@@ -5,13 +5,19 @@ import store from '../../store/store';
 import chatsController from '../../controllers/chats.controller';
 import { RouterPaths } from '../../utils/router/router-paths.enum';
 import ChatsList from '../../components/chats-list';
+import AddChat from '../../components/add-chat';
 
 export default class MessengerPage extends Block {
   private readonly chatsList: ChatsList;
 
   constructor() {
+    const addChatComponent = new AddChat();
     const chatsList = new ChatsList({ chats: store.getChats() });
-    super({ chatsList, goToProfile: () => this.goToProfile() }, MessengerTemplate);
+    super({
+      addChatComponent,
+      chatsList,
+      goToProfile: () => this.goToProfile(),
+    }, MessengerTemplate);
     this.chatsList = chatsList;
   }
 
