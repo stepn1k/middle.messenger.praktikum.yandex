@@ -6,9 +6,9 @@ export default class Router {
 
   private readonly routerOutletName: string;
 
-  private routes: Route[] = [];
+  public routes: Route[] = [];
 
-  private history: History;
+  public history: History;
 
   private currentRoute: Route;
 
@@ -69,7 +69,7 @@ export default class Router {
     window.history.forward();
   }
 
-  private getRoute(pathname: string) {
+  public getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }
 

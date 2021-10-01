@@ -19,7 +19,10 @@ function queryStringify(data: Record<string, any>) {
 }
 
 export default class HttpClient {
-  constructor(public url: string) {
+  public url: string;
+
+  constructor(url: string) {
+    this.url = url;
   }
 
   public get(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
