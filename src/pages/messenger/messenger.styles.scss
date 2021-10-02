@@ -53,47 +53,9 @@
     }
   }
 
-  &-active-chat {
+  &-chat {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: .625rem 1rem;
-
-    &-header {
-      padding-bottom: .625rem;
-      border-bottom: 2px solid $divider-color;
-      display: flex;
-      align-items: center;
-
-      &__username {
-        font-size: .8125rem;
-        font-weight: 600;
-        margin-left: .5rem;
-      }
-
-      &__image {
-        border-radius: 50%;
-        width: 2.1875rem;
-        height: 2.1875rem;
-      }
-    }
-
-    &-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: .625rem;
-      border-top: 2px solid $divider-color;
-
-      &__send {
-        background-color: $primary-one;
-        color: $white;
-        cursor: pointer;
-        padding: .3125rem;
-        margin-left: .625rem;
-        border-radius: 50%;
-      }
-    }
+    padding: .625rem 1.25rem;
   }
 }
 

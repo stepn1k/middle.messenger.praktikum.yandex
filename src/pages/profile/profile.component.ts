@@ -19,6 +19,7 @@ import store from '../../store/store';
 import isEqual from '../../utils/methods/isEqual';
 import profileController from '../../controllers/profile.controller';
 import { ChangeUserDataRequestBody } from '../../api/users/users-api.models';
+import { ChooserTypeEnum } from '../../components/image-chooser/chooser-type.enum';
 
 export enum ProfileModeEnum {
   EDIT = 'edit',
@@ -67,7 +68,7 @@ export default class ProfilePage extends Block {
         src: user?.avatar,
         events: { click: () => context.imageChooser.openChooser() },
       }),
-      imageChooser: new ImageChooser(),
+      imageChooser: new ImageChooser({ type: ChooserTypeEnum.USER }),
       backAside: new BackAside(
         { pathToClick: isViewMode ? RouterPaths.MESSENGER : RouterPaths.PROFILE },
       ),

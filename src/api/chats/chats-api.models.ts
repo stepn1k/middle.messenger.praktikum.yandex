@@ -22,3 +22,7 @@ export interface IChatLastMessage {
 export interface CreateChatRequestBody {
   title: string;
 }
+
+export interface DeleteChatRequestBody {
+  chatId: number;
+}

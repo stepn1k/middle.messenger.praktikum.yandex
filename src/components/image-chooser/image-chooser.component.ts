@@ -2,8 +2,14 @@ import Block from '../../utils/block/block';
 import ImageChooserTemplate from './image-chooser.template';
 import Button from '../button';
 import profileController from '../../controllers/profile.controller';
+import { ChooserTypeEnum } from './chooser-type.enum';
+import chatsController from '../../controllers/chats.controller';
 
 export default class ImageChooser extends Block {
+  private readonly chooserType: ChooserTypeEnum;
+
+  private resourceId: number;
+
   public imageInput: HTMLInputElement;
 
   public preview: HTMLImageElement;
@@ -12,7 +18,7 @@ export default class ImageChooser extends Block {
 
   public chooseButton: HTMLButtonElement;
 
-  constructor() {
+  constructor(props: { type: ChooserTypeEnum }) {
     const context = {
       chooseButton: new Button({
         label: 'Choose file',
@@ -27,6 +33,7 @@ export default class ImageChooser extends Block {
       events: { click: ($event: Event) => this.onClickOutside($event) },
     };
     super(context, ImageChooserTemplate);
+    this.chooserType = props.type;
   }
 
   componentDidMount() {
@@ -42,7 +49,8 @@ export default class ImageChooser extends Block {
     this.preview.onclick = () => this.imageInput.click();
   }
 
-  public openChooser(): void {
+  public openChooser(resourceId?: number): void {
+    this.resourceId = resourceId || null;
     this.element.classList.add('opened');
   }
 
@@ -50,7 +58,17 @@ export default class ImageChooser extends Block {
     const [file] = this.imageInput.files;
     const formData = new FormData();
     formData.append('avatar', file);
-    profileController.changeUserAvatar(formData)
+
+    if (this.resourceId) {
+      // @ts-ignore
+      formData.append('chatId', this.resourceId);
+    }
+
+    const controllerPromise = this.chooserType === ChooserTypeEnum.CHAT
+      ? chatsController.changeChatAvatar(formData)
+      : profileController.changeUserAvatar(formData);
+
+    controllerPromise
       .then(() => this.closeChooser())
       .catch((err) => this.setErrorMessage(err));
   }

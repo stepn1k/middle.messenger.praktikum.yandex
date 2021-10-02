@@ -21,23 +21,9 @@ export default `
             {{ chatsList }}
         </div>
     </section>
-
-
-    <!--  Active Chat  -->
-    <div class="messenger-active-chat">
-        <div class="messenger-active-chat-header">
-            <!--  temporary image  -->
-            <img class="messenger-active-chat-header__image" src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png">
-            <h2 class="messenger-active-chat-header__username">{{ activeChatUser }}</h2>
-        </div>
-            {{ messageList }}
-        <div class="messenger-active-chat-footer">
-            {{ messageInput }}
-            <div class="messenger-active-chat-footer__send" onclick="{{ onSendMessage }}">&#10132;</div>
-        </div>
+    <!--  Active Chat   -->
+     <div class="messenger-chat">
+        {{ activeChatComponent }}
     </div>
-
-
-
 </div>
 `;

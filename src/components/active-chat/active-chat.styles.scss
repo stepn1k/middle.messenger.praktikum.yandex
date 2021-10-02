@@ -1,0 +1,112 @@
+.messenger-active-chat {
+  height: 100%;
+
+  .active-chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: .0625rem solid $divider-color;
+      padding-bottom: .625rem;
+
+      &__image {
+        width: 2.125rem;
+        height: 2.125rem;
+        border-radius: 50%;
+        margin-right: .625rem;
+      }
+
+      &__chat-name {
+        font-weight: 600;
+        font-size: .8125rem;
+        flex: 2;
+      }
+
+      &__options {
+        transition: .15s;
+        padding: .3125rem;
+        cursor: pointer;
+        color: $primary-two;
+      }
+
+      .active-chat-header__options-menu {
+        display: none;
+        box-shadow:
+          rgba(60, 64, 67, .3) 0 1px 2px 0,
+          rgba(60, 64, 67, .15) 0 1px 3px 1px;
+        position: absolute;
+        right: .625rem;
+        border-radius: .375rem;
+        background-color: $white;
+        width: 12.5rem;
+
+        &.visible {
+          display: block;
+        }
+
+        .options-menu__item {
+          font-size: .875rem;
+          transition: .2s;
+          padding: .65rem .9rem;
+          transition-property: background-color;
+
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+
+          &:hover {
+            background-color: $primary-one-hover;
+            color: $primary-one;
+          }
+
+          &.warning-theme:hover {
+            color: $warning-color;
+            background-color: rgba($warning-color, .1);
+          }
+
+          i {
+            width: .625rem;
+            display: inline-flex;
+            justify-content: center;
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .875rem;
+    font-weight: 500;
+    color: $primary-two;
+    height: 100%;
+  }
+
+  &.empty-chat-item {
+    .empty-state {
+      display: flex;
+    }
+
+    .active-chat {
+      display: none;
+    }
+  }
+
+  &.active-chat-item {
+    .empty-state {
+      display: none;
+    }
+
+    .active-chat {
+      display: flex;
+    }
+  }
+}
