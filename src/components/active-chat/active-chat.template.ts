@@ -13,8 +13,13 @@ export default `
                 </div>
             </div>
         </div>
-        <div class="active-chat-body">body</div>
-        <div class="active-chat-footer">footer</div>
+        <div class="active-chat-body">
+            {{ messageListComponent }}
+        </div>
+        <div class="active-chat-footer">
+            <div class="active-chat-footer__input">{{ messageInputComponent }}</div>
+            <div class="active-chat-footer__send-icon" onclick="{{ sendMessage }}">&#10132;</div>
+        </div>
     </div>
 
     <div class="empty-state">

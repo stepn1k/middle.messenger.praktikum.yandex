@@ -15,10 +15,6 @@ export interface SignInPageContext {
 }
 
 export default class SignInPage extends Block {
-  private loginInput: FormField;
-
-  private passwordInput: FormField;
-
   constructor() {
     const context: SignInPageContext = {
       loginInput: new FormField({
@@ -49,13 +45,11 @@ export default class SignInPage extends Block {
       }),
     };
     super(context, SignInTemplate);
-    this.loginInput = context.loginInput;
-    this.passwordInput = context.passwordInput;
   }
 
   public signIn($event: Event): void {
     $event.preventDefault();
-    const isFormValid = [this.loginInput, this.passwordInput]
+    const isFormValid = [this.props.loginInput, this.props.passwordInput]
       .map((input) => input.checkValidation())
       .every((isValid) => isValid);
 
@@ -64,8 +58,8 @@ export default class SignInPage extends Block {
     }
 
     AuthController.signIn({
-      login: this.loginInput.getInputValue(),
-      password: this.passwordInput.getInputValue(),
+      login: this.props.loginInput.getInputValue(),
+      password: this.props.passwordInput.getInputValue(),
     }).then(() => router.go(RouterPaths.MESSENGER))
       .catch((err) => this.showErrorMessage(err));
   }

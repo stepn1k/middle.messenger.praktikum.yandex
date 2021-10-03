@@ -12,6 +12,19 @@ class ChatsController {
     ChatsController.chatsControllerInstance = this;
   }
 
+  public getToken(chatId: number) {
+    return new Promise((resolve, reject) => {
+      ChatsApiService.getToken(chatId).then((getChatsResponse) => {
+        const response = JSON.parse(getChatsResponse.response);
+        if (getChatsResponse.status === 200) {
+          resolve(response);
+        } else {
+          reject(response.reason);
+        }
+      });
+    });
+  }
+
   public getChats() {
     return new Promise((resolve, reject) => {
       ChatsApiService.getChats().then((getChatsResponse) => {

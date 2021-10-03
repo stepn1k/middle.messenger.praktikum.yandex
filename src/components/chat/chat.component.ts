@@ -15,7 +15,7 @@ export interface ChatProps {
 }
 
 export default class Chat extends Block {
-  private activeChat: IChat;
+  private chat: IChat;
 
   constructor(props: ChatProps) {
     const getTimeForChatFromDateTime = (time: number | Date): string => new Date(time).toLocaleString('en-US', {
@@ -35,10 +35,10 @@ export default class Chat extends Block {
       events: { click: () => this.selectChat() },
     };
     super(context, ChatTemplate);
-    this.activeChat = props.chatOriginal;
+    this.chat = props.chatOriginal;
   }
 
   private selectChat() {
-    store.setActiveChat(this.activeChat);
+    store.setActiveChat(this.chat);
   }
 }

@@ -7,7 +7,7 @@ export interface InputContext {
 }
 
 export default class Input extends Block {
-  constructor(props: any) {
+  constructor(props: InputContext) {
     super(props, InputTemplate);
   }
 

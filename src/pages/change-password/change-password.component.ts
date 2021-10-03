@@ -20,12 +20,6 @@ export interface ChangePasswordPageContext {
 }
 
 export default class ChangePasswordPage extends Block {
-  private oldPasswordInput: FormField;
-
-  private newPasswordInput: FormField;
-
-  private confirmPasswordInput: FormField;
-
   constructor() {
     const context: ChangePasswordPageContext = {
       backAside: new BackAside({ pathToClick: RouterPaths.PROFILE }),
@@ -68,9 +62,6 @@ export default class ChangePasswordPage extends Block {
       }),
     };
     super(context, ChangePasswordPageTemplate);
-    this.oldPasswordInput = context.oldPasswordInput;
-    this.newPasswordInput = context.newPasswordInput;
-    this.confirmPasswordInput = context.confirmPasswordInput;
   }
 
   private showInfoMessage(message: string, isSuccess = false): void {
@@ -87,7 +78,10 @@ export default class ChangePasswordPage extends Block {
 
   private saveNewPassword($event: Event): void {
     $event.preventDefault();
-    const isFormValid = [this.oldPasswordInput, this.newPasswordInput, this.confirmPasswordInput]
+    const isFormValid = [
+      this.props.oldPasswordInput,
+      this.props.newPasswordInput,
+      this.props.confirmPasswordInput]
       .map((input) => input.checkValidation())
       .every((isValid) => isValid);
 
@@ -95,8 +89,8 @@ export default class ChangePasswordPage extends Block {
       return;
     }
 
-    const newValue = this.newPasswordInput.getInputValue();
-    const confirmValue = this.confirmPasswordInput.getInputValue();
+    const newValue = this.props.newPasswordInput.getInputValue();
+    const confirmValue = this.props.confirmPasswordInput.getInputValue();
 
     if (newValue !== confirmValue) {
       this.showInfoMessage('Password don\'t match.');
@@ -104,8 +98,8 @@ export default class ChangePasswordPage extends Block {
     }
 
     profileController.changePassword({
-      newPassword: this.newPasswordInput.getInputValue(),
-      oldPassword: this.oldPasswordInput.getInputValue(),
+      newPassword: this.props.newPasswordInput.getInputValue(),
+      oldPassword: this.props.oldPasswordInput.getInputValue(),
     }).then(() => {
       this.showInfoMessage('The password change was successful.', true);
       setTimeout(() => router.go(RouterPaths.PROFILE), 1500);

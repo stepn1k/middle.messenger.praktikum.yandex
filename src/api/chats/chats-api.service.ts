@@ -20,4 +20,8 @@ export default class ChatsApiService {
   static changeChatAvatar(data: FormData): Promise<XMLHttpRequest> {
     return httpClient.put('/avatar', { data, withCredentials: true });
   }
+
+  static getToken(chatId: number): Promise<XMLHttpRequest> {
+    return httpClient.post(`/token/${chatId}`, { withCredentials: true });
+  }
 }

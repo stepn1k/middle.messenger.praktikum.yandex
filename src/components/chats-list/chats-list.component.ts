@@ -11,7 +11,7 @@ export interface ChatsListContext {
   chatsList: Chat[] | string;
 }
 
-export default class MessageList extends Block {
+export default class ChatsList extends Block {
   private readonly createChatListFunction: (c: IChat[]) => Chat[] | string;
 
   constructor(props: ChatsListProps) {

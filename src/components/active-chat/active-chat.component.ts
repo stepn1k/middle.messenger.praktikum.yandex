@@ -5,45 +5,73 @@ import Avatar from '../avatar';
 import chatsController from '../../controllers/chats.controller';
 import ImageChooser from '../image-chooser';
 import { ChooserTypeEnum } from '../image-chooser/chooser-type.enum';
+import WebSocketService from '../../api/web-socket/web-socket.service';
+import store from '../../store/store';
+import MessageList from '../message-list';
+import Message from '../message';
+import { IMessage } from '../message/message.interface';
+import Input from '../input';
 
 export interface ActiveChatProps {
   chat: IChat;
 }
 
-export interface ActiveChatContext {
-  uiStateClass: 'active-chat-item' | 'empty-chat-item',
-  imageSource: string;
-}
-
 export default class ActiveChat extends Block {
-  private readonly createContextFn: (chat: IChat) => ActiveChatContext;
+  private socket: WebSocketService;
 
-  private readonly imageChooser: ImageChooser;
+  private isSocketOpen: boolean;
 
   constructor(props: ActiveChatProps) {
     const activeChatItem = props.chat;
-    const imageChooserComponent = new ImageChooser({ type: ChooserTypeEnum.CHAT });
-    const createContext = (chat: IChat): ActiveChatContext => ({
-      uiStateClass: chat ? 'active-chat-item' : 'empty-chat-item',
-      imageSource: Avatar.baseImageUrl + (chat?.avatar ? chat.avatar : Avatar.baseChatImageSource),
-    });
+
     super({
-      ...createContext(activeChatItem),
-      imageChooserComponent,
-      toggleOptionsMenu: () => this.toggleOptionMenu(),
-      removeChat: () => this.removeChat(),
-      openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
-    },
-    ActiveChatTemplate);
-    this.createContextFn = createContext;
-    this.imageChooser = imageChooserComponent;
+        uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
+        imageSource: Avatar.baseImageUrl
+          + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
+        imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
+        messageListComponent: new MessageList({}),
+        messageInputComponent: new Input({ placeholder: 'Type your message' }),
+        sendMessage: () => this.sendMessage(),
+        toggleOptionsMenu: () => this.toggleOptionMenu(),
+        removeChat: () => this.removeChat(),
+        openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
+      },
+      ActiveChatTemplate);
+  }
+
+  componentInit() {
+    store.subscribe((state) => {
+      if (state.activeChat?.id !== this.props.chat?.id) {
+        this.isSocketOpen = false;
+        this.socket?.closeConnect();
+      }
+    }, 'chat');
   }
 
   componentDidUpdate(): boolean {
-    const newContext = this.createContextFn(this.props.chat);
-    this.props.uiStateClass = newContext.uiStateClass;
-    this.props.imageSource = newContext.imageSource;
+    this.props.uiStateClass = this.props.chat ? 'active-chat-item' : 'empty-chat-item';
+    this.props.imageSource = Avatar.baseImageUrl
+      + (this.props.chat?.avatar ? this.props.chat.avatar : Avatar.baseChatImageSource);
     return true;
+  }
+
+  componentDidMount() {
+    if (!this.isSocketOpen && this.props.chat) {
+      chatsController
+        .getToken(this.props.chat.id)
+        .then(({ token }) => {
+          this.socket = new WebSocketService();
+          this.socket.connect(this.props.chat.id, store.getCurrentUser().id, token);
+          this.isSocketOpen = true;
+          this.socket.on(this.onMessage.bind(this));
+        })
+        .catch(() => store.setActiveChat(null));
+    }
+  }
+
+  private onMessage(data: IMessage[]) {
+    const messages = data?.map(((message) => new Message({ ...message }))).reverse() || [];
+    this.props.messageListComponent?.setProps({ messages });
   }
 
   public toggleOptionMenu(): void {
@@ -62,6 +90,15 @@ export default class ActiveChat extends Block {
   }
 
   public openChangeAvatarMenu(): void {
-    this.imageChooser.openChooser(this.props.chat.id);
+    this.props.imageChooserComponent.openChooser(this.props.chat.id);
+  }
+
+  public sendMessage() {
+    const message = this.props.messageInputComponent.getValue();
+    if (message) {
+      this.socket.send(message);
+      this.props.messageInputComponent.clearInput();
+    }
+
   }
 }

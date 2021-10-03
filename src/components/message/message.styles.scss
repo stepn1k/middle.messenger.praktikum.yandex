@@ -4,6 +4,7 @@
   font-weight: 500;
   padding: .6875rem;
   width: fit-content;
+  max-width: 31.25rem;
 
   &_own {
     background-color: $message-internal-color;
