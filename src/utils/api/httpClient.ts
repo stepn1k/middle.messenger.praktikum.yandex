@@ -61,7 +61,7 @@ export default class HttpClient {
       const xhr: XMLHttpRequest = new XMLHttpRequest();
       // timeout
       xhr.timeout = timeout;
-      xhr.withCredentials = !withCredentials;
+      xhr.withCredentials = !!withCredentials;
 
       xhr.open(method,
         (method === HttpMethodsEnum.GET) && data
