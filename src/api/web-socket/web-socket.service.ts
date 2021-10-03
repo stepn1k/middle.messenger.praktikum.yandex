@@ -40,7 +40,7 @@ export default class WebSocketService {
   }
 
   public send(message: string): void {
-    this.socket.send(JSON.stringify({ message, type: 'message' }));
+    this.socket.send(JSON.stringify({ content: message, type: 'message' }));
   }
 
   private pingConnection(): void {

@@ -14,10 +14,37 @@
     color: $primary-two;
   }
 
+  &-loading {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
   &.empty {
     height: 100%;
 
     .message-list-empty {
+      display: flex;
+    }
+
+    .message-list-loading {
+      display: none;
+    }
+
+    .message-list-messages {
+      display: none;
+    }
+  }
+
+  &.loading {
+    height: 100%;
+
+    .message-list-empty {
+      display: none;
+    }
+
+    .message-list-loading {
       display: flex;
     }
 

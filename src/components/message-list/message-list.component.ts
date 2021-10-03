@@ -12,11 +12,21 @@ export default class MessageList extends Block {
   }
 
   componentDidMount() {
-    if (!this.props.messages?.length) {
+    if (this.props.messages === null) {
+      this.element.classList.add('loading');
+    } else if (!this.props.messages?.length) {
       this.element.classList.add('empty');
     } else {
       this.element.classList.remove('empty');
+      this.element.classList.remove('loading');
     }
-    return true;
+  }
+
+  private scrollDown() {
+    this.element.querySelector('#bottom')?.scrollIntoView();
+  }
+
+  onComponentRendered() {
+    this.scrollDown();
   }
 }

@@ -1,7 +1,7 @@
 import MessageTemplate from './message.template';
 import Block from '../../utils/block/block';
-import { IMessage } from './message.interface';
 import store from '../../store/store';
+import { IMessage } from './message.interface';
 
 export default class Message extends Block {
   constructor(props: IMessage) {

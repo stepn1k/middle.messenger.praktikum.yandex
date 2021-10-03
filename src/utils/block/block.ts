@@ -9,6 +9,7 @@ export default abstract class Block {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
+    FLOW_RENDERED: 'flow:rendered',
   };
 
   public readonly props: Props;
@@ -47,6 +48,7 @@ export default abstract class Block {
     eventBus.on(Block.EVENTS.FLOW_CDM, this.onComponentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this.onComponentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.onRender.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDERED, this.onComponentRendered.bind(this));
   }
 
   private addEvents(element: HTMLElement): void {
@@ -103,12 +105,15 @@ export default abstract class Block {
       this.addEvents(this.element);
       const currentElement = document.querySelector(`[data-id='${this.id}']`);
       currentElement?.replaceWith(this.element);
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDERED);
     }
   }
 
   public render(): HTMLElement {
     return this.element;
   }
+
+  public onComponentRendered() { }
 
   public addClass(className: string) {
     this.element.classList.add(className);

@@ -25,24 +25,25 @@ export default class ActiveChat extends Block {
     const activeChatItem = props.chat;
 
     super({
-        uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
-        imageSource: Avatar.baseImageUrl
+      uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
+      imageSource: Avatar.baseImageUrl
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
-        imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
-        messageListComponent: new MessageList({}),
-        messageInputComponent: new Input({ placeholder: 'Type your message' }),
-        sendMessage: () => this.sendMessage(),
-        toggleOptionsMenu: () => this.toggleOptionMenu(),
-        removeChat: () => this.removeChat(),
-        openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
-      },
-      ActiveChatTemplate);
+      imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
+      messageListComponent: new MessageList({}),
+      messageInputComponent: new Input({ placeholder: 'Type your message' }),
+      sendMessage: () => this.sendMessage(),
+      toggleOptionsMenu: () => this.toggleOptionMenu(),
+      removeChat: () => this.removeChat(),
+      openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
+    },
+    ActiveChatTemplate);
   }
 
   componentInit() {
     store.subscribe((state) => {
       if (state.activeChat?.id !== this.props.chat?.id) {
         this.isSocketOpen = false;
+        this.props.messageListComponent?.setProps({ messages: null });
         this.socket?.closeConnect();
       }
     }, 'chat');
@@ -69,9 +70,20 @@ export default class ActiveChat extends Block {
     }
   }
 
-  private onMessage(data: IMessage[]) {
-    const messages = data?.map(((message) => new Message({ ...message }))).reverse() || [];
-    this.props.messageListComponent?.setProps({ messages });
+  private onMessage(data: IMessage[] | IMessage) {
+    if (Array.isArray(data)) {
+      const messages = (data as IMessage[])?.map(
+        ((message) => new Message({ ...message })),
+      ).reverse();
+      this.props.messageListComponent?.setProps({ messages });
+    } else {
+      this.props.messageListComponent?.setProps(
+        {
+          messages:
+            [...this.props.messageListComponent.props.messages, new Message({ ...data })],
+        },
+      );
+    }
   }
 
   public toggleOptionMenu(): void {
@@ -99,6 +111,5 @@ export default class ActiveChat extends Block {
       this.socket.send(message);
       this.props.messageInputComponent.clearInput();
     }
-
   }
 }
