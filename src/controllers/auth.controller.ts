@@ -55,6 +55,7 @@ class AuthController {
     AuthApiService.getUser().then(({ response }) => {
       const user = JSON.parse(response);
       if (user.id) {
+        store.setActiveChat(null);
         this.setCurrentUser(user);
         resolveFn(user);
       } else {

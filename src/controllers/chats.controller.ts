@@ -31,7 +31,7 @@ class ChatsController {
         const response = JSON.parse(getChatsResponse.response);
         if (getChatsResponse.status === 200) {
           store.setCurrentChats(response as IChat[]);
-          resolve('OK');
+          resolve(response);
         } else {
           reject(response.reason);
         }
@@ -45,7 +45,11 @@ class ChatsController {
         const response = JSON.parse(createChatResponse.response);
         if (createChatResponse.status === 200) {
           this.getChats()
-            .then(() => resolve('Chat created.'))
+            .then((chats) => {
+              // @ts-ignore
+              store.setActiveChat(chats[0]);
+              resolve('Chat created.')
+            })
             .catch((err) => reject(err));
         } else {
           reject(response.reason);
