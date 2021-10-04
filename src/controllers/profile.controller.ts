@@ -25,36 +25,29 @@ class ProfileController {
     });
   }
 
-  public changeProfileData(body: ChangeUserDataRequestBody) {
-    return new Promise((resolve, reject) => {
-      UsersApiService.changeUserProfileData(body).then((changeUserDataResponse) => {
-        const response = JSON.parse(changeUserDataResponse.response);
-        if (changeUserDataResponse.status === 200) {
-          store.setCurrentUser(response);
-          resolve('OK');
-        } else {
-          reject(response.reason);
-        }
-      });
-    });
-  }
-
   public changeUserAvatar(body: FormData) {
     return new Promise((resolve, reject) => {
       UsersApiService.changeUserAvatar(body)
-        .then((changeUserAvatarResponse) => {
-          const response = JSON.parse(changeUserAvatarResponse.response);
-          if (changeUserAvatarResponse.status === 200) {
-            store.setCurrentUser(response);
-            resolve('OK');
-          } else {
-            reject(response.reason);
-          }
-        })
-        .catch(
-          () => reject('Something went wrong. Please try again later or choose another format.'),
-        );
+        .then((res) => this.changeUserDataHandler(res, resolve, reject))
+        .catch(() => reject('Something went wrong. Please try again later or choose another format.'));
     });
+  }
+
+  public changeProfileData(body: ChangeUserDataRequestBody) {
+    return new Promise((resolve, reject) => {
+      UsersApiService.changeUserProfileData(body)
+        .then((res) => this.changeUserDataHandler(res, resolve, reject));
+    });
+  }
+
+  private changeUserDataHandler(xmlRequest: XMLHttpRequest, resolveFn: any, rejectFn: any) {
+    const response = JSON.parse(xmlRequest.response);
+    if (xmlRequest.status === 200) {
+      store.setCurrentUser(response);
+      resolveFn('OK');
+    } else {
+      rejectFn(response.reason);
+    }
   }
 }
 

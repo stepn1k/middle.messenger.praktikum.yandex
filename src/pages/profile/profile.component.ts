@@ -132,17 +132,20 @@ export default class ProfilePage extends Block {
       context.editButton = new Button({
         label: 'Edit',
         viewType: 'basic',
+        translateAnimation: true,
         events: { click: () => router.go(RouterPaths.SETTINGS) },
       });
       context.changePasswordButton = new Button({
         label: 'Change Password',
         viewType: 'basic',
+        translateAnimation: true,
         events: { click: () => router.go(RouterPaths.CHANGE_PASSWORD) },
       });
       context.logoutButton = new Button({
         label: 'Logout',
         viewType: 'basic',
         color: 'red',
+        translateAnimation: true,
         events: { click: () => this.logout() },
       });
     } else {

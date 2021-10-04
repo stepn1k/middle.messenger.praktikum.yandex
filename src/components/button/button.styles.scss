@@ -17,6 +17,11 @@
 
     .button-component__link {
       color: $primary-one;
+      transition: .3s;
+
+      &.translate:hover {
+        transform: translateX(1.5625rem);
+      }
     }
   }
 
@@ -24,6 +29,12 @@
     font-size: .8125rem;
     background-color: $primary-one;
     border-radius: .5rem;
+    transition: .3s;
+    transition-property: background-color;
+
+    &:hover {
+      background-color: darken($primary-one, 7%);
+    }
 
     .button-component__link {
       color: white;

@@ -11,6 +11,18 @@
   cursor: pointer;
   transition: .2s;
 
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 1.25rem;
+    left: 0;
+    height: 0;
+
+    .back-aside__button {
+      font-size: .75rem;
+      margin: .5rem;
+    }
+  }
+
   &:hover {
     background-color: $primary-three;
   }

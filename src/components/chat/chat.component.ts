@@ -15,7 +15,7 @@ export interface ChatProps {
 }
 
 export default class Chat extends Block {
-  private chat: IChat;
+  private readonly chat: IChat;
 
   constructor(props: ChatProps) {
     const getTimeForChatFromDateTime = (time: number | Date): string => new Date(time).toLocaleString('en-US', {

@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import ApiSettings from '../api.settings';
+
 export default class WebSocketService {
   private socket: WebSocket;
 
@@ -51,7 +53,7 @@ export default class WebSocketService {
     if (this.socket) {
       this.closeConnect();
     }
-    this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${chatToken}`);
+    this.socket = new WebSocket(`${ApiSettings.webSocketUrl}/chats/${userId}/${chatId}/${chatToken}`);
     this.init(this.socket);
   }
 

@@ -11,17 +11,11 @@
     border: 2px solid $divider-color;
 
     &-header {
-      padding: .625rem;
-      display: flex;
-      flex-direction: column;
+      padding: 1.25rem .625rem;
       overflow: hidden;
-
-      &-line {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: .625rem 0 1.25rem 0;
-      }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       &__profile-link {
         cursor: pointer;
@@ -42,16 +36,6 @@
         span {
           font-size: .6875rem;
         }
-      }
-
-      &__quick-search {
-        font-size: .75rem;
-        border-radius: .3125rem;
-        padding: .625rem;
-        background-color: $primary-three;
-        border: none;
-        text-align: center;
-        width: 100%;
       }
     }
   }
