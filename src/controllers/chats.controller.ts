@@ -39,6 +39,20 @@ class ChatsController {
     });
   }
 
+  public getChatUsers(chatId: number) {
+    return new Promise((resolve, reject) => {
+      ChatsApiService.getChatsUsers(chatId).then((getChatUsersResponse) => {
+        const response = JSON.parse(getChatUsersResponse.response);
+        if (getChatUsersResponse.status === 200) {
+          store.setChatUsers(response);
+          resolve(response);
+        } else {
+          reject(response.reason);
+        }
+      });
+    });
+  }
+
   public createChat(data: CreateChatRequestBody) {
     return new Promise((resolve, reject) => {
       ChatsApiService.createChat(data).then((createChatResponse) => {
@@ -48,7 +62,7 @@ class ChatsController {
             .then((chats) => {
               // @ts-ignore
               store.setActiveChat(chats[0]);
-              resolve('Chat created.')
+              resolve('Chat created.');
             })
             .catch((err) => reject(err));
         } else {
@@ -64,6 +78,7 @@ class ChatsController {
         const response = JSON.parse(deleteChatResponse.response);
         if (deleteChatResponse.status === 200) {
           store.setActiveChat(null);
+          store.setChatUsers(null);
           this.getChats()
             .then(() => resolve('Chat deleted.'))
             .catch((err) => reject(err));

@@ -43,6 +43,15 @@
   }
 
   &.profile_edit {
+    .avatar-component__image {
+      transition: .5s;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 1px 1px 5px 2px $primary-two;
+      }
+    }
+
     .profile-form-buttons {
       display: flex;
       justify-content: center;

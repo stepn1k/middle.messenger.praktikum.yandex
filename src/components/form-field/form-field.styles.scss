@@ -70,6 +70,10 @@
 
 .focused.form-field-container > .form-field {
   border-bottom: 1px solid rgba($primary-one, .7);
+
+  .form-field__value {
+    color: initial;
+  }
 }
 
 .invalid > .form-field__error-message {

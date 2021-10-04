@@ -35,6 +35,13 @@ export default class MessengerPage extends Block {
     store.subscribe((state) => {
       this.activeChat?.setProps({ chat: state.activeChat });
       this.chatsList?.setProps({ chats: state.chats });
+      if (state.activeChat) {
+        this.element.classList.add('messenger_active-chat');
+        this.element.classList.remove('messenger_chat-list');
+      } else {
+        this.element.classList.remove('messenger_active-chat');
+        this.element.classList.add('messenger_chat-list');
+      }
     }, 'messenger');
   }
 

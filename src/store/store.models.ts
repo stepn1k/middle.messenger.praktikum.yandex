@@ -4,6 +4,7 @@ export interface State {
   user: User;
   chats: IChat[],
   activeChat: IChat;
+  chatUsers: User[];
 }
 
 export interface User {

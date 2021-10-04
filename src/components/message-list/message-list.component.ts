@@ -8,8 +8,7 @@ export interface MessageListProps {
 
 export default class MessageList extends Block {
   constructor(props: MessageListProps) {
-    props.messages = [];
-    super(props, MessageListTemplate);
+    super({ ...props, messages: [] }, MessageListTemplate);
   }
 
   componentDidMount() {

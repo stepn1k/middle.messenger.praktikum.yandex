@@ -10,7 +10,7 @@ import store from '../../store/store';
 import MessageList from '../message-list';
 import Message from '../message';
 import { IMessage } from '../message/message.interface';
-import Input from '../input';
+import UsersMenu from '../users-menu/users-menu.component';
 
 export interface ActiveChatProps {
   chat: IChat;
@@ -21,20 +21,23 @@ export default class ActiveChat extends Block {
 
   private isSocketOpen: boolean;
 
+  private messageInput: HTMLInputElement;
+
   constructor(props: ActiveChatProps) {
     const activeChatItem = props.chat;
-
     super({
       uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
       imageSource: Avatar.baseImageUrl
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
       imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
       messageListComponent: new MessageList({}),
-      messageInputComponent: new Input({ placeholder: 'Type your message' }),
+      usersMenuComponent: new UsersMenu({}),
       sendMessage: () => this.sendMessage(),
       toggleOptionsMenu: () => this.toggleOptionMenu(),
       removeChat: () => this.removeChat(),
       openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
+      openUsersMenu: () => this.openUsersMenu(),
+      backToChats: () => this.backToChats(),
     },
     ActiveChatTemplate);
   }
@@ -64,26 +67,28 @@ export default class ActiveChat extends Block {
           this.socket = new WebSocketService();
           this.socket.connect(this.props.chat.id, store.getCurrentUser().id, token);
           this.isSocketOpen = true;
+          chatsController.getChatUsers(this.props.chat.id);
           this.socket.on(this.onMessage.bind(this));
         })
         .catch(() => store.setActiveChat(null));
     }
+    this.bindMessageInputListener();
+  }
+
+  private bindMessageInputListener(): void {
+    this.messageInput = this.element.querySelector('.active-chat-footer__input') as HTMLInputElement;
+    this.messageInput.onkeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        this.sendMessage();
+      }
+    };
   }
 
   private onMessage(data: IMessage[] | IMessage) {
-    if (Array.isArray(data)) {
-      const messages = (data as IMessage[])?.map(
-        ((message) => new Message({ ...message })),
-      ).reverse();
-      this.props.messageListComponent?.setProps({ messages });
-    } else {
-      this.props.messageListComponent?.setProps(
-        {
-          messages:
-            [...this.props.messageListComponent.props.messages, new Message({ ...data })],
-        },
-      );
-    }
+    const messages: Message[] = Array.isArray(data)
+      ? data?.map((message) => new Message({ ...message })).reverse()
+      : [...this.props.messageListComponent.props.messages, new Message({ ...data })];
+    this.props.messageListComponent?.setProps({ messages });
   }
 
   public toggleOptionMenu(): void {
@@ -105,11 +110,21 @@ export default class ActiveChat extends Block {
     this.props.imageChooserComponent.openChooser(this.props.chat.id);
   }
 
+  public openUsersMenu(): void {
+    console.log('open users menu');
+  }
+
   public sendMessage() {
-    const message = this.props.messageInputComponent.getValue();
+    const message = this.messageInput.value;
     if (message) {
       this.socket.send(message);
-      this.props.messageInputComponent.clearInput();
+      this.messageInput.value = '';
     }
+  }
+
+  // for mobile device
+  public backToChats(): void {
+    store.setActiveChat(null);
+    store.setChatUsers(null);
   }
 }

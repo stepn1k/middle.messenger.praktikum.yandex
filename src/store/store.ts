@@ -7,6 +7,7 @@ const initialState: State = {
   user: null,
   chats: null,
   activeChat: null,
+  chatUsers: null,
 };
 
 class Store {
@@ -73,6 +74,14 @@ class Store {
 
   public setActiveChat(chat: IChat) {
     this.state.activeChat = chat;
+  }
+
+  public setChatUsers(users: User[]) {
+    this.state.chatUsers = users;
+  }
+
+  public getChatUsers(): User[] {
+    return this.state.chatUsers;
   }
 }
 

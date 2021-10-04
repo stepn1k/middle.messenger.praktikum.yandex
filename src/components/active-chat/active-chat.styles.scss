@@ -15,6 +15,18 @@
       border-bottom: .0625rem solid $divider-color;
       padding-bottom: .625rem;
 
+      &__back-to-chats {
+        margin-right: .725rem;
+        color: $primary-two;
+        transition: .3s;
+        transition-property: color;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary-one;
+        }
+      }
+
       &__image {
         width: 2.125rem;
         height: 2.125rem;
@@ -96,6 +108,12 @@
 
       &__input {
         width: 100%;
+        font-size: .75rem;
+        font-weight: 500;
+        border: none;
+        background-color: $primary-three;
+        border-radius: .375rem;
+        padding: .625rem 1rem;
       }
 
       &__send-icon {
@@ -103,7 +121,7 @@
         color: $white;
         cursor: pointer;
         padding: .3125rem;
-        margin-left: 1rem;
+        margin-left: .5rem;
         border-radius: 50%;
       }
     }

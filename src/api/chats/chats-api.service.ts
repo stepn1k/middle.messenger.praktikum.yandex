@@ -24,4 +24,8 @@ export default class ChatsApiService {
   static getToken(chatId: number): Promise<XMLHttpRequest> {
     return httpClient.post(`/token/${chatId}`, { withCredentials: true });
   }
+
+  static getChatsUsers(chatId: number): Promise<XMLHttpRequest> {
+    return httpClient.get(`/${chatId}/users`, { withCredentials: true });
+  }
 }
