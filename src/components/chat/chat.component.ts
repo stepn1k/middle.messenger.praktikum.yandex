@@ -26,6 +26,7 @@ export default class Chat extends Block {
       weekday: 'short',
     }); // example: 11 Th, 13:12
     const context = {
+      chatId: props.chatOriginal.id,
       chatTitle: props.chatTitle,
       lastMessage: props.lastMessage || 'Chat is empty',
       messagesCountClass: props.newMessagesCount ? 'new-messages' : 'empty',
@@ -40,5 +41,11 @@ export default class Chat extends Block {
 
   private selectChat() {
     store.setActiveChat(this.chat);
+  }
+
+  componentDidMount() {
+    if (this.props.chatId === store.getActiveChat()?.id) {
+      this.element.classList.add('active');
+    }
   }
 }

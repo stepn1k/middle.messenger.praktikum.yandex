@@ -6,8 +6,12 @@
   text-align: left;
   transition: .2s;
 
-  &:hover {
+  &.active {
     background-color: $primary-one-hover;
+  }
+
+  &:hover:not(.active) {
+    background-color: $primary-three;
   }
 
   &-image {

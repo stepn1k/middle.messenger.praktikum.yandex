@@ -10,7 +10,6 @@ import store from '../../store/store';
 import MessageList from '../message-list';
 import Message from '../message';
 import { IMessage } from '../message/message.interface';
-import Input from '../input';
 import UsersMenu from '../users-menu/users-menu.component';
 
 export interface ActiveChatProps {
@@ -22,6 +21,8 @@ export default class ActiveChat extends Block {
 
   private isSocketOpen: boolean;
 
+  private messageInput: HTMLInputElement;
+
   constructor(props: ActiveChatProps) {
     const activeChatItem = props.chat;
     super({
@@ -30,13 +31,13 @@ export default class ActiveChat extends Block {
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
       imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
       messageListComponent: new MessageList({}),
-      messageInputComponent: new Input({ placeholder: 'Type your message' }),
       usersMenuComponent: new UsersMenu({}),
       sendMessage: () => this.sendMessage(),
       toggleOptionsMenu: () => this.toggleOptionMenu(),
       removeChat: () => this.removeChat(),
       openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
       openUsersMenu: () => this.openUsersMenu(),
+      backToChats: () => this.backToChats(),
     },
     ActiveChatTemplate);
   }
@@ -66,10 +67,21 @@ export default class ActiveChat extends Block {
           this.socket = new WebSocketService();
           this.socket.connect(this.props.chat.id, store.getCurrentUser().id, token);
           this.isSocketOpen = true;
+          chatsController.getChatUsers(this.props.chat.id);
           this.socket.on(this.onMessage.bind(this));
         })
         .catch(() => store.setActiveChat(null));
     }
+    this.bindMessageInputListener();
+  }
+
+  private bindMessageInputListener(): void {
+    this.messageInput = this.element.querySelector('.active-chat-footer__input') as HTMLInputElement;
+    this.messageInput.onkeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        this.sendMessage();
+      }
+    };
   }
 
   private onMessage(data: IMessage[] | IMessage) {
@@ -103,10 +115,16 @@ export default class ActiveChat extends Block {
   }
 
   public sendMessage() {
-    const message = this.props.messageInputComponent.getValue();
+    const message = this.messageInput.value;
     if (message) {
       this.socket.send(message);
-      this.props.messageInputComponent.clearInput();
+      this.messageInput.value = '';
     }
+  }
+
+  // for mobile device
+  public backToChats(): void {
+    store.setActiveChat(null);
+    store.setChatUsers(null);
   }
 }

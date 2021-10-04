@@ -6,6 +6,35 @@
   border-right: 2px solid $divider-color;
   position: relative;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    &.messenger_active-chat {
+      .messenger-list {
+        display: none;
+      }
+
+      .messenger-chat {
+        height: 100vh;
+      }
+    }
+
+    &.messenger_chat-list {
+      .messenger-list {
+        display: block;
+        height: 100vh;
+
+        &-chats {
+          width: 100%;
+        }
+      }
+
+      .messenger-chat {
+        display: none;
+      }
+    }
+  }
+
   &-list {
     background-color: $background-color;
     border: 2px solid $divider-color;

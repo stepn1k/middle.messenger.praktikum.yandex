@@ -2,6 +2,7 @@ export default `
 <div data-id="{{ componentId }}" class="messenger-active-chat {{ uiStateClass }}">
     <div class="active-chat">
         <div class="active-chat-header">
+            <div class="active-chat-header__back-to-chats" onclick="{{ backToChats }}"><i class="fas fa-arrow-left"></i></div>
             <img class="active-chat-header__image" alt="chat-avatar" src="{{ imageSource }}">
             <div class="active-chat-header__chat-name"> {{ chat.title }} </div>
             <div class="active-chat-header__options" onclick="{{ toggleOptionsMenu }}"><i class="fas fa-ellipsis-v"></i>
@@ -17,8 +18,14 @@ export default `
             {{ messageListComponent }}
         </div>
         <div class="active-chat-footer">
-            <div class="active-chat-footer__input">{{ messageInputComponent }}</div>
-            <div class="active-chat-footer__send-icon" onclick="{{ sendMessage }}">&#10132;</div>
+            <input autocomplete="off"
+                   class="active-chat-footer__input"
+                   type="text" id="message"
+                   name="message"
+                   placeholder="Type your message...">
+            <div class="active-chat-footer__send-icon" onclick="{{ sendMessage }}">
+                <i class="fas fa-chevron-circle-right"></i>
+            </div>
         </div>
     </div>
 
@@ -30,6 +37,6 @@ export default `
     {{ imageChooserComponent }}
 
      <!-- Users Menu PopUp -->
-    {{ usersMenuComponent }}
+
 </div>
 `;

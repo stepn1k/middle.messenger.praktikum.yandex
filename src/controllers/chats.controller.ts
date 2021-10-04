@@ -44,6 +44,7 @@ class ChatsController {
       ChatsApiService.getChatsUsers(chatId).then((getChatUsersResponse) => {
         const response = JSON.parse(getChatUsersResponse.response);
         if (getChatUsersResponse.status === 200) {
+          store.setChatUsers(response);
           resolve(response);
         } else {
           reject(response.reason);
@@ -77,6 +78,7 @@ class ChatsController {
         const response = JSON.parse(deleteChatResponse.response);
         if (deleteChatResponse.status === 200) {
           store.setActiveChat(null);
+          store.setChatUsers(null);
           this.getChats()
             .then(() => resolve('Chat deleted.'))
             .catch((err) => reject(err));
