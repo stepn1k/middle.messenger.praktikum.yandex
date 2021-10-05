@@ -8,7 +8,7 @@ export default `
             <div class="active-chat-header__options" onclick="{{ toggleOptionsMenu }}"><i class="fas fa-ellipsis-v"></i>
                 <div class="active-chat-header__options-menu">
                     <div class="options-menu__item" onclick="{{ openChangeAvatarMenu }}"><i class="far fa-file-image"></i>Change Chat Avatar</div>
-                    <div class="options-menu__item" onclick="{{ openUsersMenu }}"><i class="fas fa-users-cog"></i></i>Users Menu</div>
+                    <div class="options-menu__item" onclick="{{ openUsersMenu }}"><i class="fas fa-users-cog"></i></i>User Management</div>
                     <div class="divider"></div>
                     <div class="options-menu__item warning-theme" onclick="{{ removeChat }}"><i class="far fa-trash-alt"></i>Remove Chat</div>
                 </div>
@@ -37,6 +37,6 @@ export default `
     {{ imageChooserComponent }}
 
      <!-- Users Menu PopUp -->
-
+    {{ usersMenuComponent }}
 </div>
 `;

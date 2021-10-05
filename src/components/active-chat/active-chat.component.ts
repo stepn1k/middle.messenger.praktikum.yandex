@@ -10,7 +10,7 @@ import store from '../../store/store';
 import MessageList from '../message-list';
 import Message from '../message';
 import { IMessage } from '../message/message.interface';
-import UsersMenu from '../users-menu/users-menu.component';
+import UsersMenu from '../users-menu';
 
 export interface ActiveChatProps {
   chat: IChat;
@@ -31,7 +31,7 @@ export default class ActiveChat extends Block {
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
       imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
       messageListComponent: new MessageList({}),
-      usersMenuComponent: new UsersMenu({}),
+      usersMenuComponent: new UsersMenu(),
       sendMessage: () => this.sendMessage(),
       toggleOptionsMenu: () => this.toggleOptionMenu(),
       removeChat: () => this.removeChat(),
@@ -111,7 +111,7 @@ export default class ActiveChat extends Block {
   }
 
   public openUsersMenu(): void {
-    console.log('open users menu');
+    this.props.usersMenuComponent.openMenu();
   }
 
   public sendMessage() {

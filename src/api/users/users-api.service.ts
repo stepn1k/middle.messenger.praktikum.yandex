@@ -1,6 +1,6 @@
 import HttpClient from '../../utils/api/httpClient';
 import ApiSettings from '../api.settings';
-import { ChangePasswordRequestBody, ChangeUserDataRequestBody } from './users-api.models';
+import { ChangePasswordRequestBody, ChangeUserDataRequestBody, SearchUserByLoginRequestBody } from './users-api.models';
 
 const httpClient = new HttpClient(`${ApiSettings.baseUrl}/user`);
 
@@ -17,5 +17,9 @@ export default class UsersApiService {
 
   static changeUserAvatar(data: FormData): Promise<XMLHttpRequest> {
     return httpClient.put('/profile/avatar', { data, withCredentials: true });
+  }
+
+  static searchUserByLogin(data: SearchUserByLoginRequestBody): Promise<XMLHttpRequest> {
+    return httpClient.post('/search', { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
   }
 }
