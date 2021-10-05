@@ -1,6 +1,7 @@
 import ChatsApiService from '../api/chats/chats-api.service';
 import store from '../store/store';
 import { CreateChatRequestBody, DeleteChatRequestBody, IChat } from '../api/chats/chats-api.models';
+import UsersApiService from '../api/users/users-api.service';
 
 class ChatsController {
   private static chatsControllerInstance: ChatsController;
@@ -51,6 +52,47 @@ class ChatsController {
         }
       });
     });
+  }
+
+  public searchUserToAdd(login: string) {
+    return new Promise((resolve, reject) => {
+      UsersApiService.searchUserByLogin({ login }).then((searchUserByLogin) => {
+        const response = JSON.parse(searchUserByLogin.response);
+        if (searchUserByLogin.status === 200) {
+          resolve(response);
+        } else {
+          reject(response.reason);
+        }
+      });
+    });
+  }
+
+  public addUserToChat(chatId: number, userId: number) {
+    return new Promise((resolve, reject) => {
+      ChatsApiService.addUserToChat(chatId, userId).then((addUserToChat) => {
+        this.updateChatUsersHandler(chatId, addUserToChat, resolve, reject);
+      });
+    });
+  }
+
+  public deleteUserFromChat(chatId: number, userId: number) {
+    return new Promise((resolve, reject) => {
+      ChatsApiService.deleteUserFromChat(chatId, userId).then((deleteUserFromChat) => {
+        this.updateChatUsersHandler(chatId, deleteUserFromChat, resolve, reject);
+      });
+    });
+  }
+
+  private updateChatUsersHandler(
+    chatId: number, XMLRequest: XMLHttpRequest, resolveFn: any, rejectFn: any,
+  ) {
+    if (XMLRequest.status === 200) {
+      this.getChatUsers(chatId);
+      resolveFn('Chat users updated.');
+    } else {
+      const response = JSON.parse(XMLRequest.response);
+      rejectFn(response.reason);
+    }
   }
 
   public createChat(data: CreateChatRequestBody) {

@@ -11,3 +11,7 @@ export interface ChangeUserDataRequestBody {
   email: string;
   phone: string;
 }
+
+export interface SearchUserByLoginRequestBody {
+  login: string;
+}

@@ -28,4 +28,20 @@ export default class ChatsApiService {
   static getChatsUsers(chatId: number): Promise<XMLHttpRequest> {
     return httpClient.get(`/${chatId}/users`, { withCredentials: true });
   }
+
+  static addUserToChat(chatId: number, userId: number): Promise<XMLHttpRequest> {
+    return httpClient.put('/users', {
+      data: { users: [userId], chatId },
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+    });
+  }
+
+  static deleteUserFromChat(chatId: number, userId: number): Promise<XMLHttpRequest> {
+    return httpClient.delete('/users', {
+      data: { users: [userId], chatId },
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+    });
+  }
 }
