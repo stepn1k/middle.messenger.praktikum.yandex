@@ -26,20 +26,20 @@ export default class ActiveChat extends Block {
   constructor(props: ActiveChatProps) {
     const activeChatItem = props.chat;
     super({
-      uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
-      imageSource: Avatar.baseImageUrl
+        uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
+        imageSource: Avatar.baseImageUrl
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
-      imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
-      messageListComponent: new MessageList({}),
-      usersMenuComponent: new UsersMenu(),
-      sendMessage: () => this.sendMessage(),
-      toggleOptionsMenu: () => this.toggleOptionMenu(),
-      removeChat: () => this.removeChat(),
-      openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
-      openUsersMenu: () => this.openUsersMenu(),
-      backToChats: () => this.backToChats(),
-    },
-    ActiveChatTemplate);
+        imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
+        messageListComponent: new MessageList({}),
+        usersMenuComponent: new UsersMenu(),
+        sendMessage: () => this.sendMessage(),
+        toggleOptionsMenu: () => this.toggleOptionMenu(),
+        removeChat: () => this.removeChat(),
+        openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
+        openUsersMenu: () => this.openUsersMenu(),
+        backToChats: () => this.backToChats(),
+      },
+      ActiveChatTemplate);
   }
 
   componentInit() {
@@ -77,11 +77,13 @@ export default class ActiveChat extends Block {
 
   private bindMessageInputListener(): void {
     this.messageInput = this.element.querySelector('.active-chat-footer__input') as HTMLInputElement;
-    this.messageInput.onkeydown = (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        this.sendMessage();
-      }
-    };
+    if (this.messageInput) {
+      this.messageInput.onkeydown = (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+          this.sendMessage();
+        }
+      };
+    }
   }
 
   private onMessage(data: IMessage[] | IMessage) {

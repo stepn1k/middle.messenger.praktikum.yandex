@@ -3,14 +3,7 @@ import UsersApiService from '../api/users/users-api.service';
 import store from '../store/store';
 
 class ProfileController {
-  private static profileControllerInstance: ProfileController;
-
-  constructor() {
-    if (ProfileController.profileControllerInstance) {
-      return ProfileController.profileControllerInstance;
-    }
-    ProfileController.profileControllerInstance = this;
-  }
+  constructor() { }
 
   public changePassword(body: ChangePasswordRequestBody) {
     return new Promise((resolve, reject) => {

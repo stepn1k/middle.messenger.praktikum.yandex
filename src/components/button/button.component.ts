@@ -13,7 +13,7 @@ export default class Button extends Block {
   constructor(props: ButtonProps) {
     const context = {
       ...props,
-      color: props?.color || 'blue',
+      color: props.color || 'blue',
       animationStyle: props.translateAnimation ? 'translate' : 'no-animation',
     };
     super(context, ButtonTemplate);

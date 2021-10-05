@@ -2,7 +2,7 @@ import { IChat } from '../api/chats/chats-api.models';
 
 export interface State {
   user: User;
-  chats: IChat[],
+  chats: IChat[];
   activeChat: IChat;
   chatUsers: User[];
 }

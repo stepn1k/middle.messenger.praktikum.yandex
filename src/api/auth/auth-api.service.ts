@@ -1,8 +1,7 @@
 import HttpClient from '../../utils/api/httpClient';
-import ApiSettings from '../api.settings';
 import { SignInBodyRequest } from './auth-api.models';
 
-const httpClient = new HttpClient(`${ApiSettings.baseUrl}/auth`);
+const httpClient = new HttpClient(`/auth`);
 
 export default class AuthApiService {
   static signUp(data: SignInBodyRequest): Promise<XMLHttpRequest> {
