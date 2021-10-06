@@ -29,22 +29,42 @@ export default class HttpClient {
 
   public get(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
     return this.request(this.url + path,
-      { ...options, method: HttpMethodsEnum.GET }, options.timeout);
+      {
+        withCredentials: true,
+        headers: { 'content-type': 'application/json', ...options?.headers },
+        ...options,
+        method: HttpMethodsEnum.GET,
+      }, options.timeout);
   }
 
   public post(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
     return this.request(this.url + path,
-      { ...options, method: HttpMethodsEnum.POST }, options.timeout);
+      {
+        withCredentials: true,
+        headers: { 'content-type': 'application/json', ...options?.headers },
+        ...options,
+        method: HttpMethodsEnum.POST,
+      }, options.timeout);
   }
 
   public put(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
     return this.request(this.url + path,
-      { ...options, method: HttpMethodsEnum.PUT }, options.timeout);
+      {
+        withCredentials: true,
+        headers: { 'content-type': 'application/json', ...options?.headers },
+        ...options,
+        method: HttpMethodsEnum.PUT,
+      }, options.timeout);
   }
 
   public delete(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
     return this.request(this.url + path,
-      { ...options, method: HttpMethodsEnum.DELETE }, options.timeout);
+      {
+        withCredentials: true,
+        headers: { 'content-type': 'application/json', ...options?.headers },
+        ...options,
+        method: HttpMethodsEnum.DELETE,
+      }, options.timeout);
   }
 
   request = (
