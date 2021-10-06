@@ -11,6 +11,7 @@ import MessageList from '../message-list';
 import Message from '../message';
 import { IMessage } from '../message/message.interface';
 import UsersMenu from '../users-menu';
+import isEqual from '../../utils/methods/isEqual';
 
 export interface ActiveChatProps {
   chat: IChat;
@@ -26,20 +27,20 @@ export default class ActiveChat extends Block {
   constructor(props: ActiveChatProps) {
     const activeChatItem = props.chat;
     super({
-        uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
-        imageSource: Avatar.baseImageUrl
+      uiStateClass: activeChatItem ? 'active-chat-item' : 'empty-chat-item',
+      imageSource: Avatar.baseImageUrl
           + (activeChatItem?.avatar ? activeChatItem.avatar : Avatar.baseChatImageSource),
-        imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
-        messageListComponent: new MessageList({}),
-        usersMenuComponent: new UsersMenu(),
-        sendMessage: () => this.sendMessage(),
-        toggleOptionsMenu: () => this.toggleOptionMenu(),
-        removeChat: () => this.removeChat(),
-        openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
-        openUsersMenu: () => this.openUsersMenu(),
-        backToChats: () => this.backToChats(),
-      },
-      ActiveChatTemplate);
+      imageChooserComponent: new ImageChooser({ type: ChooserTypeEnum.CHAT }),
+      messageListComponent: new MessageList({}),
+      usersMenuComponent: new UsersMenu(),
+      sendMessage: () => this.sendMessage(),
+      toggleOptionsMenu: () => this.toggleOptionMenu(),
+      removeChat: () => this.removeChat(),
+      openChangeAvatarMenu: () => this.openChangeAvatarMenu(),
+      openUsersMenu: () => this.openUsersMenu(),
+      backToChats: () => this.backToChats(),
+    },
+    ActiveChatTemplate);
   }
 
   componentInit() {
@@ -91,6 +92,22 @@ export default class ActiveChat extends Block {
       ? data?.map((message) => new Message({ ...message })).reverse()
       : [...this.props.messageListComponent.props.messages, new Message({ ...data })];
     this.props.messageListComponent?.setProps({ messages });
+    this.updateMessageInChatList(Array.isArray(data) ? data[0] : data);
+    this.props.messageListComponent?.scrollDown();
+    this.messageInput?.focus();
+  }
+
+  private updateMessageInChatList(message: IMessage) {
+    const chatsFromStore = store.getChats();
+    const chatIndexForUpdate = chatsFromStore.findIndex((chat) => chat.id === this.props.chat.id);
+    const updatedChats = [
+      ...chatsFromStore.slice(0, chatIndexForUpdate),
+      { ...chatsFromStore[chatIndexForUpdate], last_message: message },
+      ...chatsFromStore.slice(chatIndexForUpdate + 1),
+    ];
+    if (!isEqual(chatsFromStore, updatedChats)) {
+      store.setCurrentChats(updatedChats as IChat[]);
+    }
   }
 
   public toggleOptionMenu(): void {

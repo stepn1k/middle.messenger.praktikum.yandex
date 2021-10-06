@@ -1,7 +1,7 @@
 import HttpClient from '../../utils/api/httpClient';
 import { ChangePasswordRequestBody, ChangeUserDataRequestBody, SearchUserByLoginRequestBody } from './users-api.models';
 
-const httpClient = new HttpClient(`/user`);
+const httpClient = new HttpClient('/user');
 
 export default class UsersApiService {
   static changePassword(data: ChangePasswordRequestBody): Promise<XMLHttpRequest> {

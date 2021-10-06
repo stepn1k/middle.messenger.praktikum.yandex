@@ -5,8 +5,8 @@ import { IMessage } from './message.interface';
 
 export default class Message extends Block {
   constructor(props: IMessage) {
-    const messageUser = store.getChatUsers().find((el) => el.id === props.user_id);
-    const fullName = `${messageUser.first_name} ${messageUser.second_name}`;
+    const messageUser = store.getChatUsers()?.find((el) => el.id === props.user_id);
+    const fullName = messageUser ? `${messageUser.first_name} ${messageUser.second_name}` : 'No Name';
     const getTimeForMessageFromDateTime = (time: number | Date): string => new Date(time).toLocaleString('en-US', {
       hour12: false,
       hour: 'numeric',

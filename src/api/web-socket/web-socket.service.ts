@@ -2,11 +2,11 @@
 import ApiSettings from '../api.settings';
 
 export default class WebSocketService {
-  private socket: WebSocket;
+  private socket?: WebSocket;
 
-  private interval: NodeJS.Timer;
+  private interval?: NodeJS.Timer;
 
-  private callbackOnMessage: any;
+  private callbackOnMessage?: any;
 
   private init(socket: WebSocket): void {
     socket.addEventListener('open', this.open.bind(this));

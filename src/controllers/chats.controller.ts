@@ -4,8 +4,6 @@ import { CreateChatRequestBody, DeleteChatRequestBody, IChat } from '../api/chat
 import UsersApiService from '../api/users/users-api.service';
 
 class ChatsController {
-  constructor() { }
-
   public getToken(chatId: number) {
     return new Promise((resolve, reject) => {
       ChatsApiService.getToken(chatId).then((getChatsResponse) => {

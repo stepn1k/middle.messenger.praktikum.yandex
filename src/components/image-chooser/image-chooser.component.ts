@@ -64,9 +64,13 @@ export default class ImageChooser extends Block {
       formData.append('chatId', this.resourceId);
     }
 
-    const controllerPromise = this.chooserType === ChooserTypeEnum.CHAT
-      ? chatsController.changeChatAvatar(formData)
-      : profileController.changeUserAvatar(formData);
+    let controllerPromise;
+
+    if (this.chooserType === ChooserTypeEnum.CHAT) {
+      controllerPromise = chatsController.changeChatAvatar(formData);
+    } else {
+      controllerPromise = profileController.changeUserAvatar(formData);
+    }
 
     controllerPromise
       .then(() => this.closeChooser())

@@ -3,8 +3,6 @@ import UsersApiService from '../api/users/users-api.service';
 import store from '../store/store';
 
 class ProfileController {
-  constructor() { }
-
   public changePassword(body: ChangePasswordRequestBody) {
     return new Promise((resolve, reject) => {
       UsersApiService.changePassword(body).then((changePasswordResponse) => {

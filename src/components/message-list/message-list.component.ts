@@ -22,7 +22,7 @@ export default class MessageList extends Block {
     }
   }
 
-  private scrollDown() {
+  public scrollDown() {
     this.element.querySelector('#bottom')?.scrollIntoView();
   }
 

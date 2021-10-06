@@ -1,7 +1,7 @@
 import HttpClient from '../../utils/api/httpClient';
 import { CreateChatRequestBody, DeleteChatRequestBody } from './chats-api.models';
 
-const httpClient = new HttpClient(`/chats`);
+const httpClient = new HttpClient('/chats');
 
 export default class ChatsApiService {
   static getChats(): Promise<XMLHttpRequest> {
