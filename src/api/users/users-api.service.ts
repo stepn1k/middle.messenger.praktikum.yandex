@@ -5,20 +5,18 @@ const httpClient = new HttpClient('/user');
 
 export default class UsersApiService {
   static changePassword(data: ChangePasswordRequestBody): Promise<XMLHttpRequest> {
-    return httpClient.put('/password',
-      { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.put('/password', { data });
   }
 
   static changeUserProfileData(data: ChangeUserDataRequestBody): Promise<XMLHttpRequest> {
-    return httpClient.put('/profile',
-      { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.put('/profile', { data });
   }
 
   static changeUserAvatar(data: FormData): Promise<XMLHttpRequest> {
-    return httpClient.put('/profile/avatar', { data, withCredentials: true });
+    return httpClient.put('/profile/avatar', { data, headers: {} });
   }
 
   static searchUserByLogin(data: SearchUserByLoginRequestBody): Promise<XMLHttpRequest> {
-    return httpClient.post('/search', { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.post('/search', { data });
   }
 }

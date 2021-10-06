@@ -5,18 +5,18 @@ const httpClient = new HttpClient('/auth');
 
 export default class AuthApiService {
   static signUp(data: SignInBodyRequest): Promise<XMLHttpRequest> {
-    return httpClient.post('/signup', { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.post('/signup', { data });
   }
 
   static signIn(data: SignInBodyRequest): Promise<XMLHttpRequest> {
-    return httpClient.post('/signin', { data, withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.post('/signin', { data });
   }
 
   static getUser(): Promise<XMLHttpRequest> {
-    return httpClient.get('/user', { withCredentials: true });
+    return httpClient.get('/user');
   }
 
   static logout(): Promise<XMLHttpRequest> {
-    return httpClient.post('/logout', { withCredentials: true, headers: { 'content-type': 'application/json' } });
+    return httpClient.post('/logout');
   }
 }

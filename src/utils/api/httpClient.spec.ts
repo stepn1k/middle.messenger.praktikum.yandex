@@ -11,7 +11,11 @@ describe('HttpClient', () => {
     const requestSpy = sinon.spy(httpClient, 'request');
     httpClient.get('/test');
 
-    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', { method: 'GET' });
+    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', {
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+      method: 'GET'
+    });
   });
 
   it('Metod PUT', () => {
@@ -20,7 +24,9 @@ describe('HttpClient', () => {
     httpClient.put('/test');
 
     chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', {
-      method: 'PUT',
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
     });
   });
 
@@ -29,7 +35,11 @@ describe('HttpClient', () => {
     const requestSpy = sinon.spy(httpClient, 'request');
     httpClient.post('/test');
 
-    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', { method: 'POST' });
+    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', {
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+      method: 'POST'
+    });
   });
 
   it('Metod DELETE', () => {
@@ -37,6 +47,10 @@ describe('HttpClient', () => {
     const requestSpy = sinon.spy(httpClient, 'request');
     httpClient.delete('/test', {});
 
-    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', { method: 'DELETE' });
+    chai.expect(requestSpy).to.have.been.calledWith('https://ya-praktikum.tech/api/v2/test', {
+      withCredentials: true,
+      headers: { 'content-type': 'application/json' },
+      method: 'DELETE'
+    });
   });
 });
