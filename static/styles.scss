@@ -6,8 +6,16 @@
 @import "../src/components/form-field/form-field.styles";
 @import "../src/components/message/message.styles";
 @import "../src/components/chat/chat.styles";
-@import "../src/components/input/input.styles";
 @import "../src/components/message-list/message-list.styles";
+@import "../src/components/back-aside/back-aside.styles";
+@import "../src/components/image-chooser/image-chooser";
+@import "../src/components/avatar/avatar.styles";
+@import "../src/components/chats-list/chats-list.styles";
+@import "../src/components/add-chat/add-chat.styles";
+@import "../src/components/active-chat/active-chat.styles";
+@import "../src/components/users-menu/users-menu.styles";
+@import "../src/components/users-menu/users-menu-list-item/users-menu-list-item.styles";
+@import "../src/components/users-menu/users-menu-list/users-menu-list.styles";
 
 // pages
 @import "../src/pages/error/error.styles";
@@ -20,9 +28,10 @@ html,
 body,
 #root {
   padding: 0;
-  margin: 0;
   height: 100vh;
   font-family: 'Inter', sans-serif;
+  max-width: 90rem;
+  margin: 0 auto;
 }
 
 .divider {

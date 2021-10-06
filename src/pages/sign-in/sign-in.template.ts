@@ -6,7 +6,8 @@ export default `
           {{ loginInput }}
           {{ passwordInput }}
         </div>
-         <div class="sign-in-form-buttons">
+        <div class="sign-in-form__error"></div>
+        <div class="sign-in-form-buttons">
           {{ loginButton }}
           {{ createAccountButton }}
         </div>

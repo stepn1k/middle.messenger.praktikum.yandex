@@ -4,20 +4,32 @@
   font-weight: 500;
   padding: .6875rem;
   width: fit-content;
+  max-width: 31.25rem;
+
+  &__author {
+    margin-bottom: .3rem;
+    font-weight: 600;
+  }
 
   &_own {
     background-color: $message-internal-color;
     margin-left: auto;
+
+    .message__author {
+      color: darkcyan;
+    }
   }
 
   &_external {
     background-color: $message-external-color;
+
+    .message__author {
+      color: $message-external-color-text;
+    }
   }
 
   &__time {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: .3rem;
+    margin-left: .3rem;
     font-size: .5625rem;
     color: $primary-two;
   }

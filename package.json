@@ -10,8 +10,7 @@
     "start": "parcel static/index.html -p 3000",
     "build": "parcel build static/index.html",
     "server": "node server/server.js",
-    "precommit": "eslint . --fix && stylelint \"**.scss\" --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "precommit": "eslint . --fix && stylelint \"**.scss\" --fix && mocha --require babel-register --require ignore-styles"
   },
   "repository": {
     "type": "git",
@@ -24,17 +23,35 @@
   },
   "homepage": "https://github.com/stepn1k/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "@types/chai": "^4.2.22",
+    "@types/jsdom": "^16.2.13",
+    "@types/jsdom-global": "^3.0.2",
+    "@types/mocha": "^9.0.0",
+    "@types/sinon": "^10.0.4",
+    "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
+    "chai": "^4.3.4",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "14.1.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^9.1.2",
+    "mocha-jsdom": "^2.0.0",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.38.0",
+    "sinon": "^11.1.2",
+    "sinon-chai": "^3.7.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   }
 }

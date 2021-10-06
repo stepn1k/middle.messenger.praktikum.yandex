@@ -1,21 +1,63 @@
 .message-list {
-  padding: .625rem 0;
-  overflow-y: scroll;
   display: flex;
-  flex: 2;
   flex-direction: column;
   justify-content: flex-end;
-  height: calc(100% - 6rem);
+  overflow: hidden;
 
-  &::-webkit-scrollbar {
-    width: .1875rem;
+  &-empty {
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: .875rem;
+    font-weight: 500;
+    color: $primary-two;
   }
 
-  &::-webkit-scrollbar-thumb {
-    border: .125rem solid rgba($primary-two, .4);
+  &-loading {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  &.empty {
+    height: 100%;
+
+    .message-list-empty {
+      display: flex;
+    }
+
+    .message-list-loading {
+      display: none;
+    }
+
+    .message-list-messages {
+      display: none;
+    }
+  }
+
+  &.loading {
+    height: 100%;
+
+    .message-list-empty {
+      display: none;
+    }
+
+    .message-list-loading {
+      display: flex;
+    }
+
+    .message-list-messages {
+      display: none;
+    }
   }
 
   .message {
     margin-bottom: 1rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 }

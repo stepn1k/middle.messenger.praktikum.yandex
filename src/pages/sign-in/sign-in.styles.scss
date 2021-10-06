@@ -21,16 +21,25 @@
       margin-bottom: 2.5rem;
     }
 
-    &-inputs {
-      margin-bottom: 2.5rem;
+    &__error {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      color: $warning-color;
+      font-size: .75rem;
+
+      &.show {
+        display: flex;
+      }
     }
 
     &-buttons {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      margin-top: auto;
+      flex: 2;
+      margin-top: 1rem;
     }
   }
 }

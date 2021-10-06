@@ -1,26 +1,22 @@
 import MessageTemplate from './message.template';
-import Block from '../../../core/block';
-
-export interface MessageProps {
-  authorId: string;
-  time: number | Date;
-  messageText: string;
-  isExternalMessage?: boolean
-}
-
-export interface MessageContext {
-  authorId: string;
-  time: string;
-  messageText: string;
-  theme: 'own' | 'external';
-}
+import Block from '../../utils/block/block';
+import store from '../../store/store';
+import { IMessage } from './message.interface';
 
 export default class Message extends Block {
-  constructor(props: MessageProps) {
-    const context: MessageContext = {
+  constructor(props: IMessage) {
+    const messageUser = store.getChatUsers()?.find((el) => el.id === props.user_id);
+    const fullName = messageUser ? `${messageUser.first_name} ${messageUser.second_name}` : 'No Name';
+    const getTimeForMessageFromDateTime = (time: number | Date): string => new Date(time).toLocaleString('en-US', {
+      hour12: false,
+      hour: 'numeric',
+      minute: 'numeric',
+    }); // example: 13:12
+    const context = {
       ...props,
-      time: new Date(props.time).toLocaleDateString('en-US'),
-      theme: props.isExternalMessage ? 'external' : 'own',
+      author: fullName,
+      theme: props.user_id !== store.getCurrentUser().id ? 'external' : 'own',
+      time: getTimeForMessageFromDateTime(props.time),
     };
     super(context, MessageTemplate);
   }

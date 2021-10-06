@@ -1,67 +1,51 @@
 import MessengerTemplate from './messenger.template';
-import Block from '../../../core/block';
-import Message from '../../components/message';
-import Chat from '../../components/chat';
-import Input from '../../components/input';
-import MessageList from '../../components/message-list';
-import { activateChat, chatList } from './dummy-data';
+import Block from '../../utils/block/block';
+import { router } from '../../index';
+import store from '../../store/store';
+import chatsController from '../../controllers/chats.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
+import ChatsList from '../../components/chats-list';
+import AddChat from '../../components/add-chat';
+import ActiveChat from '../../components/active-chat';
 
 export default class MessengerPage extends Block {
-  private readonly context: any;
+  private readonly chatsList: ChatsList;
+
+  private readonly activeChat: ActiveChat;
 
   constructor() {
-    const messageList = new MessageList({
-      messages: activateChat.messages.map((message) => new Message({
-        messageText: message.text,
-        time: message.time,
-        authorId: message.authorId,
-        isExternalMessage: Math.floor((Math.random() * 2 + 1)) > 1, // temporary property
-      })),
-    });
-
-    const chats = chatList.map((chat) => new Chat({
-      lastMessage: chat.lastMessage,
-      time: chat.time,
-      author: chat.author,
-      newMessagesCount: chat.newMessagesCount,
-      events: { click: ($event) => this.selectChat($event) },
-    }));
-
-    const messageInput = new Input({ placeholder: 'Type message...' });
-
+    const addChatComponent = new AddChat();
+    const activeChatComponent = new ActiveChat({ chat: null });
+    const chatsList = new ChatsList({ chats: store.getChats() });
     super({
-      messageList,
-      chats,
-      messageInput,
-      activeChatUser: activateChat.user,
-      onSendMessage: () => this.onSendMessage(),
+      addChatComponent,
+      chatsList,
+      activeChatComponent,
+      goToProfile: () => this.goToProfile(),
     }, MessengerTemplate);
-    this.context = {
-      messageList,
-      chats,
-      messageInput,
-      activeChatUser: activateChat.user,
-      onSendMessage: () => this.onSendMessage(),
-    };
+    this.chatsList = chatsList;
+    this.activeChat = activeChatComponent;
   }
 
-  public selectChat($event: Event): void {
-    $event.preventDefault();
+  componentInit() {
+    chatsController.getChats();
   }
 
-  public onSendMessage(): void {
-    const inputValue = this.context.messageInput.getValue();
+  componentDidMount() {
+    store.subscribe((state) => {
+      this.activeChat?.setProps({ chat: state.activeChat });
+      this.chatsList?.setProps({ chats: state.chats });
+      if (state.activeChat) {
+        this.element.classList.add('messenger_active-chat');
+        this.element.classList.remove('messenger_chat-list');
+      } else {
+        this.element.classList.remove('messenger_active-chat');
+        this.element.classList.add('messenger_chat-list');
+      }
+    }, 'messenger');
+  }
 
-    if (!inputValue) {
-      return;
-    }
-
-    const newMessage = new Message({ messageText: inputValue, authorId: 'fbf5', time: new Date() });
-
-    const { messageList } = this.context;
-    messageList.setProps({ messages: [...messageList.props.messages, newMessage] });
-
-    console.log(inputValue);
-    this.context.messageInput.clearInput();
+  public goToProfile() {
+    router.go(RouterPaths.PROFILE);
   }
 }

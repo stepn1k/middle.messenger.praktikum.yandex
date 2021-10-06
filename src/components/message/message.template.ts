@@ -1,6 +1,6 @@
 export default `
 <div class="message message_{{ theme }}" data-id="{{ componentId }}">
-   <p class="message__text">{{ messageText }}</p>
-   <div class="message__time">{{ time }}</div>
+   <h4 class="message__author">{{ author }}</h4>
+   <p class="message__text">{{ content }} <span class="message__time">{{ time }}</span></p>
 </div>
 `;

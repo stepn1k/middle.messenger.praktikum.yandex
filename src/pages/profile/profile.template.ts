@@ -2,11 +2,8 @@
 export const ProfileViewTemplate = `
 <div class="profile profile_view" data-id="{{ componentId }}">
     <section class="profile-form">
-        <div class="profile-form-avatar">
-            <div class="profile-form-avatar__image"> / Photo / </div>
-            <input type="file" id="avatar" class="profile-form-avatar__input" disabled>
-        </div>
-        <h3 class="profile-form__name">{{ header }}</h3>
+        {{ avatar }}
+        <h3 class="profile-form__name">Profile</h3>
         <form class="profile-form-table">
             <!--  FORM   -->
             {{ emailInput }}
@@ -24,16 +21,17 @@ export const ProfileViewTemplate = `
             {{ logoutButton }}
         </div>
     </form>
+
+<!-- ASIDE  -->
+{{ backAside }}
+
 </section>`;
 
-// profile view
+// profile edit
 export const ProfileEditTemplate = `
 <div class="profile profile_edit" data-id="{{ componentId }}">
     <section class="profile-form">
-        <div class="profile-form-avatar">
-            <div class="profile-form-avatar__image"> / Photo / </div>
-            <input type="file" id="avatar" class="profile-form-avatar__input" disabled>
-        </div>
+        {{ avatar }}
         <h3 class="profile-form__name">Change your personal data</h3>
         <form class="profile-form-table">
             <!--  FORM   -->
@@ -44,9 +42,16 @@ export const ProfileEditTemplate = `
             {{ usernameInput }}
             {{ phoneInput }}
         <!--  Buttons   -->
+        <div class="profile-form__info-block"></div>
         <div class="profile-form-buttons">
             {{ saveButton }}
             {{ goBackButton }}
         </div>
     </form>
+
+<!-- ASIDE  -->
+{{ backAside }}
+
+<!-- File Chooser -->
+{{ imageChooser }}
 </section>`;

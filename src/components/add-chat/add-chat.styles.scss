@@ -1,0 +1,57 @@
+.add-chat-component {
+  position: relative;
+  display: flex;
+
+  &__button {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: .75rem;
+    color: $primary-two;
+    transition: .3s;
+
+    .fas {
+      margin-right: .2rem;
+    }
+
+    &:hover {
+      color: $primary-one;
+    }
+  }
+
+  .add-chat-component-form {
+    position: absolute;
+    top: -.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .375rem;
+    background-color: $primary-three;
+    transition: .4s;
+    transform: translateX(-15.75rem);
+
+    &.show {
+      transform: translateX(0);
+    }
+
+    &__input {
+      width: 12.575rem;
+      border: none;
+      margin-left: .5rem;
+      border-radius: 5px;
+      background-color: $primary-three;
+      padding: .625rem;
+      font-size: .75rem;
+      color: $primary-two;
+    }
+
+    .fas {
+      color: $primary-two;
+      margin-left: .5rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-one;
+      }
+    }
+  }
+}

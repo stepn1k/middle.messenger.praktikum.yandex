@@ -12,27 +12,6 @@
     margin: 1.25rem 0 2rem 0;
   }
 
-  &-form-avatar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    &__image {
-      background-color: rgba($primary-two, .5);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 8.125rem;
-      height: 8.125rem;
-    }
-
-    &__input {
-      display: none;
-    }
-  }
-
   &-form-table {
     width: 510px;
 
@@ -50,12 +29,34 @@
     }
   }
 
+  &-form__info-block {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: $warning-color;
+    font-size: .75rem;
+    margin-top: 2rem;
+
+    &.visible {
+      display: flex;
+    }
+  }
+
   &.profile_edit {
+    .avatar-component__image {
+      transition: .5s;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 1px 1px 5px 2px $primary-two;
+      }
+    }
+
     .profile-form-buttons {
       display: flex;
       justify-content: center;
       width: 50%;
-      margin: 4rem auto;
+      margin: 2rem auto;
 
       @media (max-width: 576px) {
         width: 100%;

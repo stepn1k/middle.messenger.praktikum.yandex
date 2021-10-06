@@ -1,10 +1,17 @@
 import ChangePasswordPageTemplate from './change-password.template';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Button from '../../components/button';
 import { PasswordValidator } from '../../utils/validators/validators';
 import FormField from '../../components/form-field';
+import { router } from '../../index';
+import BackAside from '../../components/back-aside';
+import profileController from '../../controllers/profile.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export interface ChangePasswordPageContext {
+  // aside
+  backAside: BackAside
+
   oldPasswordInput: FormField;
   newPasswordInput: FormField;
   confirmPasswordInput: FormField;
@@ -13,14 +20,9 @@ export interface ChangePasswordPageContext {
 }
 
 export default class ChangePasswordPage extends Block {
-  private oldPasswordInput: FormField;
-
-  private newPasswordInput: FormField;
-
-  private confirmPasswordInput: FormField;
-
   constructor() {
     const context: ChangePasswordPageContext = {
+      backAside: new BackAside({ pathToClick: RouterPaths.PROFILE }),
       oldPasswordInput: new FormField({
         labelText: 'Old password',
         value: '',
@@ -50,36 +52,36 @@ export default class ChangePasswordPage extends Block {
       }),
       saveButton: new Button({
         label: 'Save',
-        link: '/profile',
         viewType: 'raised',
         events: { click: ($event) => this.saveNewPassword($event) },
       }),
       goBackButton: new Button({
         label: 'Go Back',
-        link: '/profile',
+        events: { click: () => router.go('/profile') },
         viewType: 'basic',
       }),
     };
     super(context, ChangePasswordPageTemplate);
-    this.oldPasswordInput = context.oldPasswordInput;
-    this.newPasswordInput = context.newPasswordInput;
-    this.confirmPasswordInput = context.confirmPasswordInput;
   }
 
-  public setErrorMessage(message: string): void {
-    const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.classList.add('visible');
-    errorBlock.textContent = message;
+  private showInfoMessage(message: string, isSuccess = false): void {
+    const messageBlock = this.element.querySelector('.profile-form-table__info-message');
+    if (messageBlock) {
+      messageBlock.classList.add('visible');
+      messageBlock.textContent = message;
+    }
+
+    if (isSuccess) {
+      messageBlock.classList.add('success');
+    }
   }
 
-  public clearErrorMessage(): void {
-    const errorBlock = document.getElementById('change-password-form-error');
-    errorBlock.classList.remove('visible');
-  }
-
-  public saveNewPassword($event: Event): void {
+  private saveNewPassword($event: Event): void {
     $event.preventDefault();
-    const isFormValid = [this.oldPasswordInput, this.newPasswordInput, this.confirmPasswordInput]
+    const isFormValid = [
+      this.props.oldPasswordInput,
+      this.props.newPasswordInput,
+      this.props.confirmPasswordInput]
       .map((input) => input.checkValidation())
       .every((isValid) => isValid);
 
@@ -87,19 +89,20 @@ export default class ChangePasswordPage extends Block {
       return;
     }
 
-    const newValue = this.newPasswordInput.getInputValue();
-    const confirmValue = this.confirmPasswordInput.getInputValue();
+    const newValue = this.props.newPasswordInput.getInputValue();
+    const confirmValue = this.props.confirmPasswordInput.getInputValue();
 
     if (newValue !== confirmValue) {
-      this.setErrorMessage('Password don\'t match.');
+      this.showInfoMessage('Password don\'t match.');
       return;
     }
 
-    this.clearErrorMessage();
-
-    console.log({
-      newValue: this.newPasswordInput.getInputValue(),
-      oldValue: this.oldPasswordInput.getInputValue(),
-    });
+    profileController.changePassword({
+      newPassword: this.props.newPasswordInput.getInputValue(),
+      oldPassword: this.props.oldPasswordInput.getInputValue(),
+    }).then(() => {
+      this.showInfoMessage('The password change was successful.', true);
+      setTimeout(() => router.go(RouterPaths.PROFILE), 1500);
+    }).catch((err) => this.showInfoMessage(err));
   }
 }

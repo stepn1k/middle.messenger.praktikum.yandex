@@ -3,24 +3,60 @@
   height: 100%;
   display: flex;
   flex-direction: row;
+  border-right: 2px solid $divider-color;
+  position: relative;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    &.messenger_active-chat {
+      .messenger-list {
+        display: none;
+      }
+
+      .messenger-chat {
+        height: 100vh;
+      }
+    }
+
+    &.messenger_chat-list {
+      .messenger-list {
+        display: block;
+        height: 100vh;
+
+        &-chats {
+          width: 100%;
+        }
+      }
+
+      .messenger-chat {
+        display: none;
+      }
+    }
+  }
 
   &-list {
-    width: 19.375rem;
     background-color: $background-color;
-    border-right: 2px solid $divider-color;
+    border: 2px solid $divider-color;
 
     &-header {
-      padding: .625rem;
+      padding: 1.25rem .625rem;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
 
       &__profile-link {
+        cursor: pointer;
         font-weight: 500;
         font-size: .75rem;
         color: $primary-two;
+        transition: .3s;
         align-self: flex-end;
-        margin: .625rem 0 1.25rem 0;
-        cursor: pointer;
+
+        &:hover {
+          color: $primary-one;
+        }
 
         a:visited {
           color: $primary-two;
@@ -30,72 +66,16 @@
           font-size: .6875rem;
         }
       }
-
-      &__quick-search {
-        font-size: .75rem;
-        border-radius: .3125rem;
-        padding: .625rem;
-        background-color: $primary-three;
-        border: none;
-        text-align: center;
-        width: 100%;
-      }
-    }
-
-    &-chats {
-      overflow-y: scroll;
-      height: calc(100% - 6rem);
-
-      &::-webkit-scrollbar {
-        width: 3px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border: 2px solid rgba($primary-two, .4);
-      }
     }
   }
 
-  &-active-chat {
+  &-chat {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: .625rem 1rem;
-
-    &-header {
-      padding-bottom: .625rem;
-      border-bottom: 2px solid $divider-color;
-      display: flex;
-      align-items: center;
-
-      &__username {
-        font-size: .8125rem;
-        font-weight: 600;
-        margin-left: .5rem;
-      }
-
-      &__image {
-        border-radius: 50%;
-        width: 2.1875rem;
-        height: 2.1875rem;
-      }
-    }
-
-    &-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: .625rem;
-      border-top: 2px solid $divider-color;
-
-      &__send {
-        background-color: $primary-one;
-        color: #FFFFFF;
-        cursor: pointer;
-        padding: .3125rem;
-        margin-left: .625rem;
-        border-radius: 50%;
-      }
-    }
+    padding: .625rem 1.25rem;
   }
+}
+
+.messenger-list-chats {
+  height: calc(100% - 6rem);
+  width: 19.125rem;
 }

@@ -1,0 +1,11 @@
+.chats-list-component {
+  overflow-y: scroll;
+  height: 100%;
+  text-align: center;
+  color: $primary-two;
+  font-size: .875rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -11,6 +11,8 @@
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
-    "no-console": "off" // TODO: remove after 2 sprint
+    "import/no-cycle": "off",
+    "import/prefer-default-export": "off",
+    "prefer-promise-reject-errors": "off"
   }
 }

@@ -1,0 +1,39 @@
+.back-aside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+  border-right: .125rem solid $divider-color;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  transition: .2s;
+
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 1.25rem;
+    left: 0;
+    height: 0;
+
+    .back-aside__button {
+      font-size: .75rem;
+      margin: .5rem;
+    }
+  }
+
+  &:hover {
+    background-color: $primary-three;
+  }
+
+  &__button {
+    background-color: $primary-one;
+    color: $white;
+    padding: .3125rem;
+    margin: 1rem;
+    font-size: 1.125rem;
+    border-radius: 50%;
+    transform: rotate(180deg);
+  }
+}

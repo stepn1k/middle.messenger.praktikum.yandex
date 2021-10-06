@@ -1,50 +1,24 @@
 import '../static/styles.scss';
-import ErrorPage from './pages/error';
-import ProfilePage from './pages/profile';
-import MessengerPage from './pages/messenger';
 import SignInPage from './pages/sign-in';
 import SignUpPage from './pages/sign-up';
-import ChangePasswordPage from './pages/change-password';
+import ProfilePage from './pages/profile';
+import Router from './utils/router/router';
 import { ProfileModeEnum } from './pages/profile/profile.component';
-import { User } from './models/user.interface';
+import ErrorPage from './pages/error';
+import MessengerPage from './pages/messenger';
+import ChangePasswordPage from './pages/change-password';
+import authController from './controllers/auth.controller';
 
-// temporary object
-const currentUser: User = {
-  email: 'example@yandex.by',
-  login: 'exampleLogin',
-  first_name: 'Stepan',
-  second_name: 'Kalutsky',
-  username: 'Stepan K.',
-  phone_number: '+37529999999',
-};
+export const router = new Router('pages');
 
-const pages: { [key: string]: any } = {
-  sign_in: () => new SignInPage(),
-  sign_up: () => new SignUpPage(),
-  profile: () => new ProfilePage({ user: currentUser, mode: ProfileModeEnum.VIEW }),
-  edit_profile: () => new ProfilePage({ user: currentUser, mode: ProfileModeEnum.EDIT }),
-  messenger: () => new MessengerPage(),
-  change_password: () => new ChangePasswordPage(),
-  error: () => new ErrorPage({ type: '500' }),
-  not_found: () => new ErrorPage({ type: '404' }),
-};
+router.use('/', () => new SignInPage())
+  .use('/messenger', () => new MessengerPage())
+  .use('/sign-up', () => new SignUpPage())
+  .use('/profile', () => new ProfilePage({ mode: ProfileModeEnum.VIEW }))
+  .use('/settings', () => new ProfilePage({ mode: ProfileModeEnum.EDIT }))
+  .use('/change-password', () => new ChangePasswordPage())
+  .use('/error', () => new ErrorPage({ type: '500' }))
+  .useNotFound('/not-found', () => new ErrorPage({ type: '404' }))
+  .start();
 
-const extractPageFromUrl = () => {
-  const path = window.location.pathname.slice(1);
-
-  return (path === ''
-    ? pages.sign_in
-    : pages[path] || pages.not_found)();
-};
-
-const initApplication = () => {
-  // compile template
-  const template = extractPageFromUrl();
-  const templateForRender = template.render();
-
-  // render template
-  const rootElement = document.getElementById('root');
-  rootElement.appendChild(templateForRender);
-};
-
-initApplication();
+authController.checkUserAuthState();

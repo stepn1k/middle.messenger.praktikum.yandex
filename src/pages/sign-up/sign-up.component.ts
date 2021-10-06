@@ -1,6 +1,6 @@
 import SignUpTemplate from './sign-up.template';
 import FormField from '../../components/form-field/form-field.component';
-import Block from '../../../core/block';
+import Block from '../../utils/block/block';
 import Button from '../../components/button';
 import {
   EmailValidator,
@@ -9,6 +9,9 @@ import {
   PasswordValidator,
   PhoneValidator,
 } from '../../utils/validators/validators';
+import { router } from '../../index';
+import authController from '../../controllers/auth.controller';
+import { RouterPaths } from '../../utils/router/router-paths.enum';
 
 export interface SignUpPageContext {
   emailInput: FormField;
@@ -85,11 +88,14 @@ export default class SignUpPage extends Block {
       }),
       createButton: new Button({
         label: 'Create account',
-        link: '/messenger',
         viewType: 'raised',
         events: { click: ($event) => this.createAccount($event) },
       }),
-      backButton: new Button({ label: 'Back to login', link: '/sign_in', viewType: 'basic' }),
+      backButton: new Button({
+        label: 'Back to login',
+        viewType: 'basic',
+        events: { click: () => router.go(RouterPaths.SIGN_IN) },
+      }),
     };
     super(context, SignUpTemplate);
     this.signUpForm = {
@@ -121,7 +127,16 @@ export default class SignUpPage extends Block {
       return;
     }
 
-    console.log(formValue);
+    authController.signUp({
+      first_name: formValue.first_name,
+      second_name: formValue.second_name,
+      login: formValue.login,
+      email: formValue.email,
+      phone: formValue.phone,
+      password: formValue.password,
+    })
+      .then(() => router.go(RouterPaths.MESSENGER))
+      .catch((err) => this.showErrorMessage(err));
   }
 
   private getFormObject(form: Record<string, FormField>): Record<string, any> {
@@ -130,5 +145,13 @@ export default class SignUpPage extends Block {
       formValue[key] = form[key].getInputValue();
     });
     return formValue;
+  }
+
+  private showErrorMessage(message: string): void {
+    const errorBlock = this.element.querySelector('.sign-in-form__error');
+    if (errorBlock) {
+      errorBlock.classList.add('show');
+      errorBlock.textContent = message;
+    }
   }
 }

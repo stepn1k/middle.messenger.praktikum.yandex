@@ -1,5 +1,5 @@
 import EventBus from './event-bus';
-import Templator from '../src/utils/templator/templator';
+import Templator from '../templator/templator';
 
 type Props = Record<string, any>;
 
@@ -9,6 +9,7 @@ export default abstract class Block {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
+    FLOW_RENDERED: 'flow:rendered',
   };
 
   public readonly props: Props;
@@ -47,6 +48,7 @@ export default abstract class Block {
     eventBus.on(Block.EVENTS.FLOW_CDM, this.onComponentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this.onComponentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.onRender.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDERED, this.onComponentRendered.bind(this));
   }
 
   private addEvents(element: HTMLElement): void {
@@ -59,8 +61,11 @@ export default abstract class Block {
   }
 
   private onInit(): void {
+    this.componentInit();
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
+
+  public componentInit() { }
 
   private onComponentDidUpdate(): void {
     const response = this.componentDidUpdate();
@@ -83,14 +88,13 @@ export default abstract class Block {
   };
 
   private onComponentDidMount(): void {
-    this.componentDidMount();
-
     const templateWithContext = new Templator({
       template: this.template,
       context: { ...this.props, componentId: this.id },
     });
     const newElement = templateWithContext.compile();
     this.element = newElement as HTMLElement;
+    this.componentDidMount();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -101,12 +105,15 @@ export default abstract class Block {
       this.addEvents(this.element);
       const currentElement = document.querySelector(`[data-id='${this.id}']`);
       currentElement?.replaceWith(this.element);
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDERED);
     }
   }
 
   public render(): HTMLElement {
     return this.element;
   }
+
+  public onComponentRendered() { }
 
   public addClass(className: string) {
     this.element.classList.add(className);

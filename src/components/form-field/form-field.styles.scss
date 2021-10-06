@@ -20,11 +20,17 @@
 }
 
 .form-field-container_type-line {
+  transition: .15s;
+
   .form-field {
     display: flex;
     justify-content: space-between;
     padding: .625rem 0;
     border-bottom: 1px solid rgba($primary-two, .5);
+
+    &:hover {
+      color: $primary-one;
+    }
 
     &__label,
     &__value {
@@ -33,6 +39,7 @@
     }
 
     &__label {
+      cursor: pointer;
       flex: 2;
       display: flex;
       align-items: center;
@@ -43,6 +50,7 @@
       border: none;
       width: fit-content;
       text-align: right;
+      flex: 2;
 
       &:disabled {
         background: none;
@@ -62,6 +70,10 @@
 
 .focused.form-field-container > .form-field {
   border-bottom: 1px solid rgba($primary-one, .7);
+
+  .form-field__value {
+    color: initial;
+  }
 }
 
 .invalid > .form-field__error-message {
