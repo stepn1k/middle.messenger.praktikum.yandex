@@ -6,15 +6,6 @@ import { router } from '../index';
 import { RouterPaths } from '../utils/router/router-paths.enum';
 
 class AuthController {
-  private static authControllerInstance: AuthController;
-
-  constructor() {
-    if (AuthController.authControllerInstance) {
-      return AuthController.authControllerInstance;
-    }
-    AuthController.authControllerInstance = this;
-  }
-
   private setCurrentUser(user: User) {
     store.setCurrentUser(user);
   }

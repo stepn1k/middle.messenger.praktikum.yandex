@@ -13,15 +13,9 @@ const initialState: State = {
 class Store {
   private readonly state: State;
 
-  private static storeInstance: Store;
-
   private readonly listeners: Record<string, Function> = {};
 
   constructor(state: State) {
-    if (Store.storeInstance) {
-      return Store.storeInstance;
-    }
-    Store.storeInstance = this;
     this.listeners = {};
     this.state = this.makeStateProxy(state);
   }

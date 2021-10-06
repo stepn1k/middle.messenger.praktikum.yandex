@@ -1,3 +1,5 @@
+import ApiSettings from '../../api/api.settings';
+
 const enum HttpMethodsEnum {
   GET = 'GET',
   POST = 'POST',
@@ -22,7 +24,7 @@ export default class HttpClient {
   public url: string;
 
   constructor(url: string) {
-    this.url = url;
+    this.url = ApiSettings.baseUrl + url;
   }
 
   public get(path: string, options: HttpRequestOptions = {}): Promise<XMLHttpRequest> {
