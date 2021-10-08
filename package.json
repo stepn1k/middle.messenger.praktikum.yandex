@@ -21,6 +21,11 @@
   "bugs": {
     "url": "https://github.com/stepn1k/middle.messenger.praktikum.yandex/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
   "homepage": "https://github.com/stepn1k/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.15.0",
@@ -40,6 +45,7 @@
     "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
+    "husky": "^7.0.2",
     "ignore-styles": "^5.0.1",
     "jsdom": "14.1.0",
     "jsdom-global": "3.0.2",
