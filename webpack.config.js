@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const loader = require('ts-loader');
 
 module.exports = {
   mode: 'development',
@@ -16,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ts$/, exclude: /node_modules/, loader: 'ts-loader' },
-      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+      { test: /\.scss$/, use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader', 'sass-loader'] },
       { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: 'asset/resource' },
     ]
   },
@@ -26,6 +28,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'static/index.html') }),
-    new CopyPlugin({ patterns: [{ from: 'src/assets', to: 'assets' }] })
+    new CopyPlugin({ patterns: [{ from: 'src/assets', to: 'assets' }] }),
+    new MiniCssExtractPlugin({ filename: 'style-[hash].css' }),
   ]
 };
