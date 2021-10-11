@@ -1,4 +1,4 @@
-PR Sprint 2: https://github.com/stepn1k/middle.messenger.praktikum.yandex/pull/2
+PR Sprint 3: https://github.com/stepn1k/middle.messenger.praktikum.yandex/pull/3
 
 Проект на Notlify: https://messenger-kalutsky.netlify.app
 

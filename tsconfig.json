@@ -9,5 +9,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitAny": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
