@@ -1,6 +1,8 @@
-PR Sprint 3: https://github.com/stepn1k/middle.messenger.praktikum.yandex/pull/3
+PR Sprint 4: https://github.com/stepn1k/middle.messenger.praktikum.yandex/pull/4
 
-Проект на Notlify: https://messenger-kalutsky.netlify.app
+Проект на Heroku: https://messenger-kalutsky.herokuapp.com
+
+Проект на Netlify: https://messenger-kalutsky.netlify.app
 
 Доступные страницы:
 
